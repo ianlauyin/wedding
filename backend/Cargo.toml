@@ -1,0 +1,23 @@
+[package]
+name = "wedding_backend"
+version = "0.1.0"
+authors = ["ianlau <ianlauyin@gmail.com>"]
+edition = "2021"
+
+[dependencies]
+framework = { path = "../../core_rs_workspace/lib/framework" }
+axum = { version = "0.8.4", features = ["macros"]}
+tokio = { version = "1.47.1", features = ["full"] }
+tower-http = { version = "0.6.2", features = ["fs"] }
+uuid = { version = "1.13.0", features = ["v4","serde"] }
+
+# db
+firestore = "0.47.0"
+rustls = "0.23.31"
+aws-lc-rs = { version = "1.0.0-rc1" }
+futures = "0.3.31"
+tempfile = "3.13.0"
+
+# workspace
+chrono = "0.4.30"
+serde = { version = "1.0.225", features = ["derive"] }
