@@ -1,10 +1,13 @@
 mod admin;
 mod guest;
 
-pub async fn ajax_router() -> axum::Router {
-    let state = crate::ajax::state::AppState::init().await;
-    axum::Router::new()
+use crate::ajax::state::AppState;
+use axum::Router;
+
+pub async fn ajax_router() -> Router {
+    let state = AppState::init().await;
+    Router::new()
         .merge(guest::guest_router(state.clone()))
-        .merge(admin::login_router())
+        .merge(admin::admin_router())
         .with_state(state)
 }

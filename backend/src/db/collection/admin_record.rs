@@ -50,9 +50,9 @@ impl AdminRecordCollection {
         user_agent: String,
         ip_address: String,
     ) -> Result<AdminRecord, FirestoreError> {
-        let login_record = AdminRecord::new(name, user_agent, ip_address);
-        let token = login_record.token.to_string();
-        self.insert(&token, &login_record).await
+        let admin_record = AdminRecord::new(name, user_agent, ip_address);
+        let token = admin_record.token.to_string();
+        self.insert(&token, &admin_record).await
     }
 
     pub async fn get_record(&self, token: String) -> Result<Option<AdminRecord>, FirestoreError> {
@@ -69,7 +69,7 @@ impl From<FirestoreDb> for AdminRecordCollection {
 impl CollectionExt for AdminRecordCollection {
     type Data = AdminRecord;
     fn collection_id(&self) -> &str {
-        "admin_records"
+        "admin_record"
     }
     fn db(&self) -> &FirestoreDb {
         &self.0

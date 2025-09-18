@@ -1,4 +1,4 @@
 mod ext;
-mod login_record;
+mod admin_record;
 
-pub use login_record::AdminRecordCollection;
+pub use admin_record::AdminRecordCollection;

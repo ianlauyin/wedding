@@ -13,7 +13,7 @@ use crate::ajax::{
 use crate::interface::login::{LoginRequest, LoginResponse};
 use crate::{db::AdminRecordCollection, env};
 
-pub fn login_router() -> Router<SharedState> {
+pub fn admin_router() -> Router<SharedState> {
     Router::new()
         .route("/admin/record", get(get_login_record))
         .route("/admin/login", post(login))
