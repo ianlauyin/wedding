@@ -1,0 +1,11 @@
+{
+  "name": "wedding-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {},
+  "workspaces": [
+    "frontend",
+    "interface"
+  ],
+  "packageManager": "pnpm@10.13.1"
+}

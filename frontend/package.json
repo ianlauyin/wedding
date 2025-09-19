@@ -1,13 +1,18 @@
 {
-  "name": "wedding_frontend",
+  "name": "wedding-frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.13.1",
+  "dependencies": {
+    "wedding-interface": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
 }

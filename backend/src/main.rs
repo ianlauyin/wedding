@@ -1,19 +1,17 @@
 use axum::Router;
 use framework::{
-    asset::asset_path,
     exception::Exception,
     log::{self, ConsoleAppender},
     shutdown::Shutdown,
-    web::server::{HttpServerConfig, ServeDir, start_http_server},
+    web::server::{HttpServerConfig, start_http_server},
 };
-use tower_http::services::ServeFile;
 
 use crate::ajax::ajax_router;
 
 mod ajax;
 mod db;
 mod env;
-mod interface;
+mod website;
 
 #[tokio::main]
 async fn main() -> Result<(), Exception> {
@@ -26,13 +24,7 @@ async fn main() -> Result<(), Exception> {
     let app = Router::new();
     let app = app
         .nest("/ajax", ajax_router().await)
-        .fallback_service(website()?);
+        .fallback_service(website::html()?);
 
     start_http_server(app, signal, HttpServerConfig::default()).await
-}
-
-fn website() -> Result<ServeDir<ServeFile>, Exception> {
-    let asset_path = asset_path("assets/web/")?;
-    let index_path = asset_path.join("index.html");
-    Ok(ServeDir::new(asset_path).fallback(ServeFile::new(index_path)))
 }

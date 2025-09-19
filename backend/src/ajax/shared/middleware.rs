@@ -1,11 +1,13 @@
 use axum::{
     extract::{Request, State},
-    http::{HeaderMap, StatusCode},
+    http::HeaderMap,
     middleware::Next,
     response::Response,
 };
+use framework::exception;
+use framework::{exception::error_code::FORDIDDEN, web::error::HttpResult};
 
-use super::cookie::{get_cookie, CookieName};
+use super::cookie::{CookieName, get_cookie};
 use crate::{ajax::state::SharedState, db::AdminRecordCollection};
 
 pub async fn check_login_cookie(
@@ -13,7 +15,7 @@ pub async fn check_login_cookie(
     headers: HeaderMap,
     request: Request,
     next: Next,
-) -> Result<Response, StatusCode> {
+) -> HttpResult<Response> {
     if let Some(token) = get_cookie(&headers, CookieName::LoginToken) {
         if let Some(_) = AdminRecordCollection::from(state.db.clone())
             .get_record(token)
@@ -24,5 +26,5 @@ pub async fn check_login_cookie(
         }
     }
 
-    Err(StatusCode::UNAUTHORIZED)
+    Err(exception!(code = FORDIDDEN, message = "Unauthorized"))?
 }

@@ -1,6 +1,6 @@
-use firestore::{errors::FirestoreError, FirestoreDb};
+use firestore::{FirestoreDb, errors::FirestoreError};
 use futures::StreamExt;
-use serde::{de::DeserializeOwned, Serialize};
+use serde::{Serialize, de::DeserializeOwned};
 
 pub trait CollectionExt {
     type Data: Serialize + DeserializeOwned + Send + Sync;
@@ -20,7 +20,6 @@ pub trait CollectionExt {
         Ok(result)
     }
 
-    // TODO: Add filter/order by
     async fn get_batch(&self) -> Result<Vec<Self::Data>, FirestoreError> {
         let result: Vec<Self::Data> = self
             .db()
