@@ -1,13 +1,12 @@
 use axum::Router;
 use framework::{
+    asset::asset_path,
     exception::Exception,
     log::{self, ConsoleAppender},
     shutdown::Shutdown,
-    web::{
-        server::{start_http_server, HttpServerConfig},
-        site_directory::SiteDirectory,
-    },
+    web::server::{HttpServerConfig, ServeDir, start_http_server},
 };
+use tower_http::services::ServeFile;
 
 use crate::ajax::ajax_router;
 
@@ -24,14 +23,16 @@ async fn main() -> Result<(), Exception> {
     let signal = shutdown.subscribe();
     shutdown.listen();
 
-    let site_directory = SiteDirectory::new("../frontend/dist")?;
-    let http_config = HttpServerConfig {
-        site_directory: Some(site_directory),
-        ..Default::default()
-    };
-
     let app = Router::new();
-    let app = app.nest("/ajax", ajax_router().await);
+    let app = app
+        .nest("/ajax", ajax_router().await)
+        .fallback_service(website()?);
 
-    start_http_server(app, signal, http_config).await
+    start_http_server(app, signal, HttpServerConfig::default()).await
+}
+
+fn website() -> Result<ServeDir<ServeFile>, Exception> {
+    let asset_path = asset_path("assets/web/")?;
+    let index_path = asset_path.join("index.html");
+    Ok(ServeDir::new(asset_path).fallback(ServeFile::new(index_path)))
 }

@@ -1,10 +1,10 @@
-use crate::interface::login::LoginResponse;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+use wedding_interface::LoginResponse;
 
 use super::ext::CollectionExt;
-use firestore::{errors::FirestoreError, FirestoreDb};
+use firestore::{FirestoreDb, errors::FirestoreError};
 
 #[derive(Serialize, Deserialize)]
 pub struct AdminRecord {

@@ -1,0 +1,8 @@
+[workspace]
+resolver = "3"
+members = ["backend", "interface"]
+
+[workspace.dependencies]
+wedding_interface.path = "interface"
+chrono = "0.4.30"
+serde = { version = "1.0.225", features = ["derive"] }
