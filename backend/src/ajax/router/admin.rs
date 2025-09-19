@@ -2,8 +2,10 @@ use axum::{
     extract::{ConnectInfo, State},
     http::{header::USER_AGENT, HeaderMap, StatusCode},
     routing::{get, post},
-    Json, Router,
+    Router,
 };
+
+use framework::web::body::Json;
 use std::net::SocketAddr;
 
 use crate::ajax::{
@@ -19,6 +21,7 @@ pub fn admin_router() -> Router<SharedState> {
         .route("/admin/login", post(login))
 }
 
+#[axum::debug_handler]
 async fn get_login_record(
     State(state): State<SharedState>,
     header: HeaderMap,

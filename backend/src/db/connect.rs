@@ -15,10 +15,23 @@ pub async fn connect_db() -> FirestoreDb {
         max_retries: 3,
         firebase_api_url: None,
     };
-    // For Local development (implement this in the future)
-    let key_path = PathBuf::from(".cargo/wedding-service-account-key.json");
 
+    if cfg!(debug_assertions) {
+        connect_with_service_account_key_file(options).await
+    } else {
+        connect_with_gcloud_sdk(options).await
+    }
+}
+
+async fn connect_with_service_account_key_file(options: FirestoreDbOptions) -> FirestoreDb {
+    let key_path = PathBuf::from(".cargo/wedding-service-account-key.json");
     FirestoreDb::with_options_service_account_key_file(options, key_path)
+        .await
+        .expect("Failed to connect to Firestore")
+}
+
+async fn connect_with_gcloud_sdk(options: FirestoreDbOptions) -> FirestoreDb {
+    FirestoreDb::with_options(options)
         .await
         .expect("Failed to connect to Firestore")
 }

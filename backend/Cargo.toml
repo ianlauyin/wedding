@@ -6,12 +6,11 @@ edition = "2021"
 
 [dependencies]
 # Either publish or move all logic from framework to this project
-framework = { path = "../../core_rs_workspace/lib/framework" }
+framework = { path = "../../core_rs_workspace/lib/framework", features = ["web-api"]}
 
 axum = { version = "0.8.4", features = ["macros"]}
-tokio = { version = "1.47.1", features = ["full"] }
-tower-http = { version = "0.6.2", features = ["fs"] }
-uuid = { version = "1.13.0", features = ["v4","serde"] }
+tokio = { version = "1.47.1", features = ["full"]}
+uuid = { version = "1.13.0", features = ["v4","serde"]}
 
 # db
 firestore = "0.47.0"
