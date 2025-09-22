@@ -1,7 +1,8 @@
 use firestore::FirestoreDb;
-use framework::exception::CoreRsResult;
 use futures::StreamExt;
 use serde::{Serialize, de::DeserializeOwned};
+
+use crate::exception::CoreRsResult;
 
 pub trait CollectionExt {
     type Data: Serialize + DeserializeOwned + Send + Sync;

@@ -1,0 +1,13 @@
+[package]
+name = "wedding_backend_macros"
+version = "0.1.0"
+authors = ["ianlau <ianlauyin@gmail.com>"]
+edition = "2024"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "2.0.52"
+quote = "1.0.39"
+proc-macro2 = "1.0.89"

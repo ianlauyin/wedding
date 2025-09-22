@@ -1,16 +1,17 @@
 use axum::Router;
 use framework::{
-    exception::CoreRsResult,
     log::{self, ConsoleAppender},
     shutdown::Shutdown,
     web::server::{HttpServerConfig, start_http_server},
 };
 
 use crate::ajax::ajax_router;
+use crate::exception::CoreRsResult;
 
 mod ajax;
 mod db;
 mod env;
+mod exception;
 mod website;
 
 #[tokio::main]

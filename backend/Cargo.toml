@@ -7,10 +7,12 @@ include = ["assets/web/**/*"]
 
 [dependencies]
 framework.path = "../../core_rs_workspace/lib/framework"
-wedding_interface.workspace = true
+wedding_backend_macros.path = "macros"
 
+wedding_interface.workspace = true
 serde.workspace = true
 chrono.workspace = true
+
 uuid = { version = "1.13.0", features = ["v4","serde"]}
 
 axum = { version = "0.8.4", features = ["macros"]}

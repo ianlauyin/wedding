@@ -1,8 +1,7 @@
 use firestore::{FirestoreDb, FirestoreDbOptions};
-use framework::exception;
-use framework::exception::CoreRsResult;
 
 use crate::env;
+use crate::exception::CoreRsResult;
 
 pub async fn connect_db() -> CoreRsResult<FirestoreDb> {
     rustls::crypto::aws_lc_rs::default_provider()
@@ -16,9 +15,7 @@ pub async fn connect_db() -> CoreRsResult<FirestoreDb> {
         firebase_api_url: None,
     };
 
-    connect(options)
-        .await
-        .map_err(|_| exception!(message = "Failed to connect to Firestore"))
+    connect(options).await
 }
 
 #[cfg(debug_assertions)]
@@ -26,9 +23,7 @@ async fn connect(options: FirestoreDbOptions) -> CoreRsResult<FirestoreDb> {
     use framework::asset::asset_path;
 
     let key_path = asset_path("assets/wedding-service-account-key.json")?;
-    FirestoreDb::with_options_service_account_key_file(options, key_path)
-        .await
-        .map_err(|_| exception!(message = "Failed to connect to Firestore"))
+    Ok(FirestoreDb::with_options_service_account_key_file(options, key_path).await?)
 }
 
 #[cfg(not(debug_assertions))]

@@ -1,7 +1,8 @@
-use framework::{asset::asset_path, exception::CoreRsResult};
+use framework::asset::asset_path;
 use tower_http::services::{ServeDir, ServeFile};
 
-// Update after frontend ready
+use crate::exception::CoreRsResult;
+
 pub fn html() -> CoreRsResult<ServeDir<ServeFile>> {
     let asset_path = asset_path("assets/web")?;
     let index_path = asset_path.join("index.html");

@@ -17,6 +17,7 @@ use crate::ajax::{
 };
 use crate::db::AdminRecordCollection;
 use crate::env;
+use crate::exception::CoreRsResult;
 
 pub fn admin_router() -> Router<SharedState> {
     Router::new()
@@ -74,7 +75,7 @@ async fn login(
     Ok((header, Json(record.into())))
 }
 
-fn validate_login(request: &LoginRequest) -> HttpResult<()> {
+fn validate_login(request: &LoginRequest) -> CoreRsResult<()> {
     if request.name.is_empty() {
         Err(exception!(code = BAD_REQUEST, message = "Name is empty"))?;
     }

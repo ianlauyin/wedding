@@ -1,11 +1,12 @@
 use chrono::{DateTime, Utc};
-use framework::exception::CoreRsResult;
+use firestore::FirestoreDb;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+use wedding_backend_macros::Collection;
 use wedding_interface::LoginResponse;
 
-use super::ext::CollectionExt;
-use firestore::FirestoreDb;
+use crate::db::collection::ext::CollectionExt;
+use crate::exception::CoreRsResult;
 
 #[derive(Serialize, Deserialize)]
 pub struct AdminRecord {
@@ -42,6 +43,8 @@ impl Into<LoginResponse> for AdminRecord {
     }
 }
 
+#[derive(Collection)]
+#[schema(AdminRecord)]
 pub struct AdminRecordCollection(FirestoreDb);
 
 impl AdminRecordCollection {
@@ -58,21 +61,5 @@ impl AdminRecordCollection {
 
     pub async fn get_record(&self, token: String) -> CoreRsResult<Option<AdminRecord>> {
         self.get(&token).await
-    }
-}
-
-impl From<FirestoreDb> for AdminRecordCollection {
-    fn from(db: FirestoreDb) -> Self {
-        Self(db)
-    }
-}
-
-impl CollectionExt for AdminRecordCollection {
-    type Data = AdminRecord;
-    fn collection_id(&self) -> &str {
-        "admin_record"
-    }
-    fn db(&self) -> &FirestoreDb {
-        &self.0
     }
 }
