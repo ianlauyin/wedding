@@ -29,6 +29,10 @@ impl AdminRecord {
         }
     }
 
+    pub fn name(&self) -> &String {
+        &self.name
+    }
+
     pub fn token(&self) -> &Uuid {
         &self.token
     }

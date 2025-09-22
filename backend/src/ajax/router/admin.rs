@@ -6,7 +6,7 @@ use axum::{
 };
 
 use framework::exception;
-use framework::exception::error_code::BAD_REQUEST;
+use framework::exception::error_code::{NOT_FOUND, VALIDATION_ERROR};
 use framework::web::{body::Json, error::HttpResult};
 use std::net::SocketAddr;
 use wedding_interface::{LoginRequest, LoginResponse};
@@ -30,9 +30,10 @@ async fn get_login_record(
     State(state): State<SharedState>,
     header: HeaderMap,
 ) -> HttpResult<Json<LoginResponse>> {
-    let Some(token) = get_cookie(&header, CookieName::LoginToken) else {
-        return Err(exception!(code = BAD_REQUEST, message = "Token not found"))?;
-    };
+    let token = get_cookie(&header, CookieName::LoginToken).ok_or(exception!(
+        code = VALIDATION_ERROR,
+        message = "Token not found"
+    ))?;
 
     let Some(record) = AdminRecordCollection::from(state.db.clone())
         .get_record(token)
@@ -40,7 +41,7 @@ async fn get_login_record(
         .expect("Failed to get login record")
     else {
         return Err(exception!(
-            code = BAD_REQUEST,
+            code = NOT_FOUND,
             message = "Login record not found"
         ))?;
     };
@@ -77,10 +78,16 @@ async fn login(
 
 fn validate_login(request: &LoginRequest) -> CoreRsResult<()> {
     if request.name.is_empty() {
-        Err(exception!(code = BAD_REQUEST, message = "Name is empty"))?;
+        Err(exception!(
+            code = VALIDATION_ERROR,
+            message = "Name is empty"
+        ))?;
     }
     if env::var("LOGIN_PASSWORD")?.eq(&request.password) {
-        Err(exception!(code = BAD_REQUEST, message = "Invalid password"))?;
+        Err(exception!(
+            code = VALIDATION_ERROR,
+            message = "Invalid password"
+        ))?;
     }
     Ok(())
 }

@@ -1,6 +1,6 @@
 mod admin;
 mod guest;
-mod guest_internal;
+mod internal_guest;
 
 use axum::Router;
 
@@ -15,6 +15,6 @@ pub async fn ajax_router() -> CoreRsResult<Router> {
     Ok(Router::new()
         .merge(admin::admin_router())
         .merge(guest::guest_router(state.clone()))
-        .merge(guest_internal::guest_internal_router(state.clone()))
+        .merge(internal_guest::internal_guest_router(state.clone()))
         .with_state(state))
 }

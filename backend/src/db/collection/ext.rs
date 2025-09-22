@@ -22,7 +22,7 @@ pub trait CollectionExt {
         Ok(result)
     }
 
-    async fn get_batch(&self) -> CoreRsResult<Vec<Self::Data>> {
+    async fn get_all(&self) -> CoreRsResult<Vec<Self::Data>> {
         let result: Vec<Self::Data> = self
             .db()
             .fluent()

@@ -14,7 +14,7 @@ async fn get_guest_info(Path(uuid): Path<Uuid>) -> HttpResult<()> {
     Ok(())
 }
 
-// TODO: Implement, add guest info request body
+// TODO: Implement
 #[axum::debug_handler]
 async fn update_guest_info(Path(uuid): Path<Uuid>) -> HttpResult<()> {
     Ok(())

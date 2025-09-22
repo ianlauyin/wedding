@@ -10,21 +10,22 @@ use framework::{exception::error_code::FORDIDDEN, web::error::HttpResult};
 use super::cookie::{CookieName, get_cookie};
 use crate::{ajax::state::SharedState, db::AdminRecordCollection};
 
-pub async fn check_login_cookie(
+pub async fn verify_admin_session(
     State(state): State<SharedState>,
     headers: HeaderMap,
     request: Request,
     next: Next,
 ) -> HttpResult<Response> {
-    if let Some(token) = get_cookie(&headers, CookieName::LoginToken) {
-        if let Some(_) = AdminRecordCollection::from(state.db.clone())
-            .get_record(token)
-            .await
-            .expect("Failed to get login record")
-        {
-            return Ok(next.run(request).await);
-        }
-    }
+    let token = get_cookie(&headers, CookieName::LoginToken)
+        .ok_or(exception!(code = FORDIDDEN, message = "Token not found"))?;
 
-    Err(exception!(code = FORDIDDEN, message = "Unauthorized"))?
+    AdminRecordCollection::from(state.db.clone())
+        .get_record(token)
+        .await?
+        .ok_or(exception!(
+            code = FORDIDDEN,
+            message = "Login record not found"
+        ))?;
+
+    Ok(next.run(request).await)
 }
