@@ -10,7 +10,7 @@ use crate::exception::CoreRsResult;
 
 #[derive(Serialize, Deserialize)]
 pub struct GuestInfo {
-    id: Uuid,
+    id: String,
     side: Side,
     name: String,
     relationship: String,
@@ -25,7 +25,7 @@ pub struct GuestInfo {
 impl GuestInfo {
     fn from_request(request: CreateGuestInfoRequest, created_by: &str) -> Self {
         Self {
-            id: Uuid::new_v4(),
+            id: Uuid::new_v4().to_string(),
             confirmed_count: 0,
             side: request.side,
             name: request.name,
@@ -40,6 +40,7 @@ impl GuestInfo {
 
     fn into_view(self) -> GuestInfoView {
         GuestInfoView {
+            id: self.id.to_string(),
             side: self.side,
             name: self.name,
             relationship: self.relationship,
@@ -74,5 +75,9 @@ impl GuestInfoCollection {
             .into_iter()
             .map(|guest| guest.into_view())
             .collect())
+    }
+
+    pub async fn remove_guest(&self, id: String) -> CoreRsResult<()> {
+        self.remove(&id).await
     }
 }

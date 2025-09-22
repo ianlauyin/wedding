@@ -1,9 +1,9 @@
 use axum::{
     Router,
-    extract::State,
+    extract::{Path, State},
     http::HeaderMap,
     middleware,
-    routing::{get, post},
+    routing::{delete, get, post},
 };
 use framework::web::{body::Json, error::HttpResult};
 use wedding_interface::{CreateGuestInfoRequest, GetGuestListResponse};
@@ -21,6 +21,7 @@ pub fn internal_guest_router(state: SharedState) -> Router<SharedState> {
     Router::new()
         .route("/internal/guest", post(create_guest_info))
         .route("/internal/guest/list", get(get_guest_list))
+        .route("/internal/guest/{id}", delete(remove_guest))
         .layer(middleware::from_fn_with_state(state, verify_admin_session))
 }
 
@@ -52,4 +53,12 @@ async fn get_guest_list(
         .await?;
 
     Ok(Json(GetGuestListResponse { guest_list }))
+}
+
+async fn remove_guest(State(state): State<SharedState>, Path(id): Path<String>) -> HttpResult<()> {
+    GuestInfoCollection::from(state.db.clone())
+        .remove_guest(id)
+        .await?;
+
+    Ok(())
 }

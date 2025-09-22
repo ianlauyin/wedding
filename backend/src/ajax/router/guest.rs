@@ -1,6 +1,5 @@
 use axum::{Router, extract::Path, routing::get};
 use framework::web::error::HttpResult;
-use uuid::Uuid;
 
 use crate::ajax::state::SharedState;
 
@@ -10,12 +9,12 @@ pub fn guest_router(state: SharedState) -> Router<SharedState> {
 
 // TODO: Implement
 #[axum::debug_handler]
-async fn get_guest_info(Path(uuid): Path<Uuid>) -> HttpResult<()> {
+async fn get_guest_info(Path(id): Path<String>) -> HttpResult<()> {
     Ok(())
 }
 
 // TODO: Implement
 #[axum::debug_handler]
-async fn update_guest_info(Path(uuid): Path<Uuid>) -> HttpResult<()> {
+async fn update_guest_info(Path(id): Path<String>) -> HttpResult<()> {
     Ok(())
 }

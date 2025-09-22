@@ -10,7 +10,7 @@ use crate::exception::CoreRsResult;
 
 #[derive(Serialize, Deserialize)]
 pub struct AdminRecord {
-    token: Uuid,
+    token: String,
     name: String,
     user_agent: String,
     ip_address: String,
@@ -19,7 +19,7 @@ pub struct AdminRecord {
 
 impl AdminRecord {
     fn new(name: String, user_agent: String, ip_address: String) -> Self {
-        let token = Uuid::new_v4();
+        let token = Uuid::new_v4().to_string();
         Self {
             token,
             name,
@@ -29,11 +29,11 @@ impl AdminRecord {
         }
     }
 
-    pub fn name(&self) -> &String {
+    pub fn name(&self) -> &str {
         &self.name
     }
 
-    pub fn token(&self) -> &Uuid {
+    pub fn token(&self) -> &str {
         &self.token
     }
 }

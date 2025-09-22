@@ -39,6 +39,7 @@ pub struct CreateGuestInfoRequest {
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
 pub struct GuestInfoView {
+    pub id: String,
     pub side: Side,
     pub name: String,
     pub relationship: String,
