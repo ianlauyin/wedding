@@ -1,4 +1,7 @@
-use firestore::FirestoreDb;
+use firestore::{FirestoreDb, errors::FirestoreError};
+use framework::exception;
+use framework::exception::error_code::NOT_FOUND;
+use framework::exception::{Exception, Severity};
 use futures::StreamExt;
 use serde::{Serialize, de::DeserializeOwned};
 
@@ -18,7 +21,8 @@ pub trait CollectionExt {
             .by_id_in(&resolve_collection_id(self.collection_id()))
             .obj()
             .one(key)
-            .await?;
+            .await
+            .map_err(map_firestore_error)?;
         Ok(result)
     }
 
@@ -30,7 +34,8 @@ pub trait CollectionExt {
             .from(resolve_collection_id(self.collection_id()).as_str())
             .obj()
             .stream_query()
-            .await?
+            .await
+            .map_err(map_firestore_error)?
             .collect()
             .await;
         Ok(result)
@@ -45,7 +50,8 @@ pub trait CollectionExt {
             .document_id(key)
             .object(data)
             .execute()
-            .await?;
+            .await
+            .map_err(map_firestore_error)?;
         Ok(result)
     }
 
@@ -56,8 +62,22 @@ pub trait CollectionExt {
             .from(&resolve_collection_id(self.collection_id()))
             .document_id(key)
             .execute()
-            .await?;
+            .await
+            .map_err(map_firestore_error)?;
         Ok(())
+    }
+}
+
+fn map_firestore_error(error: FirestoreError) -> Exception {
+    if let FirestoreError::DataNotFoundError(data_not_found_error) = error {
+        exception!(
+            severity = Severity::Warn,
+            code = NOT_FOUND,
+            message = "Data not found in firestore",
+            source = data_not_found_error
+        )
+    } else {
+        error.into()
     }
 }
 
