@@ -1,3 +1,11 @@
-pub fn var(key: &str) -> String {
-    std::env::var(key).expect(&format!("{} environment variable must be set", key))
+use framework::exception;
+use framework::exception::{CoreRsResult, Severity};
+
+pub fn var(key: &str) -> CoreRsResult<String> {
+    std::env::var(key).map_err(|_| {
+        exception!(
+            severity = Severity::Error,
+            message = format!("Environment variable not set: {}", key)
+        )
+    })
 }

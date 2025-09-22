@@ -1,8 +1,6 @@
 use firestore::FirestoreDb;
 use std::sync::Arc;
 
-use crate::db::connect_db;
-
 pub(in crate::ajax) type SharedState = Arc<AppState>;
 
 #[derive(Clone)]
@@ -11,9 +9,7 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub async fn init() -> SharedState {
-        Arc::new(Self {
-            db: connect_db().await,
-        })
+    pub fn init(db: FirestoreDb) -> SharedState {
+        Arc::new(Self { db })
     }
 }

@@ -54,7 +54,7 @@ async fn login(
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Json(request): Json<LoginRequest>,
 ) -> HttpResult<(HeaderMap, Json<LoginResponse>)> {
-    let expected_password = env::var("LOGIN_PASSWORD");
+    let expected_password = env::var("LOGIN_PASSWORD")?;
 
     if request.password != expected_password {
         Err(exception!(code = BAD_REQUEST, message = "Invalid password"))?;

@@ -1,6 +1,6 @@
 use axum::Router;
 use framework::{
-    exception::Exception,
+    exception::CoreRsResult,
     log::{self, ConsoleAppender},
     shutdown::Shutdown,
     web::server::{HttpServerConfig, start_http_server},
@@ -14,7 +14,7 @@ mod env;
 mod website;
 
 #[tokio::main]
-async fn main() -> Result<(), Exception> {
+async fn main() -> CoreRsResult<()> {
     log::init_with_action(ConsoleAppender);
 
     let shutdown = Shutdown::new();
@@ -23,7 +23,7 @@ async fn main() -> Result<(), Exception> {
 
     let app = Router::new();
     let app = app
-        .nest("/ajax", ajax_router().await)
+        .nest("/ajax", ajax_router().await?)
         .fallback_service(website::html()?);
 
     start_http_server(app, signal, HttpServerConfig::default()).await

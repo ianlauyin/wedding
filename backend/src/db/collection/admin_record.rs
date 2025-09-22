@@ -1,10 +1,11 @@
 use chrono::{DateTime, Utc};
+use framework::exception::CoreRsResult;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use wedding_interface::LoginResponse;
 
 use super::ext::CollectionExt;
-use firestore::{FirestoreDb, errors::FirestoreError};
+use firestore::FirestoreDb;
 
 #[derive(Serialize, Deserialize)]
 pub struct AdminRecord {
@@ -49,13 +50,13 @@ impl AdminRecordCollection {
         name: String,
         user_agent: String,
         ip_address: String,
-    ) -> Result<AdminRecord, FirestoreError> {
+    ) -> CoreRsResult<AdminRecord> {
         let admin_record = AdminRecord::new(name, user_agent, ip_address);
         let token = admin_record.token.to_string();
         self.insert(&token, &admin_record).await
     }
 
-    pub async fn get_record(&self, token: String) -> Result<Option<AdminRecord>, FirestoreError> {
+    pub async fn get_record(&self, token: String) -> CoreRsResult<Option<AdminRecord>> {
         self.get(&token).await
     }
 }

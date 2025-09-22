@@ -21,3 +21,6 @@
 /.cursor
 .vscode/*
 !.vscode/extensions.json
+
+# Backend related
+**/wedding-service-account-key.json
