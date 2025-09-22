@@ -54,11 +54,7 @@ async fn login(
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Json(request): Json<LoginRequest>,
 ) -> HttpResult<(HeaderMap, Json<LoginResponse>)> {
-    let expected_password = env::var("LOGIN_PASSWORD")?;
-
-    if request.password != expected_password {
-        Err(exception!(code = BAD_REQUEST, message = "Invalid password"))?;
-    }
+    validate_login(&request)?;
 
     let mut header = HeaderMap::new();
     let user_agent = request_header.get(USER_AGENT).unwrap().to_str().unwrap();
@@ -76,4 +72,14 @@ async fn login(
     );
 
     Ok((header, Json(record.into())))
+}
+
+fn validate_login(request: &LoginRequest) -> HttpResult<()> {
+    if request.name.is_empty() {
+        Err(exception!(code = BAD_REQUEST, message = "Name is empty"))?;
+    }
+    if env::var("LOGIN_PASSWORD")?.eq(&request.password) {
+        Err(exception!(code = BAD_REQUEST, message = "Invalid password"))?;
+    }
+    Ok(())
 }

@@ -1,6 +1,6 @@
 use axum::http::{
-    header::{COOKIE, SET_COOKIE},
     HeaderMap,
+    header::{COOKIE, SET_COOKIE},
 };
 
 pub enum CookieName {
@@ -8,7 +8,7 @@ pub enum CookieName {
 }
 
 impl CookieName {
-    pub fn str(&self) -> &str {
+    pub fn as_str(&self) -> &str {
         match self {
             CookieName::LoginToken => "login_token",
         }
@@ -18,7 +18,7 @@ impl CookieName {
 pub fn set_cookie(header: &mut HeaderMap, name: CookieName, value: &str) {
     header.insert(
         SET_COOKIE,
-        format!("{}={}; HttpOnly; Path=/", name.str(), value)
+        format!("{}={}; HttpOnly; Path=/", name.as_str(), value)
             .parse()
             .unwrap(),
     );
@@ -29,7 +29,7 @@ pub fn get_cookie(header: &HeaderMap, name: CookieName) -> Option<String> {
 
     for cookie in cookie_header.split(";") {
         if let Some((cookie_name, cookie_value)) = cookie.split_once("=") {
-            if cookie_name.trim() == name.str() {
+            if cookie_name.trim().eq(name.as_str()) {
                 return Some(cookie_value.trim().to_string());
             }
         }
