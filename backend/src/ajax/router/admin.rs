@@ -79,7 +79,7 @@ fn validate_login(request: &LoginRequest) -> CoreRsResult<()> {
             message = "Name is empty"
         ))?;
     }
-    if env::var("LOGIN_PASSWORD")?.eq(&request.password) {
+    if !env::var("LOGIN_PASSWORD")?.eq(&request.password) {
         Err(exception!(
             code = VALIDATION_ERROR,
             message = "Invalid password"
