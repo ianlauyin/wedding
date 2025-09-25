@@ -30,7 +30,7 @@ app.config.timestamp_*.js
 
 # Backend related
 **/wedding-service-account-key.json
-**/assets/web/**
+**/assets/web
 
 # Environment
 .env
