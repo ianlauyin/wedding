@@ -1,6 +1,6 @@
 use proc_macro2::TokenStream;
 use quote::quote;
-use syn::{DeriveInput, parse2};
+use syn::{DeriveInput, Ident, parse2};
 
 #[proc_macro_derive(Collection, attributes(schema))]
 pub fn collection_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
@@ -10,7 +10,7 @@ pub fn collection_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStr
 fn collection_derive2(input: TokenStream) -> TokenStream {
     let parsed: DeriveInput = parse2(input).unwrap();
     let struct_name = &parsed.ident;
-    let collection_id = camel_to_snake(&struct_name.to_string());
+    let collection_id = get_collection_id(&struct_name);
     let schema_path = get_schema_path(&parsed);
 
     quote!(
@@ -41,9 +41,20 @@ fn get_schema_path(parsed: &DeriveInput) -> TokenStream {
     quote!(#schema_path)
 }
 
-fn camel_to_snake(s: &str) -> String {
+fn get_collection_id(struct_name: &Ident) -> String {
+    let collection_name = if cfg!(debug_assertions) {
+        format!("Debug{}", struct_name)
+    } else {
+        struct_name.to_string()
+    };
+    pascal_to_snake(&collection_name)
+}
+
+fn pascal_to_snake(s: &str) -> String {
     let mut result = String::new();
-    for c in s.chars() {
+    let mut c_iter = s.chars().into_iter();
+    result.push(c_iter.next().unwrap().to_ascii_lowercase());
+    for c in c_iter {
         if c.is_uppercase() {
             result.push('_');
         }

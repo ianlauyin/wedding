@@ -18,7 +18,7 @@ pub trait CollectionExt {
             .db()
             .fluent()
             .select()
-            .by_id_in(&resolve_collection_id(self.collection_id()))
+            .by_id_in(&self.collection_id())
             .obj()
             .one(key)
             .await
@@ -31,7 +31,7 @@ pub trait CollectionExt {
             .db()
             .fluent()
             .select()
-            .from(resolve_collection_id(self.collection_id()).as_str())
+            .from(self.collection_id())
             .obj()
             .stream_query()
             .await
@@ -46,7 +46,7 @@ pub trait CollectionExt {
             .db()
             .fluent()
             .insert()
-            .into(&resolve_collection_id(self.collection_id()))
+            .into(&self.collection_id())
             .document_id(key)
             .object(data)
             .execute()
@@ -59,7 +59,7 @@ pub trait CollectionExt {
         self.db()
             .fluent()
             .delete()
-            .from(&resolve_collection_id(self.collection_id()))
+            .from(&self.collection_id())
             .document_id(key)
             .execute()
             .await
@@ -78,13 +78,5 @@ fn map_firestore_error(error: FirestoreError) -> Exception {
         )
     } else {
         error.into()
-    }
-}
-
-fn resolve_collection_id(collection_id: &str) -> String {
-    if cfg!(debug_assertions) {
-        format!("debug_{}", collection_id)
-    } else {
-        collection_id.to_string()
     }
 }
