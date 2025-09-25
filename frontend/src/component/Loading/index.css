@@ -1,5 +1,6 @@
 .loading {
   > span {
+    color: #7d7d7d;
     position: relative;
     display: inline-block;
     font-size: 2rem;

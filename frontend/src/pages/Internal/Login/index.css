@@ -1,0 +1,14 @@
+#login-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  label {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .error-message {
+    color: red;
+  }
+}

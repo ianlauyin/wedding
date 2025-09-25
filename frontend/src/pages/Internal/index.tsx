@@ -5,10 +5,10 @@ import { Loading } from "../../component/Loading";
 import { Backoffice } from "./Backoffice";
 
 export const Internal = () => {
-  const [loginRecord] = createResource(null, getLoginRecord);
+  const [loginRecord, { mutate }] = createResource(null, getLoginRecord);
 
   return (
-    <Switch fallback={<Login />}>
+    <Switch fallback={<Login onLoginSuccess={mutate} />}>
       <Match when={loginRecord.loading}>
         <Loading />
       </Match>

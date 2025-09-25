@@ -10,14 +10,14 @@ export const Invitation = () => {
 
   return (
     <Switch>
+      <Match when={info()}>
+        {(data) => <InvitationLayout name={data().name} />}
+      </Match>
       <Match when={info.loading}>
         <Loading />
       </Match>
       <Match when={info.error}>
         <ErrorComponent message={info.error.message} />
-      </Match>
-      <Match when={info()}>
-        {(data) => <InvitationLayout name={data().name} />}
       </Match>
     </Switch>
   );

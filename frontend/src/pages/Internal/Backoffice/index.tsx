@@ -1,5 +1,3 @@
-import { LoginResponse } from "wedding-interface";
-
 export interface Props {
   name: string;
   loginTime: string;
