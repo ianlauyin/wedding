@@ -1,6 +1,7 @@
 # Backend
 
-1. Add Update guest info endpoint (Internal and external)
+1. Add log to firestore
+2. Add Update guest info endpoint (Internal and external)
 
 # Frontend
 

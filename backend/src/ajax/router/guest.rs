@@ -5,7 +5,7 @@ use axum::http::HeaderMap;
 use axum::middleware;
 use axum::routing::{delete, get, post};
 use framework::exception;
-use framework::exception::error_code::VALIDATION_ERROR;
+use framework::exception::error_code::{NOT_FOUND, VALIDATION_ERROR};
 
 use framework::web::{body::Json, error::HttpResult};
 use wedding_interface::RemoveGuestPathParams;
@@ -65,11 +65,15 @@ async fn get_guest_list(
 #[axum::debug_handler]
 async fn remove_guest(
     State(state): State<SharedState>,
-    Path(params): Path<RemoveGuestPathParams>,
+    Path(RemoveGuestPathParams { id }): Path<RemoveGuestPathParams>,
 ) -> HttpResult<()> {
-    GuestInfoCollection::from(state.db.clone())
-        .remove_guest(params.id)
-        .await?;
+    let guest_info_collection = GuestInfoCollection::from(state.db.clone());
+
+    if guest_info_collection.get_guest(id.clone()).await?.is_none() {
+        return Err(exception!(code = NOT_FOUND, message = "Guest not found"))?;
+    }
+
+    guest_info_collection.remove_guest(id).await?;
 
     Ok(())
 }

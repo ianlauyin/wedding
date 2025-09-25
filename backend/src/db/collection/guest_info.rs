@@ -59,6 +59,10 @@ impl GuestInfo {
 pub struct GuestInfoCollection(FirestoreDb);
 
 impl GuestInfoCollection {
+    pub async fn get_guest(&self, id: String) -> CoreRsResult<Option<GuestInfo>> {
+        self.get(&id).await
+    }
+
     pub async fn add_guest(
         &self,
         request: CreateGuestInfoRequest,
