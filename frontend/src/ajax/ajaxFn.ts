@@ -1,12 +1,13 @@
-import { AjaxError, AjaxErrorBody } from "./error";
+import { AjaxError } from "./error";
 
 type PathParams = Record<string, any> | null;
 type Request = Record<string, any> | null;
+type Response = Record<string, any> | null;
 
 export const ajax = async <
-  Req extends Request = null,
-  Res = null,
-  P extends PathParams = null
+  Req extends Request,
+  Res extends Response,
+  P extends PathParams
 >(
   url: string,
   method: "GET" | "DELETE" | "POST" | "PUT",
@@ -27,6 +28,10 @@ export const ajax = async <
 
   if (!response.ok) {
     throw new AjaxError(await response.json());
+  }
+
+  if ([204, 201].includes(response.status)) {
+    return null as Res;
   }
 
   return response.json();

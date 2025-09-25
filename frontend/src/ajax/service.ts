@@ -11,20 +11,26 @@ import {
 
 // admin router
 export const getLoginRecord = async () =>
-  await ajax<null, LoginResponse>("/admin/record", "GET");
+  await ajax<null, LoginResponse, null>("/admin/record", "GET");
 
 export const login = async (request: LoginRequest) =>
-  await ajax<LoginRequest, LoginResponse>("/admin/login", "POST", request);
+  await ajax<LoginRequest, LoginResponse, null>(
+    "/admin/login",
+    "POST",
+    request
+  );
+
+export const logout = async () => await ajax("/admin/logout", "POST");
 
 // guest router
 export const createGuestInfo = async (request: CreateGuestInfoRequest) =>
-  await ajax<CreateGuestInfoRequest>("/guest", "POST", request);
+  await ajax<CreateGuestInfoRequest, null, null>("/guest", "POST", request);
 
 export const getGuestList = async () =>
-  await ajax<null, GetGuestListResponse>("/guest/list", "GET");
+  await ajax<null, GetGuestListResponse, null>("/guest/list", "GET");
 
 export const removeGuest = async (id: string) =>
-  await ajax<null, null, RemoveGuestPathParams>("/guest/", "DELETE", null, {
+  await ajax<null, null, RemoveGuestPathParams>("/guest/{id}", "DELETE", null, {
     id,
   });
 

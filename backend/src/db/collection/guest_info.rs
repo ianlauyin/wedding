@@ -1,4 +1,4 @@
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Local};
 use firestore::FirestoreDb;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
@@ -17,9 +17,9 @@ pub struct GuestInfo {
     estimated_count: u32,
     confirmed_count: u32,
     created_by: String,
-    created_at: DateTime<Utc>,
+    created_at: DateTime<Local>,
     updated_by: String,
-    updated_at: DateTime<Utc>,
+    updated_at: DateTime<Local>,
 }
 
 impl GuestInfo {
@@ -31,10 +31,10 @@ impl GuestInfo {
             name: request.name,
             relationship: request.relationship,
             estimated_count: request.estimated_count,
-            created_at: Utc::now(),
+            created_at: Local::now(),
             created_by: created_by.to_string(),
             updated_by: created_by.to_string(),
-            updated_at: Utc::now(),
+            updated_at: Local::now(),
         }
     }
 

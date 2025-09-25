@@ -1,9 +1,9 @@
 import { useParams } from "@solidjs/router";
-import { createResource, Match, Show, Suspense, Switch } from "solid-js";
-import { getInvitationInfo } from "../../ajax";
-import { Loading } from "../../component/Loading";
-import { InvitationLayout } from "../../component/InvitationLayout";
-import { ErrorComponent } from "../../component/ErrorComponent";
+import { createResource, Match, Switch } from "solid-js";
+import { getInvitationInfo } from "@ajax/service";
+import { Loading } from "@components/Loading";
+import { InvitationLayout } from "@components/InvitationLayout";
+import { ErrorComponent } from "@components/ErrorComponent";
 
 export const Invitation = () => {
   const [info] = createResource(useParams().id, getInvitationInfo);

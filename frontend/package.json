@@ -8,7 +8,6 @@
     "build": "vite build",
     "api": "cd ../interface && cargo test"
   },
-  "license": "MIT",
   "devDependencies": {
     "solid-devtools": "0.34.3",
     "vite": "7.1.4",

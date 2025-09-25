@@ -1,4 +1,4 @@
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Local};
 use firestore::FirestoreDb;
 use framework::log::ActionLogMessage;
 use indexmap::IndexMap;
@@ -11,7 +11,7 @@ use crate::exception::CoreRsResult;
 #[derive(Serialize, Deserialize)]
 pub struct LogRecord {
     id: String,
-    date: DateTime<Utc>,
+    date: DateTime<Local>,
     action: String,
     context: IndexMap<String, String>,
     error_code: Option<String>,
@@ -29,7 +29,7 @@ impl From<ActionLogMessage> for LogRecord {
 
         Self {
             id: message.id,
-            date: message.date,
+            date: message.date.with_timezone(&Local),
             action: message.action,
             context,
             error_code: message.error_code,

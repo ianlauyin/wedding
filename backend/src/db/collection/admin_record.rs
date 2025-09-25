@@ -1,4 +1,4 @@
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Local};
 use firestore::FirestoreDb;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
@@ -14,7 +14,7 @@ pub struct AdminRecord {
     name: String,
     user_agent: String,
     ip_address: String,
-    login_time: DateTime<Utc>,
+    login_time: DateTime<Local>,
 }
 
 impl AdminRecord {
@@ -25,7 +25,7 @@ impl AdminRecord {
             name,
             user_agent,
             ip_address,
-            login_time: Utc::now(),
+            login_time: Local::now(),
         }
     }
 
@@ -65,5 +65,9 @@ impl AdminRecordCollection {
 
     pub async fn get_record(&self, token: String) -> CoreRsResult<Option<AdminRecord>> {
         self.get(&token).await
+    }
+
+    pub async fn remove_record(&self, token: String) -> CoreRsResult<()> {
+        self.remove(&token).await
     }
 }

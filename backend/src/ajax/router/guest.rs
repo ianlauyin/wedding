@@ -2,6 +2,7 @@ use axum::Router;
 use axum::extract::Path;
 use axum::extract::State;
 use axum::http::HeaderMap;
+use axum::http::StatusCode;
 use axum::middleware;
 use axum::routing::{delete, get, post};
 use framework::exception;
@@ -31,7 +32,7 @@ async fn create_guest_info(
     State(state): State<SharedState>,
     header: HeaderMap,
     Json(request): Json<CreateGuestInfoRequest>,
-) -> HttpResult<()> {
+) -> HttpResult<StatusCode> {
     let token = get_cookie(&header, CookieName::LoginToken).ok_or(exception!(
         code = VALIDATION_ERROR,
         message = "Token not found"
@@ -46,7 +47,7 @@ async fn create_guest_info(
         .add_guest(request, &admin_record.name())
         .await?;
 
-    Ok(())
+    Ok(StatusCode::CREATED)
 }
 
 #[axum::debug_handler]
@@ -64,7 +65,7 @@ async fn get_guest_list(
 async fn remove_guest(
     State(state): State<SharedState>,
     Path(RemoveGuestPathParams { id }): Path<RemoveGuestPathParams>,
-) -> HttpResult<()> {
+) -> HttpResult<StatusCode> {
     let guest_info_collection = GuestInfoCollection::from(state.db.clone());
 
     if guest_info_collection
@@ -77,5 +78,5 @@ async fn remove_guest(
 
     guest_info_collection.remove_guest(id).await?;
 
-    Ok(())
+    Ok(StatusCode::NO_CONTENT)
 }

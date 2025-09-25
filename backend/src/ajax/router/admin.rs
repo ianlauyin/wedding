@@ -1,5 +1,6 @@
 use axum::Router;
 use axum::extract::{ConnectInfo, State};
+use axum::http::StatusCode;
 use axum::http::{HeaderMap, header::USER_AGENT};
 use axum::routing::{get, post};
 
@@ -9,7 +10,7 @@ use framework::web::{body::Json, error::HttpResult};
 use std::net::SocketAddr;
 use wedding_interface::{LoginRequest, LoginResponse};
 
-use crate::ajax::shared::cookie::{CookieName, get_cookie, set_cookie};
+use crate::ajax::shared::cookie::{CookieName, get_cookie, remove_cookie, set_cookie};
 use crate::db::AdminRecordCollection;
 use crate::env;
 use crate::exception::CoreRsResult;
@@ -19,6 +20,7 @@ pub fn admin_router() -> Router<SharedState> {
     Router::new()
         .route("/admin/record", get(get_login_record))
         .route("/admin/login", post(login))
+        .route("/admin/logout", post(logout))
 }
 
 #[axum::debug_handler]
@@ -33,8 +35,7 @@ async fn get_login_record(
 
     let Some(record) = AdminRecordCollection::from(state.db.clone())
         .get_record(token)
-        .await
-        .expect("Failed to get login record")
+        .await?
     else {
         return Err(exception!(
             code = NOT_FOUND,
@@ -46,6 +47,23 @@ async fn get_login_record(
 }
 
 #[axum::debug_handler]
+async fn logout(
+    State(state): State<SharedState>,
+    header: HeaderMap,
+) -> HttpResult<(StatusCode, HeaderMap)> {
+    let token = get_cookie(&header, CookieName::LoginToken);
+
+    let header = remove_cookie(HeaderMap::new(), CookieName::LoginToken);
+
+    if let Some(token) = token {
+        let _ = AdminRecordCollection::from(state.db.clone())
+            .remove_record(token)
+            .await;
+    }
+    Ok((StatusCode::NO_CONTENT, header))
+}
+
+#[axum::debug_handler]
 async fn login(
     State(state): State<SharedState>,
     request_header: HeaderMap,
@@ -54,17 +72,15 @@ async fn login(
 ) -> HttpResult<(HeaderMap, Json<LoginResponse>)> {
     validate_login(&request)?;
 
-    let mut header = HeaderMap::new();
     let user_agent = request_header.get(USER_AGENT).unwrap().to_str().unwrap();
     let ip_address = addr.ip().to_string();
 
     let record = AdminRecordCollection::from(state.db.clone())
         .add_record(request.name, user_agent.to_string(), ip_address)
-        .await
-        .expect("Failed to add login record");
+        .await?;
 
-    set_cookie(
-        &mut header,
+    let header = set_cookie(
+        HeaderMap::new(),
         CookieName::LoginToken,
         &record.token().to_string(),
     );

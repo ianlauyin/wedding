@@ -10,6 +10,13 @@
     "moduleResolution": "bundler",
     "noEmit": true,
     "strict": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./src/component/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@ajax/*": ["./src/ajax/*"],
+      "@util/*": ["./src/util/*"]
+    }
   }
 }

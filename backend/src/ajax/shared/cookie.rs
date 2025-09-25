@@ -15,13 +15,14 @@ impl CookieName {
     }
 }
 
-pub fn set_cookie(header: &mut HeaderMap, name: CookieName, value: &str) {
+pub fn set_cookie(mut header: HeaderMap, name: CookieName, value: &str) -> HeaderMap {
     header.insert(
         SET_COOKIE,
         format!("{}={}; HttpOnly; Path=/", name.as_str(), value)
             .parse()
             .unwrap(),
     );
+    header
 }
 
 pub fn get_cookie(header: &HeaderMap, name: CookieName) -> Option<String> {
@@ -30,10 +31,23 @@ pub fn get_cookie(header: &HeaderMap, name: CookieName) -> Option<String> {
     for cookie in cookie_header.split(";") {
         if let Some((cookie_name, cookie_value)) = cookie.split_once("=") {
             if cookie_name.trim().eq(name.as_str()) {
+                if cookie_value.trim().is_empty() {
+                    return None;
+                }
                 return Some(cookie_value.trim().to_string());
             }
         }
     }
 
     None
+}
+
+pub fn remove_cookie(mut header: HeaderMap, name: CookieName) -> HeaderMap {
+    header.insert(
+        SET_COOKIE,
+        format!("{}=; HttpOnly; Path=/; Max-Age=0", name.as_str())
+            .parse()
+            .unwrap(),
+    );
+    header
 }
