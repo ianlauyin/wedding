@@ -1,5 +1,7 @@
 use firestore::{FirestoreDb, FirestoreDbOptions};
 
+use framework::asset::asset_path;
+
 use crate::env;
 use crate::exception::CoreRsResult;
 
@@ -15,20 +17,6 @@ pub async fn connect_db() -> CoreRsResult<FirestoreDb> {
         firebase_api_url: None,
     };
 
-    connect(options).await
-}
-
-#[cfg(debug_assertions)]
-async fn connect(options: FirestoreDbOptions) -> CoreRsResult<FirestoreDb> {
-    use framework::asset::asset_path;
-
     let key_path = asset_path("assets/wedding-service-account-key.json")?;
     Ok(FirestoreDb::with_options_service_account_key_file(options, key_path).await?)
-}
-
-#[cfg(not(debug_assertions))]
-async fn connect(options: FirestoreDbOptions) -> CoreRsResult<FirestoreDb> {
-    FirestoreDb::with_options(options)
-        .await
-        .map_err(|_| exception!(message = "Failed to connect to Firestore"))
 }

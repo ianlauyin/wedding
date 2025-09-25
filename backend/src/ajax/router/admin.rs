@@ -1,9 +1,7 @@
-use axum::{
-    Router,
-    extract::{ConnectInfo, State},
-    http::{HeaderMap, header::USER_AGENT},
-    routing::{get, post},
-};
+use axum::Router;
+use axum::extract::{ConnectInfo, State};
+use axum::http::{HeaderMap, header::USER_AGENT};
+use axum::routing::{get, post};
 
 use framework::exception;
 use framework::exception::error_code::{NOT_FOUND, VALIDATION_ERROR};
@@ -11,10 +9,8 @@ use framework::web::{body::Json, error::HttpResult};
 use std::net::SocketAddr;
 use wedding_interface::{LoginRequest, LoginResponse};
 
-use crate::ajax::{
-    shared::cookie::{CookieName, get_cookie, set_cookie},
-    state::SharedState,
-};
+use crate::ajax::shared::cookie::{CookieName, get_cookie, set_cookie};
+use crate::ajax::state::SharedState;
 use crate::db::AdminRecordCollection;
 use crate::env;
 use crate::exception::CoreRsResult;
