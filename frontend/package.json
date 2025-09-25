@@ -1,18 +1,25 @@
 {
-  "name": "wedding-frontend",
-  "version": "1.0.0",
+  "name": "vite-template-solid",
+  "version": "0.0.0",
   "description": "",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.13.1",
-  "dependencies": {
-    "wedding-interface": "workspace:*"
-  },
+  "license": "MIT",
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "@tailwindcss/postcss": "^4.1.13",
+    "postcss": "^8.4.49",
+    "solid-devtools": "^0.34.3",
+    "tailwindcss": "^4.1.13",
+    "vite": "^7.1.4",
+    "vite-plugin-solid": "^2.11.8"
+  },
+  "dependencies": {
+    "@solidjs/router": "^0.15.1",
+    "solid-js": "^1.9.5"
   }
 }

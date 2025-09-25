@@ -9,7 +9,10 @@ use crate::ajax::state::SharedState;
 pub fn invitation_router(state: SharedState) -> Router<SharedState> {
     Router::new()
         .route("/invitation/{id}", get(get_invitation_info))
-        .route("/invitation/{id}/update-count", put(update_guest_count))
+        .route(
+            "/invitation/{id}/update-guest-count",
+            put(update_guest_count),
+        )
 }
 
 // TODO: Implement

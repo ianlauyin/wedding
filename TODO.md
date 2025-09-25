@@ -5,7 +5,7 @@
 # Frontend
 
 1. Internal Page
-2. Invitation Page
+2. Invitation Page (Mobile first)
 
 # Deploy
 
