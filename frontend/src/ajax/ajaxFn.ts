@@ -1,15 +1,19 @@
-type PathParams = Record<string, any>;
-type Request = Record<string, any>;
+type PathParams = Record<string, any> | null;
+type Request = Record<string, any> | null;
 
-export const ajax = async <P extends PathParams, Req extends Request, Res>(
+export const ajax = async <
+  Req extends Request = null,
+  Res = null,
+  P extends PathParams = null
+>(
   url: string,
   method: "GET" | "DELETE" | "POST" | "PUT",
-  pathParams?: P | null,
-  request?: Req | null
+  request?: Req,
+  pathParams?: P
 ): Promise<Res> => {
   const isGetOrDelete = method === "GET" || method === "DELETE";
 
-  let parsedUrl = urlwithParams(url, pathParams);
+  let parsedUrl = "/ajax" + urlwithParams(url, pathParams);
   if (isGetOrDelete) {
     parsedUrl = urlWithQueryParams(parsedUrl, request);
   }
@@ -21,10 +25,7 @@ export const ajax = async <P extends PathParams, Req extends Request, Res>(
   return response.json();
 };
 
-const urlwithParams = <P extends PathParams>(
-  url: string,
-  pathParams?: P | null
-) => {
+const urlwithParams = <P extends PathParams>(url: string, pathParams?: P) => {
   return url.replace(/{(\w+)}/g, (_, key) => {
     if (!pathParams?.[key]) throw new Error(`Path param ${key} is required`);
     return pathParams?.[key];
@@ -33,7 +34,7 @@ const urlwithParams = <P extends PathParams>(
 
 const urlWithQueryParams = <Req extends Request>(
   url: string,
-  request?: Req | null
+  request?: Req
 ) => {
   if (!request) return url;
   return url + "?" + new URLSearchParams(request).toString();
