@@ -1,7 +1,5 @@
-import { InvitationInfoResponse } from "wedding-interface";
-
 export interface Props {
-  name: string;
+  name?: string;
 }
 
 export const InvitationLayout = ({ name }: Props) => {

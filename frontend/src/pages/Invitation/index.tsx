@@ -4,7 +4,6 @@ import { getInvitationInfo } from "../../ajax";
 import { Loading } from "../../component/Loading";
 import { InvitationLayout } from "../../component/InvitationLayout";
 import { ErrorComponent } from "../../component/ErrorComponent";
-import "./index.css";
 
 export const Invitation = () => {
   const [info] = createResource(useParams().id, getInvitationInfo);

@@ -6,11 +6,13 @@ import { Invitation } from "./pages/Invitation";
 import { Internal } from "./pages/Internal";
 import { ErrorComponent } from "./component/ErrorComponent";
 import "./index.css";
+import { InvitationLayout } from "./component/InvitationLayout";
 
 const App = () => (
   <Router>
     <Route path="/invitation/:id" component={Invitation} />
     <Route path="/internal" component={Internal} />
+    <Route path="/" component={() => <InvitationLayout />} />
     <Route
       path="**"
       component={() => <ErrorComponent message="Page Not Found" />}
