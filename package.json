@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {},
+  "scripts": {
+    "build:frontend": "cd frontend && pnpm build --outDir ../backend/assets/web",
+    "run:backend": "cd backend && cargo run",
+    "start": "pnpm build:frontend && pnpm run:backend"
+  },
   "workspaces": [
     "frontend",
     "interface"

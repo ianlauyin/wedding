@@ -4,8 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "start": "vite build --outDir ../backend/assets/web && cd ../backend && cargo run",
+    "start": "vite",
     "build": "vite build",
     "api": "cd ../interface && cargo test"
   },
