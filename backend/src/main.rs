@@ -1,30 +1,32 @@
-use axum::Router;
-use framework::{
-    log::{self, ConsoleAppender},
-    shutdown::Shutdown,
-    web::server::{HttpServerConfig, start_http_server},
-};
+use framework::log;
+use framework::shutdown::Shutdown;
+use framework::web::server::{HttpServerConfig, start_http_server};
 
-use crate::ajax::ajax_router;
-use crate::exception::CoreRsResult;
+use crate::{ajax::ajax_router, db::connect_db, logger::FirestoreAppender};
+use crate::{exception::CoreRsResult, state::AppState};
 
 mod ajax;
 mod db;
 mod env;
 mod exception;
+mod logger;
+mod state;
 mod website;
 
 #[tokio::main]
 async fn main() -> CoreRsResult<()> {
-    log::init_with_action(ConsoleAppender);
-
     let shutdown = Shutdown::new();
     let signal = shutdown.subscribe();
     shutdown.listen();
 
-    let app = Router::new();
+    let db = connect_db().await?;
+    log::init_with_action(FirestoreAppender::new(db.clone()));
+
+    let state = AppState::init(db.clone());
+
+    let app = axum::Router::new();
     let app = app
-        .nest("/ajax", ajax_router().await?)
+        .nest("/ajax", ajax_router(state.clone()).await?)
         .fallback_service(website::html()?);
 
     start_http_server(app, signal, HttpServerConfig::default()).await

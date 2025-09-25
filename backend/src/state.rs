@@ -1,7 +1,7 @@
 use firestore::FirestoreDb;
 use std::sync::Arc;
 
-pub(in crate::ajax) type SharedState = Arc<AppState>;
+pub type SharedState = Arc<AppState>;
 
 #[derive(Clone)]
 pub struct AppState {

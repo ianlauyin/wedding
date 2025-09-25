@@ -13,7 +13,9 @@ wedding_interface.workspace = true
 serde.workspace = true
 chrono.workspace = true
 
+tracing = "0.1.41"
 uuid = { version = "1.13.0", features = ["v4","serde"]}
+indexmap = { version = "2.11.4",  features = ["serde"]}
 
 axum = { version = "0.8.4", features = ["macros"]}
 tokio = { version = "1.47.1", features = ["full"]}

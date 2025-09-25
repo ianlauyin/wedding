@@ -11,14 +11,12 @@ use framework::web::{body::Json, error::HttpResult};
 use wedding_interface::RemoveGuestPathParams;
 use wedding_interface::{CreateGuestInfoRequest, GetGuestListResponse};
 
-use crate::ajax::{
-    shared::{
-        cookie::{CookieName, get_cookie},
-        middleware::verify_admin_session,
-    },
-    state::SharedState,
+use crate::ajax::shared::{
+    cookie::{CookieName, get_cookie},
+    middleware::verify_admin_session,
 };
 use crate::db::{AdminRecordCollection, GuestInfoCollection};
+use crate::state::SharedState;
 
 pub fn guest_router(state: SharedState) -> Router<SharedState> {
     Router::new()

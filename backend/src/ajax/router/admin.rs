@@ -10,10 +10,10 @@ use std::net::SocketAddr;
 use wedding_interface::{LoginRequest, LoginResponse};
 
 use crate::ajax::shared::cookie::{CookieName, get_cookie, set_cookie};
-use crate::ajax::state::SharedState;
 use crate::db::AdminRecordCollection;
 use crate::env;
 use crate::exception::CoreRsResult;
+use crate::state::SharedState;
 
 pub fn admin_router() -> Router<SharedState> {
     Router::new()

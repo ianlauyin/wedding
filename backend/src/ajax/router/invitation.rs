@@ -4,7 +4,7 @@ use axum::routing::{get, put};
 
 use framework::web::error::HttpResult;
 
-use crate::ajax::state::SharedState;
+use crate::state::SharedState;
 
 pub fn invitation_router(state: SharedState) -> Router<SharedState> {
     Router::new()
