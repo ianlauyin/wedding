@@ -6,7 +6,8 @@
 # Frontend
 
 1. Internal Page
-2. Invitation Page (Mobile first)
+2. Update Loading UI (Ask designer)
+3. Invitation Page (Mobile first)
 
 # Deploy
 

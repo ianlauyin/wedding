@@ -3,7 +3,7 @@ use firestore::FirestoreDb;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use wedding_backend_macros::Collection;
-use wedding_interface::{CreateGuestInfoRequest, GuestInfoView, Side};
+use wedding_interface::{CreateGuestInfoRequest, GuestInfoView, InvitationInfoResponse, Side};
 
 use crate::db::collection::ext::CollectionExt;
 use crate::exception::CoreRsResult;
@@ -52,6 +52,10 @@ impl GuestInfo {
             updated_at: self.updated_at,
         }
     }
+
+    fn into_invitation_info_response(self) -> InvitationInfoResponse {
+        InvitationInfoResponse { name: self.name }
+    }
 }
 
 #[derive(Collection)]
@@ -59,7 +63,16 @@ impl GuestInfo {
 pub struct GuestInfoCollection(FirestoreDb);
 
 impl GuestInfoCollection {
-    pub async fn get_guest(&self, id: String) -> CoreRsResult<Option<GuestInfo>> {
+    pub async fn get_invitation_info(
+        &self,
+        id: String,
+    ) -> CoreRsResult<Option<InvitationInfoResponse>> {
+        self.get(&id)
+            .await
+            .map(|guest| guest.map(|guest| guest.into_invitation_info_response()))
+    }
+
+    pub async fn get_guest_info(&self, id: String) -> CoreRsResult<Option<GuestInfo>> {
         self.get(&id).await
     }
 
@@ -72,7 +85,7 @@ impl GuestInfoCollection {
         self.insert(&guest_info.id.to_string(), &guest_info).await
     }
 
-    pub async fn get_all_guest(&self) -> CoreRsResult<Vec<GuestInfoView>> {
+    pub async fn list_guests_info(&self) -> CoreRsResult<Vec<GuestInfoView>> {
         Ok(self
             .get_all()
             .await?

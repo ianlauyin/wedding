@@ -54,7 +54,7 @@ async fn get_guest_list(
     State(state): State<SharedState>,
 ) -> HttpResult<Json<GetGuestListResponse>> {
     let guest_list = GuestInfoCollection::from(state.db.clone())
-        .get_all_guest()
+        .list_guests_info()
         .await?;
 
     Ok(Json(GetGuestListResponse { guest_list }))
@@ -67,7 +67,11 @@ async fn remove_guest(
 ) -> HttpResult<()> {
     let guest_info_collection = GuestInfoCollection::from(state.db.clone());
 
-    if guest_info_collection.get_guest(id.clone()).await?.is_none() {
+    if guest_info_collection
+        .get_guest_info(id.clone())
+        .await?
+        .is_none()
+    {
         return Err(exception!(code = NOT_FOUND, message = "Guest not found"))?;
     }
 

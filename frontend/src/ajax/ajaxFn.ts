@@ -1,3 +1,5 @@
+import { AjaxError, AjaxErrorBody } from "./error";
+
 type PathParams = Record<string, any> | null;
 type Request = Record<string, any> | null;
 
@@ -18,10 +20,15 @@ export const ajax = async <
     parsedUrl = urlWithQueryParams(parsedUrl, request);
   }
 
-  const response = await fetch(parsedUrl, {
+  const response: Response = await fetch(parsedUrl, {
     method,
     body: isGetOrDelete ? undefined : JSON.stringify(request),
   });
+
+  if (!response.ok) {
+    throw new AjaxError(await response.json());
+  }
+
   return response.json();
 };
 

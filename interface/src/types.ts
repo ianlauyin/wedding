@@ -4,7 +4,11 @@ export type CreateGuestInfoRequest = { side: Side, name: string, relationship: s
 
 export type GetGuestListResponse = { guest_list: Array<GuestInfoView>, };
 
+export type GetInvitationInfoPathParams = { id: string, };
+
 export type GuestInfoView = { id: string, side: Side, name: string, relationship: string, estimated_count: number, confirmed_count: number, created_by: string, created_at: string, updated_by: string, updated_at: string, };
+
+export type InvitationInfoResponse = { name: string, };
 
 export type LoginRequest = { name: string, password: string, };
 

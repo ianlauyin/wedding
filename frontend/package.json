@@ -4,10 +4,9 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "vite",
     "dev": "vite",
+    "start": "vite build --outDir ../backend/assets/web && cd ../backend && cargo run",
     "build": "vite build",
-    "serve": "vite preview",
     "api": "cd ../interface && cargo test"
   },
   "license": "MIT",

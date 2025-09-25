@@ -10,7 +10,7 @@ use crate::state::SharedState;
 pub async fn ajax_router(state: SharedState) -> CoreRsResult<Router> {
     Ok(Router::new()
         .merge(admin::admin_router())
-        .merge(invitation::invitation_router(state.clone()))
+        .merge(invitation::invitation_router())
         .merge(guest::guest_router(state.clone()))
         .with_state(state))
 }

@@ -62,3 +62,16 @@ pub struct GetGuestListResponse {
 pub struct RemoveGuestPathParams {
     pub id: String,
 }
+
+// Invitation Related
+#[derive(TS, Debug, Serialize, Deserialize)]
+#[ts(export ,export_to = EXPORT_PATH)]
+pub struct GetInvitationInfoPathParams {
+    pub id: String,
+}
+
+#[derive(TS, Debug, Serialize, Deserialize)]
+#[ts(export ,export_to = EXPORT_PATH)]
+pub struct InvitationInfoResponse {
+    pub name: String,
+}

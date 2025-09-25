@@ -2,6 +2,8 @@ import { ajax } from "./ajaxFn";
 import {
   CreateGuestInfoRequest,
   GetGuestListResponse,
+  GetInvitationInfoPathParams,
+  InvitationInfoResponse,
   LoginRequest,
   LoginResponse,
   RemoveGuestPathParams,
@@ -25,3 +27,14 @@ export const removeGuest = async (id: string) =>
   await ajax<null, null, RemoveGuestPathParams>("/guest/", "DELETE", null, {
     id,
   });
+
+// invitation router
+export const getInvitationInfo = async (id: string) =>
+  await ajax<null, InvitationInfoResponse, GetInvitationInfoPathParams>(
+    "/invitation/{id}",
+    "GET",
+    null,
+    {
+      id,
+    }
+  );
