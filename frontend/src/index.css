@@ -1,7 +1,7 @@
-#invitation-page {
+body {
+  margin: 0;
+  padding: 10px;
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
