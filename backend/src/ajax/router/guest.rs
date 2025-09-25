@@ -8,6 +8,7 @@ use framework::exception;
 use framework::exception::error_code::VALIDATION_ERROR;
 
 use framework::web::{body::Json, error::HttpResult};
+use wedding_interface::RemoveGuestPathParams;
 use wedding_interface::{CreateGuestInfoRequest, GetGuestListResponse};
 
 use crate::ajax::{
@@ -62,9 +63,12 @@ async fn get_guest_list(
 }
 
 #[axum::debug_handler]
-async fn remove_guest(State(state): State<SharedState>, Path(id): Path<String>) -> HttpResult<()> {
+async fn remove_guest(
+    State(state): State<SharedState>,
+    Path(params): Path<RemoveGuestPathParams>,
+) -> HttpResult<()> {
     GuestInfoCollection::from(state.db.clone())
-        .remove_guest(id)
+        .remove_guest(params.id)
         .await?;
 
     Ok(())

@@ -29,15 +29,6 @@ pub enum Side {
 
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
-pub struct CreateGuestInfoRequest {
-    pub side: Side,
-    pub name: String,
-    pub relationship: String,
-    pub estimated_count: u32,
-}
-
-#[derive(TS, Debug, Serialize, Deserialize)]
-#[ts(export ,export_to = EXPORT_PATH)]
 pub struct GuestInfoView {
     pub id: String,
     pub side: Side,
@@ -53,6 +44,21 @@ pub struct GuestInfoView {
 
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
+pub struct CreateGuestInfoRequest {
+    pub side: Side,
+    pub name: String,
+    pub relationship: String,
+    pub estimated_count: u32,
+}
+
+#[derive(TS, Debug, Serialize, Deserialize)]
+#[ts(export ,export_to = EXPORT_PATH)]
 pub struct GetGuestListResponse {
     pub guest_list: Vec<GuestInfoView>,
+}
+
+#[derive(TS, Debug, Serialize, Deserialize)]
+#[ts(export ,export_to = EXPORT_PATH)]
+pub struct RemoveGuestPathParams {
+    pub id: String,
 }

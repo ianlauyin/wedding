@@ -7,19 +7,18 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "api": "cd ../interface && cargo test"
   },
   "license": "MIT",
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.13",
-    "postcss": "^8.4.49",
-    "solid-devtools": "^0.34.3",
-    "tailwindcss": "^4.1.13",
-    "vite": "^7.1.4",
+    "solid-devtools": "0.34.3",
+    "vite": "7.1.4",
     "vite-plugin-solid": "^2.11.8"
   },
   "dependencies": {
     "@solidjs/router": "^0.15.1",
-    "solid-js": "^1.9.5"
+    "solid-js": "^1.9.5",
+    "wedding-interface": "workspace:*"
   }
 }
