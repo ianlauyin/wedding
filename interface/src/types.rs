@@ -13,7 +13,7 @@ pub struct LoginRequest {
 }
 
 #[derive(TS, Debug, Serialize, Deserialize)]
-#[ts(export ,export_to = EXPORT_PATH)]
+#[ts(export ,export_to = EXPORT_PATH, rename_all = "camelCase")]
 pub struct LoginResponse {
     pub name: String,
     pub login_time: DateTime<Utc>,
@@ -28,7 +28,7 @@ pub enum Side {
 }
 
 #[derive(TS, Debug, Serialize, Deserialize)]
-#[ts(export ,export_to = EXPORT_PATH)]
+#[ts(export ,export_to = EXPORT_PATH, rename_all = "camelCase")]
 pub struct GuestInfoView {
     pub id: String,
     pub side: Side,
@@ -43,7 +43,7 @@ pub struct GuestInfoView {
 }
 
 #[derive(TS, Debug, Serialize, Deserialize)]
-#[ts(export ,export_to = EXPORT_PATH)]
+#[ts(export ,export_to = EXPORT_PATH, rename_all = "camelCase")]
 pub struct CreateGuestInfoRequest {
     pub side: Side,
     pub name: String,
@@ -52,7 +52,7 @@ pub struct CreateGuestInfoRequest {
 }
 
 #[derive(TS, Debug, Serialize, Deserialize)]
-#[ts(export ,export_to = EXPORT_PATH)]
+#[ts(export ,export_to = EXPORT_PATH, rename_all = "camelCase")]
 pub struct GetGuestListResponse {
     pub guest_list: Vec<GuestInfoView>,
 }

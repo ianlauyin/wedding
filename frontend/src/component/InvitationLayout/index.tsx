@@ -1,13 +1,13 @@
 import { InvitationInfoResponse } from "wedding-interface";
 
 export interface Props {
-  info: InvitationInfoResponse;
+  name: string;
 }
 
-export const InvitationLayout = ({ info }: Props) => {
+export const InvitationLayout = ({ name }: Props) => {
   return (
     <div>
-      <h1>Hello {info.name}</h1>
+      <h1>Hello {name}</h1>
     </div>
   );
 };

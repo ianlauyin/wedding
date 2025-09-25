@@ -1,7 +1,6 @@
 # Backend
 
-1. Add log to firestore
-2. Add Update guest info endpoint (Internal and external)
+1. Add Update guest info endpoint (Internal and external)
 
 # Frontend
 
@@ -11,5 +10,4 @@
 
 # Deploy
 
-1. Update backend/website.html() fn
-2. Script for deployment
+1. Script for deployment

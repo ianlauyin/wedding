@@ -1,10 +1,10 @@
 import { useParams } from "@solidjs/router";
-import { createResource, Match, Show, Switch } from "solid-js";
+import { createResource, Match, Show, Suspense, Switch } from "solid-js";
 import { getInvitationInfo } from "../../ajax";
 import { Loading } from "../../component/Loading";
 import { InvitationLayout } from "../../component/InvitationLayout";
-import "./index.css";
 import { ErrorComponent } from "../../component/ErrorComponent";
+import "./index.css";
 
 export const Invitation = () => {
   const [info] = createResource(useParams().id, getInvitationInfo);
@@ -18,7 +18,7 @@ export const Invitation = () => {
         <ErrorComponent message={info.error.message} />
       </Match>
       <Match when={info()}>
-        <InvitationLayout info={info} />
+        {(data) => <InvitationLayout name={data().name} />}
       </Match>
     </Switch>
   );
