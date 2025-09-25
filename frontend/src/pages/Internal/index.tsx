@@ -5,7 +5,7 @@ import { Loading } from "../../component/Loading";
 import { Backoffice } from "./Backoffice";
 
 export const Internal = () => {
-  const [loginRecord, { mutate }] = createResource(null, getLoginRecord);
+  const [loginRecord, { mutate }] = createResource(getLoginRecord);
 
   return (
     <Switch fallback={<Login onLoginSuccess={mutate} />}>
