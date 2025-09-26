@@ -1,7 +1,8 @@
 import { createSignal } from "solid-js";
 import { LoginResponse } from "wedding-interface";
-import { login } from "../../../ajax/service";
-import { AjaxError } from "../../../ajax/error";
+import { login } from "@ajax/service";
+import { AjaxError } from "@ajax/error";
+import { Button, Checkbox, FormControlLabel, TextField } from "@suid/material";
 import "./index.css";
 
 export interface Props {
@@ -28,32 +29,21 @@ export const Login = ({ onLoginSuccess }: Props) => {
   return (
     <div id="login-page">
       <h1>Admin Login Page</h1>
-      <label>
-        Name
-        <input
-          type="text"
-          maxLength={50}
-          value={name()}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type={showPassword() ? "text" : "password"}
-          value={password()}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
-      <label>
-        Show Password
-        <input
-          type="checkbox"
-          checked={showPassword()}
-          onChange={(e) => setShowPassword(e.target.checked)}
-        />
-      </label>
-      <button onClick={handleLogin}>Login</button>
+      <TextField
+        label="Name"
+        value={name()}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <TextField
+        label="Password"
+        type={showPassword() ? "text" : "password"}
+        value={password()}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <FormControlLabel control={<Checkbox />} label="Show Password" />
+      <Button onClick={handleLogin} variant="contained">
+        Login
+      </Button>
       <p class="error-message">{errorMessage()}</p>
     </div>
   );

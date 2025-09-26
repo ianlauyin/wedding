@@ -1,5 +1,14 @@
 import { GuestInfoView } from "wedding-interface";
 import "./index.css";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@suid/material";
 
 export interface Props {
   list: Array<GuestInfoView>;
@@ -7,31 +16,33 @@ export interface Props {
 
 export const GuestList = ({ list }: Props) => {
   return (
-    <table class="guest-list-table">
-      <thead>
-        <tr>
-          <th>Side</th>
-          <th></th>
-          <th>Count (Confirmed/Estimated)</th>
-          <th>Extra</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map((guest) => (
-          <tr>
-            <td>{guest.side}</td>
-            <td>{guest.name}</td>
-            <td>
-              {guest.confirmedCount}/{guest.estimatedCount}
-            </td>
-            <td>{guest.relationship}</td>
-            <td>
-              <button>Remove</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Side</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Count (Confirmed/Estimated)</TableCell>
+            <TableCell>Relationship</TableCell>
+            <TableCell>Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {list.map((guest) => (
+            <TableRow>
+              <TableCell>{guest.side}</TableCell>
+              <TableCell>{guest.name}</TableCell>
+              <TableCell>
+                {guest.confirmedCount}/{guest.estimatedCount}
+              </TableCell>
+              <TableCell>{guest.relationship}</TableCell>
+              <TableCell>
+                <Button>Remove</Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };

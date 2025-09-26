@@ -2,12 +2,8 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
+  justify-self: center;
   gap: 20px;
-
-  label {
-    display: flex;
-    justify-content: space-between;
-  }
 
   .error-message {
     color: red;
