@@ -1,10 +1,9 @@
 import { FutureFeatureList } from "./FutureFeatureList";
 import { Header, type Props as HeaderProps } from "./Header";
-import "./index.css";
 import { GuestList } from "./GuestList";
 import { GuestInfoView } from "wedding-interface";
 import { createResource, Match, Switch } from "solid-js";
-import { Container } from "@suid/material";
+import { Box, Container } from "@suid/material";
 import { Loading } from "@components/Loading";
 import { ErrorMessage } from "@components/ErrorMessage";
 
@@ -28,9 +27,9 @@ export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
   );
 
   return (
-    <div id="backoffice">
+    <div>
       <Header loginTime={loginTime} name={name} onLogout={onLogout} />
-      <Container class="guest-list-switch">{guestListSwitch}</Container>
+      {guestListSwitch}
       <FutureFeatureList />
     </div>
   );

@@ -1,6 +1,6 @@
 export const FutureFeatureList = () => {
   return (
-    <div class="future-feature-list">
+    <div>
       <h2>Future Features</h2>
       <ol>
         <li>List All Guest</li>
