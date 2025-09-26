@@ -8,11 +8,12 @@
     margin-right: 10px;
   }
 
-  .error-message {
-    color: red;
-  }
+  > .guest-list-switch {
+    display: flex;
+    justify-content: center;
 
-  .future-feature-list {
-    margin: 10px;
+    .error-message {
+      color: red;
+    }
   }
 }

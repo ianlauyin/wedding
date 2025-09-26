@@ -1,14 +1,2 @@
 .guest-list-table {
-  margin: 10px;
-  border-collapse: collapse;
-  color: #333;
-  &,
-  th,
-  td {
-    border: 1px solid black;
-  }
-
-  td {
-    padding: 5px;
-  }
 }

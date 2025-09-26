@@ -28,7 +28,7 @@ export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
   return (
     <div id="backoffice">
       <Header loginTime={loginTime} name={name} onLogout={onLogout} />
-      {guestListSwitch}
+      <div class="guest-list-switch">{guestListSwitch}</div>
       <FutureFeatureList />
     </div>
   );
