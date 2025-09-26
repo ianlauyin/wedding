@@ -47,7 +47,15 @@ export const Login = ({ onLoginSuccess }: Props) => {
         value={password()}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <FormControlLabel control={<Checkbox />} label="Show Password" />
+      <FormControlLabel
+        control={
+          <Checkbox
+            value={showPassword()}
+            onChange={(e) => setShowPassword(e.target.checked)}
+          />
+        }
+        label="Show Password"
+      />
       <Button
         disabled={name() === "" || password() === ""}
         onClick={handleLogin}
