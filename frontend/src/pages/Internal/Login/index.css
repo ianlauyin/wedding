@@ -4,8 +4,4 @@
   flex-direction: column;
   justify-self: center;
   gap: 20px;
-
-  .error-message {
-    color: red;
-  }
 }

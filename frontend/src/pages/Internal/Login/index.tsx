@@ -2,8 +2,16 @@ import { createSignal } from "solid-js";
 import { LoginResponse } from "wedding-interface";
 import { login } from "@ajax/service";
 import { AjaxError } from "@ajax/error";
-import { Button, Checkbox, FormControlLabel, TextField } from "@suid/material";
+import {
+  Button,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  TextField,
+  Typography,
+} from "@suid/material";
 import "./index.css";
+import { ErrorMessage } from "@components/ErrorMessage";
 
 export interface Props {
   onLoginSuccess: (data: LoginResponse) => void;
@@ -27,8 +35,8 @@ export const Login = ({ onLoginSuccess }: Props) => {
   };
 
   return (
-    <div id="login-page">
-      <h1>Admin Login Page</h1>
+    <Container id="login-page" maxWidth="sm">
+      <Typography variant="h4">Admin Login Page</Typography>
       <TextField
         label="Name"
         value={name()}
@@ -41,10 +49,14 @@ export const Login = ({ onLoginSuccess }: Props) => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <FormControlLabel control={<Checkbox />} label="Show Password" />
-      <Button onClick={handleLogin} variant="contained">
+      <Button
+        disabled={name() === "" || password() === ""}
+        onClick={handleLogin}
+        variant="contained"
+      >
         Login
       </Button>
-      <p class="error-message">{errorMessage()}</p>
-    </div>
+      <ErrorMessage message={errorMessage()} />
+    </Container>
   );
 };

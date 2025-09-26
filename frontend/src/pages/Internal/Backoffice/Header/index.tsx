@@ -1,6 +1,6 @@
 import { logout } from "@ajax/service";
+import { AppBar } from "@suid/material";
 import { formatTime } from "@util/time";
-import "./index.css";
 
 export interface Props {
   loginTime: string;
@@ -15,13 +15,13 @@ export const Header = ({ loginTime, name, onLogout }: Props) => {
   };
 
   return (
-    <div class="header">
+    <AppBar position="static">
       <h1>Backoffice</h1>
       <div class="header-right">
         <p class="login-time">Login Time: {formatTime(loginTime)}</p>
         <p class="name">Name: {name}</p>
         <button onClick={handleLogout}>Logout</button>
       </div>
-    </div>
+    </AppBar>
   );
 };

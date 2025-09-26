@@ -1,19 +1,2 @@
 #backoffice {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  > *:not(.header) {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  > .guest-list-switch {
-    display: flex;
-    justify-content: center;
-
-    .error-message {
-      color: red;
-    }
-  }
 }
