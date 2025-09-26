@@ -32,6 +32,7 @@ export const Login = ({ onLoginSuccess }: Props) => {
         Name
         <input
           type="text"
+          maxLength={50}
           value={name()}
           onChange={(e) => setName(e.target.value)}
         />

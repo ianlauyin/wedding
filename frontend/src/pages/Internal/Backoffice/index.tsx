@@ -1,22 +1,12 @@
-import { logout } from "@ajax/service";
-import { formatTime } from "@util/time";
+import { Header, type Props as HeaderProps } from "./Header";
+import "./index.css";
 
-export interface Props {
-  name: string;
-  loginTime: string;
-  onLogout: () => void;
-}
+interface Props extends HeaderProps {}
 
 export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
-  const handleLogout = async () => {
-    logout();
-    onLogout();
-  };
-
   return (
-    <div>
-      Backoffice {name} {formatTime(loginTime)}
-      <button onClick={handleLogout}>Logout</button>
+    <div id="backoffice">
+      <Header loginTime={loginTime} name={name} onLogout={onLogout} />
     </div>
   );
 };
