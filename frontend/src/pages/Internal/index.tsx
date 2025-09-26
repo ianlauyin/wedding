@@ -1,9 +1,9 @@
 import { createResource, Match, Switch } from "solid-js";
 import { getLoginRecord } from "@ajax/service";
-import { Loading } from "@components/Loading";
 import { Login } from "./Login";
 import { Backoffice } from "./Backoffice";
 import { LoginResponse } from "wedding-interface";
+import { CircularProgress } from "@suid/material";
 
 const fetchLoginRecord = async (): Promise<LoginResponse | null> => {
   try {
@@ -24,7 +24,7 @@ export const Internal = () => {
         {(data) => <Backoffice {...data()} onLogout={() => mutate(null)} />}
       </Match>
       <Match when={loginRecord.loading}>
-        <Loading />
+        <CircularProgress />
       </Match>
     </Switch>
   );
