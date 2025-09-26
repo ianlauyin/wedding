@@ -1,6 +1,18 @@
 #backoffice {
-    margin
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  > *:not(.header) {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .error-message {
+    color: red;
+  }
+
+  .future-feature-list {
+    margin: 10px;
+  }
 }

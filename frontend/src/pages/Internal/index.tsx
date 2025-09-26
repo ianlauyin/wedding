@@ -21,15 +21,9 @@ export const Internal = () => {
   return (
     <Switch fallback={<Login onLoginSuccess={mutate} />}>
       <Match when={loginRecord()}>
-        {(data) => (
-          <Backoffice
-            name={data().name}
-            loginTime={data().loginTime}
-            onLogout={() => mutate(null)}
-          />
-        )}
+        {(data) => <Backoffice {...data()} onLogout={() => mutate(null)} />}
       </Match>
-      <Match when={loginRecord.loading && !loginRecord.error}>
+      <Match when={loginRecord.loading}>
         <Loading />
       </Match>
     </Switch>

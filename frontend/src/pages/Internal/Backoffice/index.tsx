@@ -1,19 +1,34 @@
-import { createResource } from "solid-js";
 import { FutureFeatureList } from "./FutureFeatureList";
 import { Header, type Props as HeaderProps } from "./Header";
-import { GuestInfoView } from "wedding-interface";
 import "./index.css";
 import { GuestList } from "./GuestList";
+import { GuestInfoView } from "wedding-interface";
+import { createResource, Match, Switch } from "solid-js";
+import { Loading } from "@components/Loading";
 
 interface Props extends HeaderProps {}
 
 export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
-  const [guestList] = createResource<Array<GuestInfoView>>(getDummyGuestList);
+  const [list] = createResource<Array<GuestInfoView>>(getDummyGuestList);
+
+  const guestListSwitch = (
+    <Switch>
+      <Match when={list.loading}>
+        <Loading />
+      </Match>
+      <Match when={list.error}>
+        <h2 class="error-message">
+          Error Loading Guest List: {list.error.message}
+        </h2>
+      </Match>
+      <Match when={list()}>{(data) => <GuestList list={data()} />}</Match>
+    </Switch>
+  );
 
   return (
     <div id="backoffice">
       <Header loginTime={loginTime} name={name} onLogout={onLogout} />
-      <GuestList list={guestList() ?? []} />
+      {guestListSwitch}
       <FutureFeatureList />
     </div>
   );
