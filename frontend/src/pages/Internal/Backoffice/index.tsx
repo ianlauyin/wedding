@@ -4,7 +4,8 @@ import "./index.css";
 import { GuestList } from "./GuestList";
 import { GuestInfoView } from "wedding-interface";
 import { createResource, Match, Switch } from "solid-js";
-import { CircularProgress, Container } from "@suid/material";
+import { Container } from "@suid/material";
+import { Loading } from "@components/Loading";
 import { ErrorMessage } from "@components/ErrorMessage";
 
 interface Props extends HeaderProps {}
@@ -15,7 +16,7 @@ export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
   const guestListSwitch = (
     <Switch>
       <Match when={list.loading}>
-        <CircularProgress />
+        <Loading />
       </Match>
       <Match when={list.error}>
         <ErrorMessage

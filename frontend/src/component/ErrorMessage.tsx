@@ -1,3 +1,5 @@
+import { Typography } from "@suid/material";
+
 export const ErrorMessage = ({ message }: { message: string }) => {
-  return <div style={{ color: "red" }}>{message}</div>;
+  return <Typography color="red">{message}</Typography>;
 };

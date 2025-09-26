@@ -5,12 +5,11 @@ import { AjaxError } from "@ajax/error";
 import {
   Button,
   Checkbox,
-  Container,
   FormControlLabel,
+  Stack,
   TextField,
   Typography,
 } from "@suid/material";
-import "./index.css";
 import { ErrorMessage } from "@components/ErrorMessage";
 
 export interface Props {
@@ -35,7 +34,7 @@ export const Login = ({ onLoginSuccess }: Props) => {
   };
 
   return (
-    <Container id="login-page" maxWidth="sm">
+    <Stack maxWidth="sm" justifySelf="center" padding={3} gap={3}>
       <Typography variant="h4">Admin Login Page</Typography>
       <TextField
         label="Name"
@@ -57,6 +56,6 @@ export const Login = ({ onLoginSuccess }: Props) => {
         Login
       </Button>
       <ErrorMessage message={errorMessage()} />
-    </Container>
+    </Stack>
   );
 };
