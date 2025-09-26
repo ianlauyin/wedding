@@ -1,10 +1,12 @@
+import "./index.css";
+
 export interface Props {
   message: string;
 }
 
-export const ErrorComponent = ({ message }: Props) => {
+export const ErrorPage = ({ message }: Props) => {
   return (
-    <div>
+    <div id="error-page">
       <h1>Oops!</h1>
       <h2>Something went wrong :(</h2>
       <p>Error: {message}</p>

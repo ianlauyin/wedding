@@ -1,6 +1,14 @@
+html,
 body {
   margin: 0;
   width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+
+  #root {
+    min-height: 100vh;
+    height: 100%;
+  }
 
   p,
   h1 {

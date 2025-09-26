@@ -3,7 +3,7 @@ import { createResource, Match, Switch } from "solid-js";
 import { getInvitationInfo } from "@ajax/service";
 import { Loading } from "@components/Loading";
 import { InvitationLayout } from "@components/InvitationLayout";
-import { ErrorComponent } from "@components/ErrorComponent";
+import { ErrorPage } from "@pages/ErrorPage";
 
 export const Invitation = () => {
   const [info] = createResource(useParams().id, getInvitationInfo);
@@ -17,7 +17,7 @@ export const Invitation = () => {
         <Loading />
       </Match>
       <Match when={info.error}>
-        <ErrorComponent message={info.error.message} />
+        <ErrorPage message={info.error.message} />
       </Match>
     </Switch>
   );

@@ -4,7 +4,7 @@ import { render } from "solid-js/web";
 import { Route, Router } from "@solidjs/router";
 import { Invitation } from "./pages/Invitation";
 import { Internal } from "./pages/Internal";
-import { ErrorComponent } from "./component/ErrorComponent";
+import { ErrorPage } from "./pages/ErrorPage";
 import "./index.css";
 import { InvitationLayout } from "./component/InvitationLayout";
 import { Backoffice } from "@pages/Internal/Backoffice";
@@ -24,10 +24,7 @@ const App = () => (
         />
       )}
     />
-    <Route
-      path="**"
-      component={() => <ErrorComponent message="Page Not Found" />}
-    />
+    <Route path="**" component={() => <ErrorPage message="Page Not Found" />} />
   </Router>
 );
 

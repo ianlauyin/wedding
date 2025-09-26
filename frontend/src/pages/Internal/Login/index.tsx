@@ -1,5 +1,5 @@
 import { createSignal } from "solid-js";
-import { LoginRequest, LoginResponse } from "wedding-interface";
+import { LoginResponse } from "wedding-interface";
 import { login } from "../../../ajax/service";
 import { AjaxError } from "../../../ajax/error";
 import "./index.css";
