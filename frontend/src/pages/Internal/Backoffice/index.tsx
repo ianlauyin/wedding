@@ -6,7 +6,7 @@ import { createResource, Match, Switch } from "solid-js";
 
 interface Props extends HeaderProps {}
 
-export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
+export const Backoffice = (props: Props) => {
   const [list] = createResource<Array<GuestInfoView>>(getDummyGuestList);
 
   const guestListSwitch = (
@@ -25,7 +25,11 @@ export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
 
   return (
     <div>
-      <Header loginTime={loginTime} name={name} onLogout={onLogout} />
+      <Header
+        loginTime={props.loginTime}
+        name={props.name}
+        onLogout={props.onLogout}
+      />
       <div style={{ padding: "2px" }}>
         {guestListSwitch}
         <FutureFeatureList />

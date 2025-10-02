@@ -5,7 +5,7 @@ export interface Props {
   list: Array<GuestInfoView>;
 }
 
-export const GuestList = ({ list }: Props) => {
+export const GuestList = (props: Props) => {
   const mapRow = (guest: GuestInfoView) => {
     return (
       <tr onClick={() => console.log(guest)}>
@@ -31,7 +31,7 @@ export const GuestList = ({ list }: Props) => {
             <td>Counts (Confirmed/Estimated)</td>
           </tr>
         </thead>
-        <tbody>{list.map(mapRow)}</tbody>
+        <tbody>{props.list.map(mapRow)}</tbody>
       </table>
     </div>
   );

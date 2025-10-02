@@ -7,18 +7,18 @@ export interface Props {
   onLogout: () => void;
 }
 
-export const Header = ({ loginTime, name, onLogout }: Props) => {
+export const Header = (props: Props) => {
   const handleLogout = async () => {
     logout();
-    onLogout();
+    props.onLogout();
   };
 
   return (
     <div>
       <h6>Backoffice</h6>
       <div>
-        <p>Login Time: {DisplayUtil.time(loginTime)}</p>
-        <p>Name: {name}</p>
+        <p>Login Time: {DisplayUtil.time(props.loginTime)}</p>
+        <p>Name: {props.name}</p>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
