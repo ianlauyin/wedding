@@ -8,7 +8,7 @@ import { Loading } from "@components/Loading";
 const fetchLoginRecord = async (): Promise<LoginResponse | null> => {
   try {
     return await getLoginRecord();
-  } catch (error) {
+  } catch {
     return null;
   }
 };
@@ -20,11 +20,11 @@ export const Internal = () => {
 
   return (
     <Switch fallback={<Login onLoginSuccess={mutate} />}>
-      <Match when={loginRecord()}>
-        {(data) => <Backoffice {...data()} onLogout={() => mutate(null)} />}
-      </Match>
       <Match when={loginRecord.loading}>
         <Loading />
+      </Match>
+      <Match when={loginRecord()}>
+        {(data) => <Backoffice {...data()} onLogout={() => mutate(null)} />}
       </Match>
     </Switch>
   );

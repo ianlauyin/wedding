@@ -26,7 +26,7 @@ export const Login = ({ onLoginSuccess }: Props) => {
 
   return (
     <div>
-      <h4>Admin Login Page</h4>
+      <h1 class="text-2xl font-bold">Admin Login Page</h1>
       <input
         placeholder="Name"
         value={name()}

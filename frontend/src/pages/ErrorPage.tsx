@@ -12,8 +12,8 @@ export const ErrorPage = ({ message }: Props) => {
       alignItems="center"
       class="h-full w-full space-y-4"
     >
-      <h1 class="text-5xl font-bold">Oops!</h1>
-      <h2 class="text-3xl font-bold">Something went wrong :(</h2>
+      <h1 class="text-4xl font-bold">Oops!</h1>
+      <h2 class="text-2xl font-bold">Something went wrong :(</h2>
       <div>
         <p>Error: {message}</p>
         <p>Please contact Ian/Claire if we sent you here</p>
