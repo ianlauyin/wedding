@@ -3,7 +3,6 @@ import { Header, type Props as HeaderProps } from "./Header";
 import { GuestList } from "./GuestList";
 import { GuestInfoView } from "wedding-interface";
 import { createResource, Match, Switch } from "solid-js";
-import { Loading } from "@components/Loading";
 
 interface Props extends HeaderProps {}
 
@@ -13,7 +12,7 @@ export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
   const guestListSwitch = (
     <Switch>
       <Match when={list.loading}>
-        <Loading />
+        <div class="loading"></div>
       </Match>
       <Match when={list.error}>
         <p class="text-red-500">
