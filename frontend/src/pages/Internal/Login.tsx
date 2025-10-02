@@ -2,14 +2,6 @@ import { createSignal } from "solid-js";
 import { LoginResponse } from "wedding-interface";
 import { login } from "@ajax/service";
 import { AjaxError } from "@ajax/error";
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Stack,
-  TextField,
-  Typography,
-} from "@suid/material";
 import { ErrorMessage } from "@components/ErrorMessage";
 
 export interface Props {
@@ -34,36 +26,34 @@ export const Login = ({ onLoginSuccess }: Props) => {
   };
 
   return (
-    <Stack maxWidth="sm" justifySelf="center" padding={3} gap={3}>
-      <Typography variant="h4">Admin Login Page</Typography>
-      <TextField
-        label="Name"
+    <div>
+      <h4>Admin Login Page</h4>
+      <input
+        placeholder="Name"
         value={name()}
         onChange={(e) => setName(e.target.value)}
       />
-      <TextField
-        label="Password"
+      <input
+        placeholder="Password"
         type={showPassword() ? "text" : "password"}
         value={password()}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <FormControlLabel
-        control={
-          <Checkbox
-            value={showPassword()}
-            onChange={(e) => setShowPassword(e.target.checked)}
-          />
-        }
-        label="Show Password"
-      />
-      <Button
+      <label>
+        Show Password
+        <input
+          type="checkbox"
+          checked={showPassword()}
+          onChange={(e) => setShowPassword(e.target.checked)}
+        />
+      </label>
+      <button
         disabled={name() === "" || password() === ""}
         onClick={handleLogin}
-        variant="contained"
       >
         Login
-      </Button>
+      </button>
       <ErrorMessage message={errorMessage()} />
-    </Stack>
+    </div>
   );
 };

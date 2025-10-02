@@ -16,4 +16,4 @@ export type LoginResponse = { name: string, loginTime: string, };
 
 export type RemoveGuestPathParams = { id: string, };
 
-export type Side = "bride" | "groom";
+export type Side = "BRIDE" | "GROOM";

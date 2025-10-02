@@ -4,8 +4,8 @@
 
 # Frontend
 
-1. Internal Page
-3. Invitation Page (Mobile first)
+1. Internal Page (Mobile first)
+2. Invitation Page (Mobile first)
 
 # Deploy
 

@@ -3,7 +3,6 @@ import { Header, type Props as HeaderProps } from "./Header";
 import { GuestList } from "./GuestList";
 import { GuestInfoView } from "wedding-interface";
 import { createResource, Match, Switch } from "solid-js";
-import { Box } from "@suid/material";
 import { Loading } from "@components/Loading";
 import { ErrorMessage } from "@components/ErrorMessage";
 
@@ -29,10 +28,10 @@ export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
   return (
     <div>
       <Header loginTime={loginTime} name={name} onLogout={onLogout} />
-      <Box padding={2}>
+      <div style={{ padding: "2px" }}>
         {guestListSwitch}
         <FutureFeatureList />
-      </Box>
+      </div>
     </div>
   );
 };
@@ -46,7 +45,7 @@ const getDummyGuestList = async (): Promise<Array<GuestInfoView>> => {
       relationship: "Sister",
       estimatedCount: 2,
       confirmedCount: 2,
-      side: "bride",
+      side: "BRIDE",
       createdBy: "Alexandra",
       createdAt: now,
       updatedBy: "Alexandra",
@@ -58,7 +57,7 @@ const getDummyGuestList = async (): Promise<Array<GuestInfoView>> => {
       relationship: "Best Friend",
       estimatedCount: 1,
       confirmedCount: 1,
-      side: "groom",
+      side: "GROOM",
       createdBy: "Daniel",
       createdAt: now,
       updatedBy: "Daniel",
@@ -70,7 +69,7 @@ const getDummyGuestList = async (): Promise<Array<GuestInfoView>> => {
       relationship: "College Friend",
       estimatedCount: 2,
       confirmedCount: 0,
-      side: "bride",
+      side: "BRIDE",
       createdBy: "Alexandra",
       createdAt: now,
       updatedBy: "Wedding Planner Emma",
@@ -82,7 +81,7 @@ const getDummyGuestList = async (): Promise<Array<GuestInfoView>> => {
       relationship: "Coworker",
       estimatedCount: 1,
       confirmedCount: 1,
-      side: "groom",
+      side: "GROOM",
       createdBy: "Daniel",
       createdAt: now,
       updatedBy: "Daniel",
@@ -94,7 +93,7 @@ const getDummyGuestList = async (): Promise<Array<GuestInfoView>> => {
       relationship: "Family Friends",
       estimatedCount: 4,
       confirmedCount: 3,
-      side: "bride",
+      side: "BRIDE",
       createdBy: "Wedding Planner Emma",
       createdAt: now,
       updatedBy: "Alexandra",
@@ -106,7 +105,7 @@ const getDummyGuestList = async (): Promise<Array<GuestInfoView>> => {
       relationship: "Brother",
       estimatedCount: 3,
       confirmedCount: 2,
-      side: "groom",
+      side: "GROOM",
       createdBy: "Daniel",
       createdAt: now,
       updatedBy: "Wedding Planner Emma",
@@ -118,7 +117,7 @@ const getDummyGuestList = async (): Promise<Array<GuestInfoView>> => {
       relationship: "Childhood Friend",
       estimatedCount: 1,
       confirmedCount: 0,
-      side: "bride",
+      side: "BRIDE",
       createdBy: "Alexandra",
       createdAt: now,
       updatedBy: "Alexandra",
@@ -130,7 +129,7 @@ const getDummyGuestList = async (): Promise<Array<GuestInfoView>> => {
       relationship: "Cousin",
       estimatedCount: 2,
       confirmedCount: 1,
-      side: "groom",
+      side: "GROOM",
       createdBy: "Wedding Planner Emma",
       createdAt: now,
       updatedBy: "Daniel",

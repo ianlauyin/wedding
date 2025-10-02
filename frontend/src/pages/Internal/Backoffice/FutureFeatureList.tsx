@@ -1,9 +1,7 @@
-import { Box, Typography } from "@suid/material";
-
 export const FutureFeatureList = () => {
   return (
-    <Box marginTop={2}>
-      <Typography variant="h6">Future Features</Typography>
+    <div>
+      <h6>Future Features</h6>
       <ol>
         <li>List All Guest</li>
         <li>Add Guest</li>
@@ -13,6 +11,6 @@ export const FutureFeatureList = () => {
         <li>Sort Guest</li>
         <li>Search Guest</li>
       </ol>
-    </Box>
+    </div>
   );
 };
