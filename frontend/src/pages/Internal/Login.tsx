@@ -2,7 +2,6 @@ import { createSignal } from "solid-js";
 import { LoginResponse } from "wedding-interface";
 import { login } from "@ajax/service";
 import { AjaxError } from "@ajax/error";
-import { ErrorMessage } from "@components/ErrorMessage";
 
 export interface Props {
   onLoginSuccess: (data: LoginResponse) => void;
@@ -53,7 +52,7 @@ export const Login = ({ onLoginSuccess }: Props) => {
       >
         Login
       </button>
-      <ErrorMessage message={errorMessage()} />
+      <p class="text-red-500">{errorMessage()}</p>
     </div>
   );
 };

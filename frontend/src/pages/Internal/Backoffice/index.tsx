@@ -4,7 +4,6 @@ import { GuestList } from "./GuestList";
 import { GuestInfoView } from "wedding-interface";
 import { createResource, Match, Switch } from "solid-js";
 import { Loading } from "@components/Loading";
-import { ErrorMessage } from "@components/ErrorMessage";
 
 interface Props extends HeaderProps {}
 
@@ -17,9 +16,9 @@ export const Backoffice = ({ name, loginTime, onLogout }: Props) => {
         <Loading />
       </Match>
       <Match when={list.error}>
-        <ErrorMessage
-          message={`Error Loading Guest List: ${list.error.message}`}
-        />
+        <p class="text-red-500">
+          Error Loading Guest List: {list.error.message}
+        </p>
       </Match>
       <Match when={list()}>{(data) => <GuestList list={data()} />}</Match>
     </Switch>
