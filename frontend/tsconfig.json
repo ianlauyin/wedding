@@ -13,9 +13,10 @@
     "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
+      "~/*": ["src/*"],
       "@components/*": ["src/components/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@ajax/*": ["./src/ajax/*"],
+      "@pages/*": ["src/pages/*"],
+      "@ajax/*": ["src/ajax/*"],
       "@utils/*": ["src/utils/*"]
     }
   }
