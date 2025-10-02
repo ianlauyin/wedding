@@ -1,5 +1,5 @@
 import { logout } from "@ajax/service";
-import { DisplayUtil } from "@util/display";
+import { DisplayUtil } from "@utils/display";
 
 export interface Props {
   loginTime: string;

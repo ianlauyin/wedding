@@ -1,5 +1,5 @@
 import { GuestInfoView } from "wedding-interface";
-import { DisplayUtil } from "@util/display";
+import { DisplayUtil } from "@utils/display";
 
 export interface Props {
   list: Array<GuestInfoView>;

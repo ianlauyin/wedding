@@ -13,10 +13,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@components": path.resolve(__dirname, "./src/component"),
+      "@components": path.resolve(__dirname, "./src/components"),
       "@pages": path.resolve(__dirname, "./src/pages"),
       "@ajax": path.resolve(__dirname, "./src/ajax"),
-      "@util": path.resolve(__dirname, "./src/util"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
     },
   },
 });
