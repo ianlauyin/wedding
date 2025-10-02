@@ -48,6 +48,7 @@ export const Login = (props: Props) => {
           </label>
         </div>
         <button
+          class="btn btn-accent"
           disabled={name() === "" || password() === ""}
           onClick={handleLogin}
         >
