@@ -17,6 +17,16 @@ pub async fn connect_db() -> CoreRsResult<FirestoreDb> {
         firebase_api_url: None,
     };
 
+    connect(options).await
+}
+
+#[cfg(debug_assertions)]
+pub async fn connect(options: FirestoreDbOptions) -> CoreRsResult<FirestoreDb> {
     let key_path = asset_path("assets/wedding-service-account-key.json")?;
     Ok(FirestoreDb::with_options_service_account_key_file(options, key_path).await?)
+}
+
+#[cfg(not(debug_assertions))]
+pub async fn connect(options: FirestoreDbOptions) -> CoreRsResult<FirestoreDb> {
+    Ok(FirestoreDb::with_options(options).await?)
 }
