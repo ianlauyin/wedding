@@ -5,6 +5,7 @@ import { Arrow } from "./Arrow";
 
 interface Props {
   guest: GuestInfoView;
+  refetch: () => void;
 }
 
 export const Row = (props: Props) => {
@@ -27,7 +28,7 @@ export const Row = (props: Props) => {
         </td>
       </tr>
       <Show when={opened()}>
-        <Detail guest={props.guest} bg={bg} />
+        <Detail guest={props.guest} bg={bg} refetch={props.refetch} />
       </Show>
     </>
   );

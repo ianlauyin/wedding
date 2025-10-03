@@ -1,12 +1,29 @@
+import { removeGuest } from "@ajax/service";
+import { ErrorModalContext } from "@context/ErrorModal";
 import { DisplayUtil } from "@utils/display";
+import { useContext } from "solid-js";
 import { GuestInfoView } from "wedding-interface";
 
 export interface Props {
   guest: GuestInfoView;
   bg: string;
+  refetch: () => void;
 }
 
 export const Detail = (props: Props) => {
+  const errorModalContext = useContext(ErrorModalContext);
+
+  const handleDelete = async () => {
+    try {
+      await removeGuest(props.guest.id);
+      props.refetch();
+    } catch (error: unknown) {
+      errorModalContext?.setErrorMessage(
+        error instanceof Error ? error.message : "Failed to delete guest"
+      );
+    }
+  };
+
   return (
     <tr class={`border-t-0 ${props.bg}`}>
       <td class="px-4 pt-0 " colSpan={4}>
@@ -22,7 +39,9 @@ export const Detail = (props: Props) => {
             </p>
           </div>
           <div class="flex justify-end gap-6 py-2">
-            <button class="btn btn-sm btn-error">Delete</button>
+            <button class="btn btn-sm btn-error" onClick={handleDelete}>
+              Delete
+            </button>
             <button class="btn btn-sm btn-accent">Edit</button>
           </div>
         </div>

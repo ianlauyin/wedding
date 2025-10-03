@@ -3,6 +3,7 @@ import { Row } from "./Row";
 
 export interface Props {
   list: Array<GuestInfoView>;
+  refetch: () => void;
 }
 
 export const Table = (props: Props) => {
@@ -25,7 +26,7 @@ export const Table = (props: Props) => {
       </thead>
       <tbody>
         {props.list.map((guest) => (
-          <Row guest={guest} />
+          <Row guest={guest} refetch={props.refetch} />
         ))}
       </tbody>
     </table>

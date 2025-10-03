@@ -18,6 +18,7 @@ export default defineConfig({
       "@pages": path.resolve(__dirname, "./src/pages"),
       "@ajax": path.resolve(__dirname, "./src/ajax"),
       "@utils": path.resolve(__dirname, "./src/utils"),
+      "@context": path.resolve(__dirname, "./src/context"),
     },
   },
 });

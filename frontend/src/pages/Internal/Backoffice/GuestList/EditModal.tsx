@@ -47,7 +47,7 @@ export const EditModal = (props: Props) => {
       return;
     }
 
-    props.refetch();
+    await props.refetch();
     props.onClose();
   };
 

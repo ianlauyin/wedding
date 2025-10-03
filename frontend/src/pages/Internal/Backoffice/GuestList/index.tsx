@@ -6,7 +6,7 @@ import { getGuestList } from "@ajax/service";
 import { EditModal } from "./EditModal";
 
 export const GuestList = () => {
-  const [list, { refetch }] = createResource(getGuestList);
+  const [list, { refetch }] = createResource(getDummyGuestList);
   const [editModal, setEditModal] = createSignal<GuestInfoView | true | null>(
     null
   );
@@ -15,7 +15,7 @@ export const GuestList = () => {
     return (
       <>
         <Infomations list={data} onAddGuest={() => setEditModal(true)} />
-        <Table list={data} />
+        <Table list={data} refetch={refetch} />
         <Show when={editModal()}>
           {(data) => (
             <EditModal

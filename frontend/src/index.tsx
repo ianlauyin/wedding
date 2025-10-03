@@ -5,27 +5,33 @@ import { Route, Router } from "@solidjs/router";
 import { Invitation } from "./pages/Invitation";
 import { Internal } from "./pages/Internal";
 import { ErrorPage } from "./pages/ErrorPage";
-import "./index.css";
 import { Backoffice } from "@pages/Internal/Backoffice";
+import { ErrorModalProvider } from "@context/ErrorModal";
 import { InvitationLayout } from "@components/InvitationLayout";
+import "./index.css";
 
 const App = () => (
-  <Router>
-    <Route path="/invitation/:id" component={Invitation} />
-    <Route path="/internal" component={Internal} />
-    {/* <Route path="/" component={() => <InvitationLayout />} /> */}
-    <Route
-      path="/"
-      component={() => (
-        <Backoffice
-          loginTime={Date.now().toString()}
-          name={"Ian3000"}
-          onLogout={() => {}}
-        />
-      )}
-    />
-    <Route path="**" component={() => <ErrorPage message="Page Not Found" />} />
-  </Router>
+  <ErrorModalProvider>
+    <Router>
+      <Route path="/invitation/:id" component={Invitation} />
+      <Route path="/internal" component={Internal} />
+      {/* <Route path="/" component={() => <InvitationLayout />} /> */}
+      <Route
+        path="/"
+        component={() => (
+          <Backoffice
+            loginTime={Date.now().toString()}
+            name={"Ian3000"}
+            onLogout={() => {}}
+          />
+        )}
+      />
+      <Route
+        path="**"
+        component={() => <ErrorPage message="Page Not Found" />}
+      />
+    </Router>
+  </ErrorModalProvider>
 );
 
 render(App, document.getElementById("root")!);
