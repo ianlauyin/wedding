@@ -23,8 +23,8 @@ pub fn guest_router(state: SharedState) -> Router<SharedState> {
     Router::new()
         .route("/guest/list", get(get_guest_list))
         .route("/guest/{id}", delete(remove_guest))
-        .layer(middleware::from_fn_with_state(state, verify_admin_session))
         .route("/guest", post(create_guest_info))
+        .layer(middleware::from_fn_with_state(state, verify_admin_session))
 }
 
 #[axum::debug_handler]

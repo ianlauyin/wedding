@@ -24,10 +24,9 @@ pub struct LoginResponse {
 // Internal Guest Related
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
-#[serde(rename_all = "UPPERCASE")]
 pub enum Side {
-    Bride,
-    Groom,
+    BRIDE,
+    GROOM,
 }
 
 #[derive(TS, Debug, Serialize, Deserialize)]
