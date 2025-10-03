@@ -40,11 +40,6 @@ COPY backend/Cargo.toml ./backend/
 COPY backend/macros/Cargo.toml ./backend/macros/
 COPY interface/Cargo.toml ./interface/
 
-# Copy framework from your local system (must be in build context)
-# NOTE: You need to copy framework into your project first:
-# cp -r ../core_rs_workspace/lib/framework ./framework
-COPY framework/ ./framework/
-
 # Copy all source code
 COPY backend/ ./backend/
 COPY interface/ ./interface/

@@ -524,6 +524,7 @@ dependencies = [
 [[package]]
 name = "framework"
 version = "0.3.1"
+source = "git+https://github.com/neowu/core_rs_workspace.git#574d48aef52a43ca178e7ebde3b83a2b608db9e5"
 dependencies = [
  "axum",
  "axum-extra",

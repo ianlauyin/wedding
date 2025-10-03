@@ -6,7 +6,7 @@ edition = "2024"
 include = ["assets/web/**/*"]
 
 [dependencies]
-framework.path = "../../core_rs_workspace/lib/framework"
+framework.git = "https://github.com/neowu/core_rs_workspace.git"
 wedding_backend_macros.path = "macros"
 
 wedding_interface.workspace = true
