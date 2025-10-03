@@ -15,7 +15,7 @@ pub struct GuestInfo {
     name: String,
     relationship: String,
     estimated_count: u32,
-    confirmed_count: u32,
+    confirmed_count: Option<u32>,
     created_by: String,
     created_at: DateTime<Local>,
     updated_by: String,
@@ -26,7 +26,7 @@ impl GuestInfo {
     fn from_request(request: CreateGuestInfoRequest, created_by: &str) -> Self {
         Self {
             id: Uuid::new_v4().to_string(),
-            confirmed_count: 0,
+            confirmed_count: None,
             side: request.side,
             name: request.name,
             relationship: request.relationship,
@@ -54,7 +54,11 @@ impl GuestInfo {
     }
 
     fn into_invitation_info_response(self) -> InvitationInfoResponse {
-        InvitationInfoResponse { name: self.name }
+        InvitationInfoResponse {
+            name: self.name,
+            estimated_count: self.estimated_count,
+            confirmed_count: self.confirmed_count,
+        }
     }
 }
 

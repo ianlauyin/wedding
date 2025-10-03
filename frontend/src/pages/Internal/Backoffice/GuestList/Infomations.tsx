@@ -10,7 +10,7 @@ export const Infomations = (props: Props) => {
 
   props.list.forEach((guest) => {
     totalEstimatedCount += guest.estimatedCount;
-    totalConfirmedCount += guest.confirmedCount;
+    totalConfirmedCount += guest.confirmedCount || 0;
   });
 
   return (

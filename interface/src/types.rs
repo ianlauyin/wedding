@@ -39,7 +39,7 @@ pub struct GuestInfoView {
     pub name: String,
     pub relationship: String,
     pub estimated_count: u32,
-    pub confirmed_count: u32,
+    pub confirmed_count: Option<u32>,
     pub created_by: String,
     pub created_at: DateTime<Local>,
     pub updated_by: String,
@@ -83,4 +83,6 @@ pub struct GetInvitationInfoPathParams {
 #[serde(rename_all = "camelCase")]
 pub struct InvitationInfoResponse {
     pub name: String,
+    pub estimated_count: u32,
+    pub confirmed_count: Option<u32>,
 }

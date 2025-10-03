@@ -6,9 +6,9 @@ export type GetGuestListResponse = { guestList: Array<GuestInfoView>, };
 
 export type GetInvitationInfoPathParams = { id: string, };
 
-export type GuestInfoView = { id: string, side: Side, name: string, relationship: string, estimatedCount: number, confirmedCount: number, createdBy: string, createdAt: string, updatedBy: string, updatedAt: string, };
+export type GuestInfoView = { id: string, side: Side, name: string, relationship: string, estimatedCount: number, confirmedCount: number | null, createdBy: string, createdAt: string, updatedBy: string, updatedAt: string, };
 
-export type InvitationInfoResponse = { name: string, };
+export type InvitationInfoResponse = { name: string, estimatedCount: number, confirmedCount: number | null, };
 
 export type LoginRequest = { name: string, password: string, };
 

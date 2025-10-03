@@ -5,13 +5,12 @@ import { Route, Router } from "@solidjs/router";
 import { Invitation } from "./pages/Invitation";
 import { Internal } from "./pages/Internal";
 import { ErrorPage } from "./pages/ErrorPage";
-import { InvitationLayout } from "./components/InvitationLayout";
 import { Backoffice } from "@pages/Internal/Backoffice";
 import "./index.css";
 
 const App = () => (
   <Router>
-    <Route path="/invitation/:id" component={Invitation} />
+    <Route path="/invitation/:id?" component={Invitation} />
     <Route path="/internal" component={Internal} />
     {/* <Route path="/" component={() => <InvitationLayout />} /> */}
     <Route

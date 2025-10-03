@@ -11,7 +11,7 @@ export const Row = (props: Props) => {
       <td>{props.guest.relationship}</td>
       <td>{props.guest.name}</td>
       <td class="text-end">
-        {props.guest.confirmedCount}/{props.guest.estimatedCount}
+        {props.guest.confirmedCount || "-"}/{props.guest.estimatedCount}
       </td>
     </tr>
   );
