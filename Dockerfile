@@ -22,14 +22,18 @@ WORKDIR /app/frontend
 RUN pnpm run build
 
 # Stage 2: Build Rust Backend
-FROM rust:1.83-slim AS backend-builder
+FROM rust:1-bookworm AS backend-builder
 
 WORKDIR /app
 
+# Add Confluent repository for latest librdkafka
+RUN curl https://packages.confluent.io/deb/7.9/archive.key | gpg --dearmor > /usr/share/keyrings/confluent.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/confluent.gpg] https://packages.confluent.io/clients/deb bookworm main" | tee /etc/apt/sources.list.d/confluent.list
+
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
-    pkg-config \
-    libssl-dev \
+    librdkafka-dev \
+    libclang-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy workspace Cargo files
@@ -56,10 +60,15 @@ FROM debian:bookworm-slim
 
 WORKDIR /app
 
+# Copy Confluent repository config from builder
+COPY --from=backend-builder /etc/apt/sources.list.d/confluent.list /etc/apt/sources.list.d/confluent.list
+COPY --from=backend-builder /usr/share/keyrings/confluent.gpg /usr/share/keyrings/confluent.gpg
+
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     libssl3 \
+    librdkafka1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy binary from builder
