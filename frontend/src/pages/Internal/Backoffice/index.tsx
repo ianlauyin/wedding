@@ -10,13 +10,13 @@ export const Backoffice = (props: Props) => {
   const [list] = createResource<Array<GuestInfoView>>(getDummyGuestList);
 
   const guestListSwitch = (
-    <div class="flex justify-center my-4">
+    <div class="flex flex-col items-center">
       <Switch>
         <Match when={list.loading}>
-          <div class="loading" />
+          <div class="loading mt-4" />
         </Match>
         <Match when={list.error}>
-          <p class="text-red-500">
+          <p class="text-red-500 mt-4">
             Error Loading Guest List: {list.error.message}
           </p>
         </Match>
@@ -32,7 +32,7 @@ export const Backoffice = (props: Props) => {
         name={props.name}
         onLogout={props.onLogout}
       />
-      <div class="flex flex-col p-4">
+      <div class="flex flex-col mx-4">
         {guestListSwitch}
         <div class="divider" />
         <FutureFeatureList />
