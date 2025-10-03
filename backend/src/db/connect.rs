@@ -11,7 +11,7 @@ pub async fn connect_db() -> CoreRsResult<FirestoreDb> {
         .expect("Failed to install rustls crypto provider");
 
     let options = FirestoreDbOptions {
-        google_project_id: env::var("FIRESTORE_PROJECT_ID")?,
+        google_project_id: env::var("GOOGLE_PROJECT_ID")?,
         database_id: env::var("FIRESTORE_DATABASE_ID")?,
         max_retries: 3,
         firebase_api_url: None,
