@@ -1,6 +1,6 @@
 import { removeGuest } from "@ajax/service";
 import { ErrorModalContext } from "@context/ErrorModal";
-import { DisplayUtil } from "@utils/display";
+import { DisplayUtil } from "@utils/DisplayUtil";
 import { useContext } from "solid-js";
 import { GuestInfoView } from "wedding-interface";
 

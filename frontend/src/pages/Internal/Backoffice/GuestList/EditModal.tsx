@@ -1,6 +1,6 @@
 import { createGuestInfo } from "@ajax/service";
 import { Input } from "@components/Input";
-import { DisplayUtil } from "@utils/display";
+import { DisplayUtil } from "@utils/DisplayUtil";
 import { createSignal } from "solid-js";
 import {
   CreateOrUpdateGuestInfoRequest,
