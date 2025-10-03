@@ -12,7 +12,7 @@ const App = () => (
   <Router>
     <Route path="/invitation/:id?" component={Invitation} />
     <Route path="/internal" component={Internal} />
-    {/* <Route path="/" component={() => <InvitationLayout />} /> */}
+    {/* <Route path="/" component={() => <Invitation />} /> */}
     <Route
       path="/"
       component={() => (

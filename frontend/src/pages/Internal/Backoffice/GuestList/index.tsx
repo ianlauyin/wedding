@@ -1,6 +1,6 @@
 import { GuestInfoView } from "wedding-interface";
 import { Infomations } from "./Infomations";
-import { createResource, JSX, Match, Switch } from "solid-js";
+import { createResource, Match, Switch } from "solid-js";
 import { Table } from "./Table";
 
 export const GuestList = () => {

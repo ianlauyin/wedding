@@ -1,4 +1,3 @@
-import { Tooltip } from "@components/Tooltip";
 import { GuestInfoView } from "wedding-interface";
 import { Row } from "./Row";
 
@@ -14,10 +13,14 @@ export const Table = (props: Props) => {
           <td>Relationship</td>
           <td>Name</td>
           <td class="text-end">
-            <Tooltip content="Confirmed / Estimated" placement="left">
-              Counts
-            </Tooltip>
+            <div
+              class={`tooltip tooltip-left`}
+              data-tip="Confirmed / Estimated"
+            >
+              <u>Counts</u>
+            </div>
           </td>
+          <td class="p-2" />
         </tr>
       </thead>
       <tbody>
