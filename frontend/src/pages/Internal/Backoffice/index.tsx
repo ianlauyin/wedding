@@ -34,6 +34,7 @@ export const Backoffice = (props: Props) => {
       />
       <div class="flex flex-col p-4">
         {guestListSwitch}
+        <div class="divider" />
         <FutureFeatureList />
       </div>
     </>

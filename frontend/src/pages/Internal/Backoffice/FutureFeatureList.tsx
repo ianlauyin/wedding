@@ -1,16 +1,16 @@
 export const FutureFeatureList = () => {
   return (
     <div>
-      <h6>Future Features</h6>
-      <ol>
-        <li>List All Guest</li>
-        <li>Add Guest</li>
-        <li>Remove Guest</li>
-        <li>Update Guest Detail</li>
-        <li>Generate Invitation address</li>
-        <li>Sort Guest</li>
-        <li>Search Guest</li>
-      </ol>
+      <h4 class="text-lg font-bold">Future Features</h4>
+      <ul class="steps steps-vertical">
+        <li class="step">List All Guest</li>
+        <li class="step">Add Guest</li>
+        <li class="step">Remove Guest</li>
+        <li class="step">Update Guest Detail</li>
+        <li class="step">Generate Invitation address</li>
+        <li class="step">Sort Guest</li>
+        <li class="step">Search Guest</li>
+      </ul>
     </div>
   );
 };
