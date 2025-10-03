@@ -3,7 +3,9 @@ use firestore::FirestoreDb;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use wedding_backend_macros::Collection;
-use wedding_interface::{CreateGuestInfoRequest, GuestInfoView, InvitationInfoResponse, Side};
+use wedding_interface::{
+    CreateOrUpdateGuestInfoRequest, GuestInfoView, InvitationInfoResponse, Side,
+};
 
 use crate::db::collection::ext::CollectionExt;
 use crate::exception::CoreRsResult;
@@ -23,7 +25,7 @@ pub struct GuestInfo {
 }
 
 impl GuestInfo {
-    fn from_request(request: CreateGuestInfoRequest, created_by: &str) -> Self {
+    fn from_request(request: CreateOrUpdateGuestInfoRequest, created_by: &str) -> Self {
         Self {
             id: Uuid::new_v4().to_string(),
             confirmed_count: None,
@@ -82,7 +84,7 @@ impl GuestInfoCollection {
 
     pub async fn add_guest(
         &self,
-        request: CreateGuestInfoRequest,
+        request: CreateOrUpdateGuestInfoRequest,
         created_by: &str,
     ) -> CoreRsResult<GuestInfo> {
         let guest_info = GuestInfo::from_request(request, created_by);

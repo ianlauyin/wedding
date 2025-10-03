@@ -48,7 +48,7 @@ pub struct GuestInfoView {
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
 #[serde(rename_all = "camelCase")]
-pub struct CreateGuestInfoRequest {
+pub struct CreateOrUpdateGuestInfoRequest {
     pub side: Side,
     pub name: String,
     pub relationship: String,

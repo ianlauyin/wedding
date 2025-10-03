@@ -1,6 +1,6 @@
 import { ajax } from "./ajaxFn";
 import {
-  CreateGuestInfoRequest,
+  CreateOrUpdateGuestInfoRequest,
   GetGuestListResponse,
   GetInvitationInfoPathParams,
   InvitationInfoResponse,
@@ -23,8 +23,14 @@ export const login = async (request: LoginRequest) =>
 export const logout = async () => await ajax("/admin/logout", "POST");
 
 // guest router
-export const createGuestInfo = async (request: CreateGuestInfoRequest) =>
-  await ajax<CreateGuestInfoRequest, null, null>("/guest", "POST", request);
+export const createGuestInfo = async (
+  request: CreateOrUpdateGuestInfoRequest
+) =>
+  await ajax<CreateOrUpdateGuestInfoRequest, null, null>(
+    "/guest",
+    "POST",
+    request
+  );
 
 export const getGuestList = async () =>
   await ajax<null, GetGuestListResponse, null>("/guest/list", "GET");

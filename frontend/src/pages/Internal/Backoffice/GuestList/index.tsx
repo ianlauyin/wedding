@@ -17,7 +17,13 @@ export const GuestList = () => {
         <Infomations list={data} onAddGuest={() => setEditModal(true)} />
         <Table list={data} />
         <Show when={editModal()}>
-          {(data) => <EditModal guest={data()} refreshList={refetch} />}
+          {(data) => (
+            <EditModal
+              guest={data()}
+              onClose={() => setEditModal(null)}
+              refreshList={refetch}
+            />
+          )}
         </Show>
       </>
     );

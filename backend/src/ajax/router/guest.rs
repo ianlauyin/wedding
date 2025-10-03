@@ -10,7 +10,7 @@ use framework::exception::error_code::{NOT_FOUND, VALIDATION_ERROR};
 
 use framework::web::{body::Json, error::HttpResult};
 use wedding_interface::RemoveGuestPathParams;
-use wedding_interface::{CreateGuestInfoRequest, GetGuestListResponse};
+use wedding_interface::{CreateOrUpdateGuestInfoRequest, GetGuestListResponse};
 
 use crate::ajax::shared::{
     cookie::{CookieName, get_cookie},
@@ -31,7 +31,7 @@ pub fn guest_router(state: SharedState) -> Router<SharedState> {
 async fn create_guest_info(
     State(state): State<SharedState>,
     header: HeaderMap,
-    Json(request): Json<CreateGuestInfoRequest>,
+    Json(request): Json<CreateOrUpdateGuestInfoRequest>,
 ) -> HttpResult<StatusCode> {
     let token = get_cookie(&header, CookieName::LoginToken).ok_or(exception!(
         code = VALIDATION_ERROR,
