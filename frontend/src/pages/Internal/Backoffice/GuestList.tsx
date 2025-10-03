@@ -1,5 +1,5 @@
 import { GuestInfoView } from "wedding-interface";
-import { DisplayUtil } from "@utils/display";
+import { Tooltip } from "@components/Tooltip";
 
 export interface Props {
   list: Array<GuestInfoView>;
@@ -7,14 +7,12 @@ export interface Props {
 
 export const GuestList = (props: Props) => {
   const mapRow = (guest: GuestInfoView) => {
+    const bg = guest.side === "BRIDE" ? "bg-red-200" : "bg-blue-200";
     return (
-      <tr onClick={() => console.log(guest)}>
-        <td>
-          {DisplayUtil.side(guest.side)}
-          <br />({guest.relationship})
-        </td>
+      <tr class={bg}>
+        <td>{guest.relationship}</td>
         <td>{guest.name}</td>
-        <td>
+        <td class="text-end">
           {guest.confirmedCount}/{guest.estimatedCount}
         </td>
       </tr>
@@ -22,17 +20,19 @@ export const GuestList = (props: Props) => {
   };
 
   return (
-    <div style={{ "justify-self": "center", "max-width": "1300px" }}>
-      <table>
-        <thead>
-          <tr>
-            <td>Relationship</td>
-            <td>Name</td>
-            <td>Counts (Confirmed/Estimated)</td>
-          </tr>
-        </thead>
-        <tbody>{props.list.map(mapRow)}</tbody>
-      </table>
-    </div>
+    <table class="table">
+      <thead class="bg-gray-200">
+        <tr>
+          <td>Relationship</td>
+          <td>Name</td>
+          <td class="text-end">
+            <Tooltip content="Confirmed / Estimated" placement="left">
+              Counts
+            </Tooltip>
+          </td>
+        </tr>
+      </thead>
+      <tbody>{props.list.map(mapRow)}</tbody>
+    </table>
   );
 };
