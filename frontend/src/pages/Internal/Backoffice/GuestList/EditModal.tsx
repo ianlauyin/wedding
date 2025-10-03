@@ -1,12 +1,17 @@
+import { createGuestInfo } from "@ajax/service";
 import { Input } from "@components/Input";
 import { DisplayUtil } from "@utils/display";
 import { createSignal } from "solid-js";
-import { GuestInfoView, Side } from "wedding-interface";
+import {
+  CreateOrUpdateGuestInfoRequest,
+  GuestInfoView,
+  Side,
+} from "wedding-interface";
 
 interface Props {
   guest: GuestInfoView | true;
   onClose: () => void;
-  refreshList: () => void;
+  refetch: () => void;
 }
 
 export const EditModal = (props: Props) => {
@@ -14,9 +19,37 @@ export const EditModal = (props: Props) => {
   const [relationship, setRelationship] = createSignal("");
   const [estimatedCount, setEstimatedCount] = createSignal(0);
   const [side, setSide] = createSignal<Side>("BRIDE");
+  const [errorMessage, setErrorMessage] = createSignal("");
 
   const header = props.guest === true ? "Add Guest" : "Update Guest";
   const buttonText = props.guest === true ? "Add" : "Update";
+
+  const handleFinish = async () => {
+    if (name().length === 0) return setErrorMessage("Name is required");
+    if (relationship().length === 0)
+      return setErrorMessage("Relationship is required");
+    if (estimatedCount() === 0)
+      return setErrorMessage("Estimated count should be greater than 0");
+
+    const request: CreateOrUpdateGuestInfoRequest = {
+      side: side(),
+      name: name(),
+      relationship: relationship(),
+      estimatedCount: estimatedCount(),
+    };
+
+    try {
+      if (props.guest === true) await createGuestInfo(request);
+      // TODO: Implement
+      // await updateGuestInfo(request, props.guest.id);
+    } catch (error: unknown) {
+      setErrorMessage(error instanceof Error ? error.message : "Unknown error");
+      return;
+    }
+
+    props.refetch();
+    props.onClose();
+  };
 
   return (
     <dialog class="modal modal-open">
@@ -53,9 +86,12 @@ export const EditModal = (props: Props) => {
             setValue={setEstimatedCount}
             type="number"
           />
+          <p class="text-red-500">{errorMessage()}</p>
         </div>
         <div class="modal-action">
-          <button class="btn btn-primary">{buttonText}</button>
+          <button class="btn btn-primary" onClick={handleFinish}>
+            {buttonText}
+          </button>
         </div>
       </div>
     </dialog>

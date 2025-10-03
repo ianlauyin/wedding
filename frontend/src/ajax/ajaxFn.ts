@@ -1,12 +1,12 @@
 import { AjaxError } from "./error";
 
 type PathParams = Record<string, any> | null;
-type Request = Record<string, any> | null;
-type Response = Record<string, any> | null;
+type AJAXRequest = Record<string, any> | null;
+type AJAXResponse = Record<string, any> | null;
 
 export const ajax = async <
-  Req extends Request,
-  Res extends Response,
+  Req extends AJAXRequest,
+  Res extends AJAXResponse,
   P extends PathParams
 >(
   url: string,
@@ -44,7 +44,7 @@ const urlwithParams = <P extends PathParams>(url: string, pathParams?: P) => {
   });
 };
 
-const urlWithQueryParams = <Req extends Request>(
+const urlWithQueryParams = <Req extends AJAXRequest>(
   url: string,
   request?: Req
 ) => {

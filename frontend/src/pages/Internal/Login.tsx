@@ -1,7 +1,6 @@
 import { createSignal } from "solid-js";
 import { LoginResponse } from "wedding-interface";
 import { login } from "@ajax/service";
-import { AjaxError } from "@ajax/error";
 import { Input } from "@components/Input";
 
 export interface Props {
@@ -18,10 +17,8 @@ export const Login = (props: Props) => {
     try {
       const loginInfo = await login({ name: name(), password: password() });
       props.onLoginSuccess(loginInfo);
-    } catch (error) {
-      setErrorMessage(
-        error instanceof AjaxError ? error.message : "Login failed"
-      );
+    } catch (error: unknown) {
+      setErrorMessage(error instanceof Error ? error.message : "Unknown error");
     }
   };
 

@@ -6,7 +6,7 @@ import { getGuestList } from "@ajax/service";
 import { EditModal } from "./EditModal";
 
 export const GuestList = () => {
-  const [list, { refetch }] = createResource(getDummyGuestList);
+  const [list, { refetch }] = createResource(getGuestList);
   const [editModal, setEditModal] = createSignal<GuestInfoView | true | null>(
     null
   );
@@ -20,8 +20,8 @@ export const GuestList = () => {
           {(data) => (
             <EditModal
               guest={data()}
+              refetch={refetch}
               onClose={() => setEditModal(null)}
-              refreshList={refetch}
             />
           )}
         </Show>
