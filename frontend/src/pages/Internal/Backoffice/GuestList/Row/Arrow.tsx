@@ -5,7 +5,7 @@ interface Props {
 export const Arrow = (props: Props) => {
   return (
     <div
-      class={`transition-transform duration-300 ${
+      class={`cursor-pointer text-center transition-transform duration-300 ${
         props.opened ? "-rotate-90" : "rotate-90"
       }`}
     >

@@ -2,6 +2,7 @@ import { GuestInfoView } from "wedding-interface";
 
 interface Props {
   list: Array<GuestInfoView>;
+  onAddGuest: () => void;
 }
 
 export const Infomations = (props: Props) => {
@@ -19,7 +20,10 @@ export const Infomations = (props: Props) => {
         <p>Total Estimated Count: {totalEstimatedCount}</p>
         <p>Total Confirmed Count: {totalConfirmedCount}</p>
       </div>
-      <button class="btn btn-accent btn-sm rounded-md self-end">
+      <button
+        class="btn btn-accent btn-sm rounded-md self-end"
+        onClick={props.onAddGuest}
+      >
         Add Guest
       </button>
     </div>

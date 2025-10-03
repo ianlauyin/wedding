@@ -13,7 +13,10 @@ export const Row = (props: Props) => {
 
   return (
     <>
-      <tr class={bg} onClick={() => setOpened(!opened())}>
+      <tr
+        class={`${bg} ${opened() ? "border-b-0" : ""}`}
+        onClick={() => setOpened(!opened())}
+      >
         <td>{props.guest.relationship}</td>
         <td>{props.guest.name}</td>
         <td class="text-center">

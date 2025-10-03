@@ -12,7 +12,7 @@ export const Table = (props: Props) => {
         <tr>
           <td>Relationship</td>
           <td>Name</td>
-          <td class="text-end">
+          <td class="text-center">
             <div
               class={`tooltip tooltip-left`}
               data-tip="Confirmed / Estimated"
