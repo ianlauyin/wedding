@@ -12,13 +12,13 @@ export const Backoffice = (props: Props) => {
   const guestListSwitch = (
     <Switch>
       <Match when={list.loading}>
-        <div class="loading"></div>
+        <div class="loading" />
       </Match>
-      <Match when={list.error}>
+      {/* <Match when={list.error}>
         <p class="text-red-500">
           Error Loading Guest List: {list.error.message}
         </p>
-      </Match>
+      </Match> */}
       <Match when={list()}>{(data) => <GuestList list={data()} />}</Match>
     </Switch>
   );
@@ -39,6 +39,7 @@ export const Backoffice = (props: Props) => {
 };
 
 const getDummyGuestList = async (): Promise<Array<GuestInfoView>> => {
+  throw new Error("Not implemented");
   const now = new Date().toISOString();
   return [
     {

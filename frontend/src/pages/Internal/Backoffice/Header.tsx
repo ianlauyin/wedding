@@ -14,12 +14,14 @@ export const Header = (props: Props) => {
   };
 
   return (
-    <div>
-      <h6>Backoffice</h6>
-      <div>
-        <p>Login Time: {DisplayUtil.time(props.loginTime)}</p>
+    <div class="flex justify-between bg-info p-2 items-center">
+      <h1 class="text-2xl font-bold">Backoffice</h1>
+      <div class="flex flex-col items-end w-max">
+        <button class="btn btn-error btn-xs mb-4" onClick={handleLogout}>
+          Logout
+        </button>
+        <p class="text-xs">Login Time: {DisplayUtil.time(props.loginTime)}</p>
         <p>Name: {props.name}</p>
-        <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
   );
