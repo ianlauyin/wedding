@@ -3,6 +3,7 @@ import { getLoginRecord } from "@ajax/service";
 import { Backoffice } from "./Backoffice";
 import { LoginResponse } from "wedding-interface";
 import { Login } from "./Login";
+import { Loading } from "@components/Loading";
 
 const fetchLoginRecord = async (): Promise<LoginResponse | null> => {
   try {
@@ -20,7 +21,7 @@ export const Internal = () => {
   return (
     <Switch fallback={<Login onLoginSuccess={mutate} />}>
       <Match when={loginRecord.loading}>
-        <div class="loading" />
+        <Loading />
       </Match>
       <Match when={loginRecord()}>
         {(data) => <Backoffice {...data()} onLogout={() => mutate(null)} />}
