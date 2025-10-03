@@ -1,4 +1,5 @@
 import { GuestInfoView } from "wedding-interface";
+import { createMemo } from "solid-js";
 
 interface Props {
   list: Array<GuestInfoView>;
@@ -6,19 +7,28 @@ interface Props {
 }
 
 export const Infomations = (props: Props) => {
-  let totalBrideEstimatedCount = 0;
-  let totalBrideConfirmedCount = 0;
-  let totalGroomEstimatedCount = 0;
-  let totalGroomConfirmedCount = 0;
+  const totals = createMemo(() => {
+    let brideEstimated = 0;
+    let brideConfirmed = 0;
+    let groomEstimated = 0;
+    let groomConfirmed = 0;
 
-  props.list.forEach((guest) => {
-    if (guest.side === "BRIDE") {
-      totalBrideEstimatedCount += guest.estimatedCount;
-      totalBrideConfirmedCount += guest.confirmedCount || 0;
-    } else {
-      totalGroomEstimatedCount += guest.estimatedCount;
-      totalGroomConfirmedCount += guest.confirmedCount || 0;
-    }
+    props.list.forEach((guest) => {
+      if (guest.side === "BRIDE") {
+        brideEstimated += guest.estimatedCount;
+        brideConfirmed += guest.confirmedCount || 0;
+      } else {
+        groomEstimated += guest.estimatedCount;
+        groomConfirmed += guest.confirmedCount || 0;
+      }
+    });
+
+    return {
+      brideEstimated,
+      brideConfirmed,
+      groomEstimated,
+      groomConfirmed,
+    };
   });
 
   return (
@@ -26,15 +36,15 @@ export const Infomations = (props: Props) => {
       <div>
         <p>
           Total Estimated Count:{" "}
-          {totalBrideEstimatedCount + totalGroomEstimatedCount}(
-          <span class="text-red-400">{totalBrideEstimatedCount}</span> /{" "}
-          <span class="text-blue-400">{totalGroomEstimatedCount}</span>)
+          {totals().brideEstimated + totals().groomEstimated}(
+          <span class="text-red-400">{totals().brideEstimated}</span> /{" "}
+          <span class="text-blue-400">{totals().groomEstimated}</span>)
         </p>
         <p>
           Total Confirmed Count:{" "}
-          {totalBrideConfirmedCount + totalGroomConfirmedCount}(
-          <span class="text-red-400">{totalBrideConfirmedCount}</span> /{" "}
-          <span class="text-blue-400">{totalGroomConfirmedCount}</span>)
+          {totals().brideConfirmed + totals().groomConfirmed}(
+          <span class="text-red-400">{totals().brideConfirmed}</span> /{" "}
+          <span class="text-blue-400">{totals().groomConfirmed}</span>)
         </p>
       </div>
       <button

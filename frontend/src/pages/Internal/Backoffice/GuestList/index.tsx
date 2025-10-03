@@ -6,41 +6,42 @@ import { getGuestList } from "@ajax/service";
 import { EditModal } from "./EditModal";
 
 export const GuestList = () => {
-  const [list, { refetch }] = createResource(getGuestList);
+  const [res, { refetch }] = createResource(getGuestList);
   const [editModal, setEditModal] = createSignal<GuestInfoView | true | null>(
     null
   );
 
-  const content = (data: Array<GuestInfoView>) => {
-    return (
-      <>
-        <Infomations list={data} onAddGuest={() => setEditModal(true)} />
-        <Table list={data} refetch={refetch} />
-        <Show when={editModal()}>
-          {(data) => (
-            <EditModal
-              guest={data()}
-              refetch={refetch}
-              onClose={() => setEditModal(null)}
-            />
-          )}
-        </Show>
-      </>
-    );
-  };
-
   return (
     <div class="flex flex-col items-center">
+      <Show when={res()}>
+        {(data) => (
+          <Infomations
+            list={data().guestList}
+            onAddGuest={() => setEditModal(true)}
+          />
+        )}
+      </Show>
+      <Show when={editModal()}>
+        {(data) => (
+          <EditModal
+            guest={data()}
+            refetch={refetch}
+            onClose={() => setEditModal(null)}
+          />
+        )}
+      </Show>
       <Switch>
-        <Match when={list.loading}>
+        <Match when={res.loading && !res()}>
           <div class="loading mt-4" />
         </Match>
-        <Match when={list.error}>
+        <Match when={res.error}>
           <p class="text-red-500 mt-4">
-            Error Loading Guest List: {list.error.message}
+            Error Loading Guest List: {res.error.message}
           </p>
         </Match>
-        <Match when={list()}>{(data) => content(data().guestList)}</Match>
+        <Match when={res()}>
+          {(data) => <Table list={data().guestList} refetch={refetch} />}
+        </Match>
       </Switch>
     </div>
   );
