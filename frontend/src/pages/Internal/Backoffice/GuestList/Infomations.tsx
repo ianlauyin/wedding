@@ -1,5 +1,6 @@
 import { GuestInfoView } from "wedding-interface";
 import { createMemo } from "solid-js";
+import Button from "@components/Button";
 
 interface Props {
   list: Array<GuestInfoView>;
@@ -47,12 +48,13 @@ export const Infomations = (props: Props) => {
           <span class="text-blue-400">{totals().groomConfirmed}</span>)
         </p>
       </div>
-      <button
-        class="btn btn-accent btn-sm rounded-md self-end"
+      <Button
+        class="btn-sm rounded-md self-end"
+        color="accent"
         onClick={props.onAddGuest}
       >
         Add Guest
-      </button>
+      </Button>
     </div>
   );
 };

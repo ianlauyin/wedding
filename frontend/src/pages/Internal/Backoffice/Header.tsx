@@ -1,4 +1,5 @@
 import { logout } from "@ajax/service";
+import Button from "@components/Button";
 import { DisplayUtil } from "@utils/DisplayUtil";
 
 export interface Props {
@@ -17,9 +18,9 @@ export const Header = (props: Props) => {
     <div class="flex justify-between bg-info p-2 items-center">
       <h1 class="text-2xl font-bold p-4">Backoffice</h1>
       <div class="flex flex-col items-end w-max">
-        <button class="btn btn-error btn-xs mb-4" onClick={handleLogout}>
+        <Button class="btn-xs mb-4" color="error" onClick={handleLogout}>
           Logout
-        </button>
+        </Button>
         <p class="text-xs">Login Time: {DisplayUtil.time(props.loginTime)}</p>
         <p>Name: {props.name}</p>
       </div>

@@ -1,4 +1,5 @@
 import { removeGuest } from "@ajax/service";
+import Button from "@components/Button";
 import { ErrorModalContext } from "@context/ErrorModal";
 import { DisplayUtil } from "@utils/DisplayUtil";
 import { useContext } from "solid-js";
@@ -24,6 +25,10 @@ export const Detail = (props: Props) => {
     }
   };
 
+  const handleEdit = () => {
+    //TODO
+  };
+
   return (
     <tr class={`border-t-0 ${props.bg}`}>
       <td class="px-4 pt-0 " colSpan={4}>
@@ -39,10 +44,12 @@ export const Detail = (props: Props) => {
             </p>
           </div>
           <div class="flex justify-end gap-6 py-2">
-            <button class="btn btn-sm btn-error" onClick={handleDelete}>
+            <Button class="btn-sm" color="error" onClick={handleDelete}>
               Delete
-            </button>
-            <button class="btn btn-sm btn-accent">Edit</button>
+            </Button>
+            <Button class="btn-sm" color="accent" onClick={handleEdit}>
+              Edit
+            </Button>
           </div>
         </div>
       </td>

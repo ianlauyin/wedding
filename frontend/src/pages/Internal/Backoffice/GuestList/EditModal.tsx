@@ -1,4 +1,5 @@
 import { createGuestInfo } from "@ajax/service";
+import Button from "@components/Button";
 import { Input } from "@components/Input";
 import { DisplayUtil } from "@utils/DisplayUtil";
 import { createSignal } from "solid-js";
@@ -54,12 +55,13 @@ export const EditModal = (props: Props) => {
   return (
     <dialog class="modal modal-open">
       <div class="modal-box">
-        <button
-          class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        <Button
+          class="btn-sm btn-circle absolute right-2 top-2"
+          color="ghost"
           onClick={props.onClose}
         >
-          ✕
-        </button>
+          x
+        </Button>
         <div class="space-y-4">
           <h3 class="font-bold text-lg">{header}</h3>
           <div>
@@ -89,9 +91,9 @@ export const EditModal = (props: Props) => {
           <p class="text-red-500">{errorMessage()}</p>
         </div>
         <div class="modal-action">
-          <button class="btn btn-primary" onClick={handleFinish}>
+          <Button color="primary" onClick={handleFinish}>
             {buttonText}
-          </button>
+          </Button>
         </div>
       </div>
     </dialog>

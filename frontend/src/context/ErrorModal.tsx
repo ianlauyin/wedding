@@ -1,3 +1,4 @@
+import Button from "@components/Button";
 import {
   createContext,
   createSignal,
@@ -42,14 +43,10 @@ export const ErrorModal = () => {
             <h3 class="font-bold text-lg">Error</h3>
             <p class="py-4">{errorMessage()}</p>
             <div class="modal-action">
-              <button class="btn" onClick={closeModal}>
-                Close
-              </button>
+              <Button onClick={closeModal}>Close</Button>
             </div>
           </div>
-          <form method="dialog" class="modal-backdrop" onClick={closeModal}>
-            <button>close</button>
-          </form>
+          <form method="dialog" class="modal-backdrop" onClick={closeModal} />
         </dialog>
       )}
     </Show>

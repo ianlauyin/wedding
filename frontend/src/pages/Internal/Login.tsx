@@ -2,6 +2,7 @@ import { createSignal } from "solid-js";
 import { LoginResponse } from "wedding-interface";
 import { login } from "@ajax/service";
 import { Input } from "@components/Input";
+import Button from "@components/Button";
 
 export interface Props {
   onLoginSuccess: (data: LoginResponse) => void;
@@ -44,13 +45,14 @@ export const Login = (props: Props) => {
             Show Password
           </label>
         </div>
-        <button
-          class="btn btn-primary"
+        <Button
+          class="w-20"
+          color="primary"
           disabled={name() === "" || password() === ""}
           onClick={handleLogin}
         >
           Login
-        </button>
+        </Button>
         <p class="text-red-500">{errorMessage()}</p>
       </div>
     </div>
