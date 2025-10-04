@@ -7,7 +7,6 @@ export const FutureFeatureList = () => {
         <li class="step">Generate Invitation address</li>
         <li class="step">Sort Guest</li>
         <li class="step">Search Guest</li>
-        <li class="step">Table Assignment</li>
       </ul>
     </div>
   );

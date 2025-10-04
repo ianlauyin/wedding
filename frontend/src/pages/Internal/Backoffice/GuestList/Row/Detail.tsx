@@ -33,6 +33,7 @@ export const Detail = (props: Props) => {
     <tr class={`border-t-0 ${props.bg}`}>
       <td class="px-4 pt-0 " colSpan={4}>
         <div>
+          <p>Side: {DisplayUtil.side(props.guest.side)}</p>
           <div class="text-xs">
             <p>
               Created at {DisplayUtil.time(props.guest.createdAt)} by{" "}

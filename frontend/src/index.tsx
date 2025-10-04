@@ -5,7 +5,6 @@ import { Route, Router } from "@solidjs/router";
 import { Invitation } from "./pages/Invitation";
 import { Internal } from "./pages/Internal";
 import { ErrorPage } from "./pages/ErrorPage";
-import { Backoffice } from "@pages/Internal/Backoffice";
 import { ErrorModalProvider } from "@context/ErrorModal";
 import { InvitationLayout } from "@components/InvitationLayout";
 import "./index.css";
