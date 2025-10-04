@@ -77,12 +77,6 @@ COPY --from=backend-builder /app/target/release/wedding_backend ./wedding_backen
 # Copy web assets
 COPY --from=frontend-builder /app/frontend/dist ./assets/web
 
-# Create non-root user
-RUN useradd -m -u 1000 wedding && \
-    chown -R wedding:wedding /app
-
-USER wedding
-
 # Expose port
 EXPOSE 8080
 

@@ -1,5 +1,13 @@
 # Require env
 
+## Project Related
+
 1. LOGIN_PASSWORD
 2. GOOGLE_PROJECT_ID
 3. FIRESTORE_DATABASE_ID
+
+## Deploy Related
+
+1. GCLOUD_VM_NAME
+2. GCLOUD_ACCOUNT
+3. GCLOUD_ZONE
