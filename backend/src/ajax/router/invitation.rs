@@ -39,6 +39,6 @@ async fn get_invitation_info(
 
 // TODO: Implement
 #[axum::debug_handler]
-async fn update_guest_count(Path(id): Path<String>) -> HttpResult<()> {
+async fn update_guest_count(Path(_id): Path<String>) -> HttpResult<()> {
     Ok(())
 }
