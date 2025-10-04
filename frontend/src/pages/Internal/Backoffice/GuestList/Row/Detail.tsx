@@ -1,5 +1,5 @@
 import { removeGuest } from "@ajax/service";
-import Button from "@components/Button";
+import { Button } from "@components/Button";
 import { ErrorModalContext } from "@context/ErrorModal";
 import { DisplayUtil } from "@utils/DisplayUtil";
 import { useContext } from "solid-js";

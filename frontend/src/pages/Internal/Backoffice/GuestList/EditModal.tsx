@@ -1,5 +1,5 @@
 import { createGuestInfo } from "@ajax/service";
-import Button from "@components/Button";
+import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { DisplayUtil } from "@utils/DisplayUtil";
 import { createSignal } from "solid-js";

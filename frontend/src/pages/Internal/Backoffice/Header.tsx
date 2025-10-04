@@ -1,5 +1,5 @@
 import { logout } from "@ajax/service";
-import Button from "@components/Button";
+import { Button } from "@components/Button";
 import { DisplayUtil } from "@utils/DisplayUtil";
 
 export interface Props {

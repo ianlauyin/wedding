@@ -7,7 +7,7 @@ export interface Props {
   disabled?: boolean;
 }
 
-export default function Button(props: Props) {
+export function Button(props: Props) {
   const [loading, setLoading] = createSignal(false);
 
   const handleClick = async () => {
