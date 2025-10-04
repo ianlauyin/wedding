@@ -49,8 +49,7 @@ export const Infomations = (props: Props) => {
         </p>
       </div>
       <Button
-        class="btn-sm rounded-md self-end"
-        color="accent"
+        class="btn-sm btn-accent rounded-md self-end"
         onClick={props.onAddGuest}
       >
         Add Guest

@@ -46,8 +46,7 @@ export const Login = (props: Props) => {
           </label>
         </div>
         <Button
-          class="w-20"
-          color="primary"
+          class="btn-primary w-20"
           disabled={name() === "" || password() === ""}
           onClick={handleLogin}
         >

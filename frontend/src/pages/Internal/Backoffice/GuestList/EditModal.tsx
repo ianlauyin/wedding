@@ -56,11 +56,10 @@ export const EditModal = (props: Props) => {
     <dialog class="modal modal-open">
       <div class="modal-box">
         <Button
-          class="btn-sm btn-circle absolute right-2 top-2"
-          color="ghost"
+          class="btn-sm btn-circle btn-ghost absolute right-2 top-2"
           onClick={props.onClose}
         >
-          x
+          ✕
         </Button>
         <div class="space-y-4">
           <h3 class="font-bold text-lg">{header}</h3>
@@ -91,7 +90,7 @@ export const EditModal = (props: Props) => {
           <p class="text-red-500">{errorMessage()}</p>
         </div>
         <div class="modal-action">
-          <Button color="primary" onClick={handleFinish}>
+          <Button class="btn-primary" onClick={handleFinish}>
             {buttonText}
           </Button>
         </div>

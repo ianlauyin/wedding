@@ -4,7 +4,6 @@ export interface Props {
   children: JSX.Element;
   onClick: () => any;
   class?: string;
-  color?: "primary" | "secondary" | "accent" | "info" | "error" | "ghost";
   disabled?: boolean;
 }
 
@@ -14,11 +13,12 @@ export default function Button(props: Props) {
   const handleClick = async () => {
     setLoading(true);
     await props.onClick();
+    setLoading(false);
   };
 
   return (
     <button
-      class={`btn ${props.color && "btn-" + props.color} ${props.class}`}
+      class={`btn ${props.class}`}
       disabled={props.disabled || loading()}
       onClick={handleClick}
     >

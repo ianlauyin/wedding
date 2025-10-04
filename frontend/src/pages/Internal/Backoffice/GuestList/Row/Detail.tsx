@@ -44,10 +44,10 @@ export const Detail = (props: Props) => {
             </p>
           </div>
           <div class="flex justify-end gap-6 py-2">
-            <Button class="btn-sm" color="error" onClick={handleDelete}>
+            <Button class="btn-sm btn-error" onClick={handleDelete}>
               Delete
             </Button>
-            <Button class="btn-sm" color="accent" onClick={handleEdit}>
+            <Button class="btn-sm btn-accent" onClick={handleEdit}>
               Edit
             </Button>
           </div>
