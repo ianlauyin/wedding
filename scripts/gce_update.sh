@@ -13,7 +13,7 @@ docker stop wedding-app || true && \
 docker rm wedding-app || true && \
 docker run -d \
   --name wedding-app \
-  -p 8080:8080 \
+  -p 80:8080 \
   --restart unless-stopped \
   -e LOGIN_PASSWORD='${LOGIN_PASSWORD}' \
   -e GOOGLE_PROJECT_ID='${GOOGLE_PROJECT_ID}' \
