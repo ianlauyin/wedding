@@ -9,6 +9,7 @@ export interface Props {
   guest: GuestInfoView;
   bg: string;
   refetch: () => void;
+  onEditButtonClick: () => void;
 }
 
 export const Detail = (props: Props) => {
@@ -23,10 +24,6 @@ export const Detail = (props: Props) => {
         error instanceof Error ? error.message : "Failed to delete guest"
       );
     }
-  };
-
-  const handleEdit = () => {
-    //TODO
   };
 
   return (
@@ -48,7 +45,7 @@ export const Detail = (props: Props) => {
             <Button class="btn-sm btn-error" onClick={handleDelete}>
               Delete
             </Button>
-            <Button class="btn-sm btn-accent" onClick={handleEdit}>
+            <Button class="btn-sm btn-accent" onClick={props.onEditButtonClick}>
               Edit
             </Button>
           </div>

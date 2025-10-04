@@ -4,6 +4,7 @@ import { Row } from "./Row";
 export interface Props {
   list: Array<GuestInfoView>;
   refetch: () => void;
+  openEditModal: (guest: GuestInfoView) => void;
 }
 
 export const Table = (props: Props) => {
@@ -23,7 +24,11 @@ export const Table = (props: Props) => {
       </thead>
       <tbody>
         {props.list.map((guest) => (
-          <Row guest={guest} refetch={props.refetch} />
+          <Row
+            guest={guest}
+            refetch={props.refetch}
+            onEditButtonClick={() => props.openEditModal(guest)}
+          />
         ))}
       </tbody>
     </table>

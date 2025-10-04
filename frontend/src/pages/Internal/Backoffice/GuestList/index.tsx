@@ -20,7 +20,7 @@ export const GuestList = () => {
           <>
             <Infomations list={data().guestList} />
             <ActionPanel
-              onAddGuest={() => setEditModal(true)}
+              onAddButtonClick={() => setEditModal(true)}
               refetch={refetch}
             />
           </>
@@ -45,7 +45,13 @@ export const GuestList = () => {
           </p>
         </Match>
         <Match when={res()}>
-          {(data) => <Table list={data().guestList} refetch={refetch} />}
+          {(data) => (
+            <Table
+              list={data().guestList}
+              refetch={refetch}
+              openEditModal={setEditModal}
+            />
+          )}
         </Match>
       </Switch>
     </div>

@@ -1,7 +1,7 @@
 import { Button } from "@components/Button";
 
 interface Props {
-  onAddGuest: () => void;
+  onAddButtonClick: () => void;
   refetch: () => void;
 }
 
@@ -11,7 +11,10 @@ export const ActionPanel = (props: Props) => {
       <Button class="btn-sm btn-info rounded-md" onClick={props.refetch}>
         Refresh
       </Button>
-      <Button class="btn-sm btn-accent rounded-md" onClick={props.onAddGuest}>
+      <Button
+        class="btn-sm btn-accent rounded-md"
+        onClick={props.onAddButtonClick}
+      >
         Add Guest
       </Button>
     </div>

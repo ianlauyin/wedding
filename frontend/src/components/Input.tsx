@@ -2,20 +2,12 @@ import { JSX } from "solid-js";
 
 export interface Props {
   label: string;
-  value: string | number;
-  setValue: (value: string | number) => void;
-  type?: "text" | "password" | "number";
+  value: string;
+  setValue: (value: string) => void;
+  type?: "text" | "password";
 }
 
 export const Input = (props: Props) => {
-  const handleInput: JSX.EventHandler<HTMLInputElement, InputEvent> = (e) => {
-    if (typeof props.value === "number") {
-      props.setValue(Number(e.currentTarget.value));
-    } else {
-      props.setValue(e.currentTarget.value);
-    }
-  };
-
   return (
     <label class="input w-full">
       {props.label}
@@ -23,7 +15,7 @@ export const Input = (props: Props) => {
       <input
         type={props.type || "text"}
         value={props.value}
-        onInput={handleInput}
+        onInput={(e) => props.setValue(e.currentTarget.value)}
       />
     </label>
   );

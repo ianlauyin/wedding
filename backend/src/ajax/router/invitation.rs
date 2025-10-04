@@ -20,7 +20,6 @@ pub fn invitation_router() -> Router<SharedState> {
         )
 }
 
-// TODO: Implement
 #[axum::debug_handler]
 async fn get_invitation_info(
     Path(GetInvitationInfoPathParams { id }): Path<GetInvitationInfoPathParams>,
@@ -37,7 +36,6 @@ async fn get_invitation_info(
     Ok(Json(invitation_info))
 }
 
-// TODO: Implement
 #[axum::debug_handler]
 async fn update_guest_count(Path(_id): Path<String>) -> HttpResult<()> {
     Ok(())
