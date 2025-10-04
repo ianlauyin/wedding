@@ -5,6 +5,7 @@ import { Table } from "./Table";
 import { getGuestList } from "@ajax/service";
 import { EditModal } from "./EditModal";
 import { Loading } from "@components/Loading";
+import { ActionPanel } from "./ActionPanel";
 
 export const GuestList = () => {
   const [res, { refetch }] = createResource(getGuestList);
@@ -13,13 +14,16 @@ export const GuestList = () => {
   );
 
   return (
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center space-y-4 my-4">
       <Show when={res()}>
         {(data) => (
-          <Infomations
-            list={data().guestList}
-            onAddGuest={() => setEditModal(true)}
-          />
+          <>
+            <Infomations list={data().guestList} />
+            <ActionPanel
+              onAddGuest={() => setEditModal(true)}
+              refetch={refetch}
+            />
+          </>
         )}
       </Show>
       <Show when={editModal()}>

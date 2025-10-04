@@ -1,10 +1,8 @@
 import { GuestInfoView } from "wedding-interface";
 import { createMemo } from "solid-js";
-import Button from "@components/Button";
 
 interface Props {
   list: Array<GuestInfoView>;
-  onAddGuest: () => void;
 }
 
 export const Infomations = (props: Props) => {
@@ -33,27 +31,19 @@ export const Infomations = (props: Props) => {
   });
 
   return (
-    <div class="flex justify-between my-4 w-full">
-      <div>
-        <p>
-          Total Estimated Count:{" "}
-          {totals().brideEstimated + totals().groomEstimated}(
-          <span class="text-red-400">{totals().brideEstimated}</span> /{" "}
-          <span class="text-blue-400">{totals().groomEstimated}</span>)
-        </p>
-        <p>
-          Total Confirmed Count:{" "}
-          {totals().brideConfirmed + totals().groomConfirmed}(
-          <span class="text-red-400">{totals().brideConfirmed}</span> /{" "}
-          <span class="text-blue-400">{totals().groomConfirmed}</span>)
-        </p>
-      </div>
-      <Button
-        class="btn-sm btn-accent rounded-md self-end"
-        onClick={props.onAddGuest}
-      >
-        Add Guest
-      </Button>
+    <div class="w-full">
+      <p>
+        Total Estimated Count:{" "}
+        {totals().brideEstimated + totals().groomEstimated}(
+        <span class="text-red-400">{totals().brideEstimated}</span> /{" "}
+        <span class="text-blue-400">{totals().groomEstimated}</span>)
+      </p>
+      <p>
+        Total Confirmed Count:{" "}
+        {totals().brideConfirmed + totals().groomConfirmed}(
+        <span class="text-red-400">{totals().brideConfirmed}</span> /{" "}
+        <span class="text-blue-400">{totals().groomConfirmed}</span>)
+      </p>
     </div>
   );
 };
