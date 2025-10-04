@@ -16,11 +16,18 @@ impl CookieName {
 }
 
 pub fn set_cookie(mut header: HeaderMap, name: CookieName, value: &str) -> HeaderMap {
+    // Set cookie to expire in 200 days (200 days * 24 hours * 60 minutes * 60 seconds)
+    let max_age = 200 * 24 * 60 * 60;
     header.insert(
         SET_COOKIE,
-        format!("{}={}; HttpOnly; Path=/", name.as_str(), value)
-            .parse()
-            .unwrap(),
+        format!(
+            "{}={}; HttpOnly; Path=/; Max-Age={}",
+            name.as_str(),
+            value,
+            max_age
+        )
+        .parse()
+        .unwrap(),
     );
     header
 }

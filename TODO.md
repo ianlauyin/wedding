@@ -6,7 +6,3 @@
 
 1. Internal Page (Mobile first)
 2. Invitation Page (Mobile first)
-
-# Deploy
-
-1. Script for deployment
