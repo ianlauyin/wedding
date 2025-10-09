@@ -53,12 +53,12 @@ impl GuestInfoViewValidator {
                     ));
                 }
             }
-        }
-        if self.original_guest.is_some() && confirmed_count_opt.is_none() {
-            return Err(exception!(
-                code = VALIDATION_ERROR,
-                message = "Confirmed count cannot be unset"
-            ));
+            if original_guest.confirmed_count.is_some() && confirmed_count_opt.is_none() {
+                return Err(exception!(
+                    code = VALIDATION_ERROR,
+                    message = "Confirmed count cannot be unset"
+                ));
+            }
         }
         Ok(self)
     }

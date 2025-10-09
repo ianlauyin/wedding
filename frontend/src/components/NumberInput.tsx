@@ -1,3 +1,5 @@
+import { JSX } from "solid-js";
+
 export interface Props {
   label: string;
   value: number;
@@ -7,6 +9,16 @@ export interface Props {
 }
 
 export const NumberInput = (props: Props) => {
+  const handleInput: JSX.InputEventHandlerUnion<
+    HTMLInputElement,
+    InputEvent
+  > = (e) => {
+    const newValue = Number(e.currentTarget.value);
+    if (props.min && newValue < props.min) props.setValue(props.min);
+    else if (props.max && newValue > props.max) props.setValue(props.max);
+    else props.setValue(newValue);
+  };
+
   return (
     <label class="input w-full">
       {props.label}
@@ -17,8 +29,8 @@ export const NumberInput = (props: Props) => {
         placeholder="-"
         min={props.min}
         max={props.max}
-        value={props.value ? props.value : "-"}
-        onInput={(e) => props.setValue(Number(e.currentTarget.value))}
+        value={props.value}
+        onInput={handleInput}
       />
     </label>
   );

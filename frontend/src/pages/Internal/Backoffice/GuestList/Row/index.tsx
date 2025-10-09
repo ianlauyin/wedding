@@ -22,7 +22,10 @@ export const Row = (props: Props) => {
         <td>{props.guest.relationship}</td>
         <td>{props.guest.name}</td>
         <td class="text-center">
-          {props.guest.confirmedCount || "-"}/{props.guest.estimatedCount}
+          {props.guest.confirmedCount === null
+            ? "-"
+            : props.guest.confirmedCount}
+          /{props.guest.estimatedCount}
         </td>
         <td class="p-2">
           <Arrow opened={opened()} />
