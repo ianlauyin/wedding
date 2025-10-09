@@ -42,6 +42,7 @@ export const ErrorModal = () => {
           <div class="modal-box">
             <h3 class="font-bold text-lg">Error</h3>
             <p class="py-4">{errorMessage()}</p>
+            <p>Try refresh the page if the problem persists</p>
             <div class="modal-action">
               <Button onClick={closeModal}>Close</Button>
             </div>

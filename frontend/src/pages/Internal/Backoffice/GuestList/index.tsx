@@ -43,7 +43,7 @@ export const GuestList = () => {
         }}
       </Show>
       <Switch>
-        <Match when={res.loading && !res()}>
+        <Match when={res.loading}>
           <Loading class="mt-4" />
         </Match>
         <Match when={res.error}>
