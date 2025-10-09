@@ -6,12 +6,11 @@ import { getGuestList } from "@ajax/service";
 import { CreateModal } from "./CreateModal";
 import { Loading } from "@components/Loading";
 import { ActionPanel } from "./ActionPanel";
+import { UpdateModal } from "./UpdateModal";
 
 export const GuestList = () => {
   const [res, { refetch }] = createResource(getGuestList);
-  const [editModal, setEditModal] = createSignal<GuestInfoView | true | null>(
-    null
-  );
+  const [modal, setModal] = createSignal<GuestInfoView | true | null>(null);
 
   return (
     <div class="flex flex-col items-center space-y-4 my-4">
@@ -20,20 +19,28 @@ export const GuestList = () => {
           <>
             <Infomations list={data().guestList} />
             <ActionPanel
-              onAddButtonClick={() => setEditModal(true)}
+              onAddButtonClick={() => setModal(true)}
               refetch={refetch}
             />
           </>
         )}
       </Show>
-      <Show when={editModal()}>
-        {(data) => (
-          <CreateModal
-            guest={data()}
-            refetch={refetch}
-            onClose={() => setEditModal(null)}
-          />
-        )}
+      <Show when={modal()}>
+        {(data) => {
+          const modalInfo = data();
+          if (modalInfo === true)
+            return (
+              <CreateModal refetch={refetch} onClose={() => setModal(null)} />
+            );
+          else
+            return (
+              <UpdateModal
+                guest={modalInfo}
+                refetch={refetch}
+                onClose={() => setModal(null)}
+              />
+            );
+        }}
       </Show>
       <Switch>
         <Match when={res.loading && !res()}>
@@ -49,7 +56,7 @@ export const GuestList = () => {
             <Table
               list={data().guestList}
               refetch={refetch}
-              openEditModal={setEditModal}
+              openEditModal={setModal}
             />
           )}
         </Match>

@@ -1,37 +1,32 @@
-import { createGuestInfo } from "@ajax/service";
+import { updateGuest } from "@ajax/service";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
+import { NullableNumberInput } from "@components/NullableNumberInput";
 import { NumberInput } from "@components/NumberInput";
 import { DisplayUtil } from "@utils/DisplayUtil";
 import { GuestInfoValidator } from "@utils/GuestInfoValidator";
 import { createSignal } from "solid-js";
-import { CreateGuestInfoRequest, GuestInfoView, Side } from "wedding-interface";
+import { GuestInfoView, Side, UpdateGuestInfoRequest } from "wedding-interface";
 
 interface Props {
+  guest: GuestInfoView;
   onClose: () => void;
   refetch: () => void;
 }
 
-const INITIAL_REQUEST: CreateGuestInfoRequest = {
-  side: "BRIDE",
-  name: "",
-  relationship: "",
-  estimatedCount: 0,
-};
-
-export const CreateModal = (props: Props) => {
-  const [draft, setDraft] =
-    createSignal<CreateGuestInfoRequest>(INITIAL_REQUEST);
+export const UpdateModal = (props: Props) => {
+  const [draft, setDraft] = createSignal<UpdateGuestInfoRequest>(props.guest);
   const [errorMessage, setErrorMessage] = createSignal("");
 
   const handleFinish = async () => {
     const request = draft();
     try {
-      new GuestInfoValidator()
+      new GuestInfoValidator(props.guest)
         .checkName(request.name)
         .checkRelationship(request.relationship)
-        .checkEstimatedCount(request.estimatedCount);
-      await createGuestInfo(draft());
+        .checkEstimatedCount(request.estimatedCount)
+        .checkConfirmedCount(request.confirmedCount);
+      await updateGuest(props.guest.id, request);
     } catch (error: unknown) {
       setErrorMessage(error instanceof Error ? error.message : "Unknown error");
       return;
@@ -51,7 +46,7 @@ export const CreateModal = (props: Props) => {
           ✕
         </Button>
         <div class="space-y-4">
-          <h3 class="font-bold text-lg">{"Add Guest"}</h3>
+          <h3 class="font-bold text-lg">{"Update Guest"}</h3>
           <div>
             <label class="select w-full">
               <span class="label">Side</span>
@@ -88,11 +83,20 @@ export const CreateModal = (props: Props) => {
               setDraft({ ...draft(), estimatedCount })
             }
           />
+          <NullableNumberInput
+            label="Confirmed Count"
+            min={0}
+            max={draft().estimatedCount}
+            value={draft().confirmedCount}
+            setValue={(confirmedCount) =>
+              setDraft({ ...draft(), confirmedCount })
+            }
+          />
           <p class="text-red-500">{errorMessage()}</p>
         </div>
         <div class="modal-action">
           <Button class="btn-primary" onClick={handleFinish}>
-            {"Add"}
+            {"Update"}
           </Button>
         </div>
       </div>
