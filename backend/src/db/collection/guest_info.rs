@@ -27,6 +27,21 @@ pub struct GuestInfo {
 }
 
 impl GuestInfo {
+    pub fn into_view(self) -> GuestInfoView {
+        GuestInfoView {
+            id: self.id,
+            side: self.side,
+            name: self.name,
+            relationship: self.relationship,
+            estimated_count: self.estimated_count,
+            confirmed_count: self.confirmed_count,
+            created_by: self.created_by,
+            created_at: self.created_at,
+            updated_by: self.updated_by,
+            updated_at: self.updated_at,
+        }
+    }
+
     fn from_create_request(request: CreateGuestInfoRequest, created_by: &str) -> Self {
         Self {
             id: Uuid::new_v4().to_string(),
@@ -39,21 +54,6 @@ impl GuestInfo {
             created_by: created_by.to_string(),
             updated_by: created_by.to_string(),
             updated_at: Local::now(),
-        }
-    }
-
-    fn into_view(self) -> GuestInfoView {
-        GuestInfoView {
-            id: self.id.to_string(),
-            side: self.side,
-            name: self.name,
-            relationship: self.relationship,
-            estimated_count: self.estimated_count,
-            confirmed_count: self.confirmed_count,
-            created_by: self.created_by,
-            created_at: self.created_at,
-            updated_by: self.updated_by,
-            updated_at: self.updated_at,
         }
     }
 

@@ -1,6 +1,7 @@
 mod admin;
 mod guest;
 mod invitation;
+mod validator;
 
 use axum::Router;
 
