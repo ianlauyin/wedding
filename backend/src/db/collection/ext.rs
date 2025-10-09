@@ -1,3 +1,4 @@
+use firestore::update_builder::FirestoreUpdateInitialBuilder;
 use firestore::{FirestoreDb, errors::FirestoreError};
 use framework::exception;
 use framework::exception::error_code::NOT_FOUND;
@@ -12,6 +13,10 @@ pub trait CollectionExt {
 
     fn collection_id(&self) -> &str;
     fn db(&self) -> &FirestoreDb;
+
+    fn update(&self) -> FirestoreUpdateInitialBuilder<FirestoreDb> {
+        self.db().fluent().update()
+    }
 
     async fn get(&self, key: &str) -> CoreRsResult<Option<Self::Data>> {
         let result: Option<Self::Data> = self

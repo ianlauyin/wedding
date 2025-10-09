@@ -1,10 +1,12 @@
 use chrono::{DateTime, Local};
 use firestore::FirestoreDb;
+use firestore::struct_path::paths;
+
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use wedding_backend_macros::Collection;
 use wedding_interface::{
-    CreateOrUpdateGuestInfoRequest, GuestInfoView, InvitationInfoResponse, Side,
+    CreateGuestInfoRequest, GuestInfoView, InvitationInfoResponse, Side, UpdateGuestInfoRequest,
 };
 
 use crate::db::collection::ext::CollectionExt;
@@ -25,7 +27,7 @@ pub struct GuestInfo {
 }
 
 impl GuestInfo {
-    fn from_request(request: CreateOrUpdateGuestInfoRequest, created_by: &str) -> Self {
+    fn from_create_request(request: CreateGuestInfoRequest, created_by: &str) -> Self {
         Self {
             id: Uuid::new_v4().to_string(),
             confirmed_count: None,
@@ -84,10 +86,10 @@ impl GuestInfoCollection {
 
     pub async fn add_guest(
         &self,
-        request: CreateOrUpdateGuestInfoRequest,
+        request: CreateGuestInfoRequest,
         created_by: &str,
     ) -> CoreRsResult<GuestInfo> {
-        let guest_info = GuestInfo::from_request(request, created_by);
+        let guest_info = GuestInfo::from_create_request(request, created_by);
         self.insert(&guest_info.id.to_string(), &guest_info).await
     }
 
@@ -98,6 +100,32 @@ impl GuestInfoCollection {
             .into_iter()
             .map(|guest| guest.into_view())
             .collect())
+    }
+
+    pub async fn update_guest_info(
+        &self,
+        id: String,
+        request: UpdateGuestInfoRequest,
+        updated_by: &str,
+    ) -> CoreRsResult<GuestInfo> {
+        Ok(self.update()
+            .fields(paths!(GuestInfo::{side, name, relationship, estimated_count, confirmed_count, updated_by, updated_at}))
+            .in_col(self.collection_id())
+            .document_id(id)
+            .object(&GuestInfo {
+                confirmed_count: request.confirmed_count,
+                side: request.side,
+                name: request.name,
+                relationship: request.relationship,
+                estimated_count: request.estimated_count,
+                updated_by: updated_by.to_string(),
+                updated_at: Local::now(),
+                // these are not updated
+                created_at: Local::now(),
+                created_by: "".to_string(),
+                id: "".to_string(),
+            })
+            .execute().await?)
     }
 
     pub async fn remove_guest(&self, id: String) -> CoreRsResult<()> {

@@ -1,6 +1,6 @@
 import { ajax } from "./ajaxFn";
 import {
-  CreateOrUpdateGuestInfoRequest,
+  CreateGuestInfoRequest,
   GetGuestListResponse,
   GetInvitationInfoPathParams,
   InvitationInfoResponse,
@@ -24,9 +24,9 @@ export const logout = async () => await ajax("/admin/logout", "POST");
 
 // guest router
 export const createGuestInfo = async (
-  request: CreateOrUpdateGuestInfoRequest
+  request: CreateGuestInfoRequest
 ) =>
-  await ajax<CreateOrUpdateGuestInfoRequest, null, null>(
+  await ajax<CreateGuestInfoRequest, null, null>(
     "/guest",
     "POST",
     request

@@ -48,7 +48,7 @@ pub struct GuestInfoView {
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
 #[serde(rename_all = "camelCase")]
-pub struct CreateOrUpdateGuestInfoRequest {
+pub struct CreateGuestInfoRequest {
     pub side: Side,
     pub name: String,
     pub relationship: String,
@@ -60,6 +60,24 @@ pub struct CreateOrUpdateGuestInfoRequest {
 #[serde(rename_all = "camelCase")]
 pub struct GetGuestListResponse {
     pub guest_list: Vec<GuestInfoView>,
+}
+
+#[derive(TS, Debug, Serialize, Deserialize)]
+#[ts(export ,export_to = EXPORT_PATH)]
+#[serde(rename_all = "camelCase")]
+pub struct UpdateGuestPathParams {
+    pub id: String,
+}
+
+#[derive(TS, Debug, Serialize, Deserialize)]
+#[ts(export ,export_to = EXPORT_PATH)]
+#[serde(rename_all = "camelCase")]
+pub struct UpdateGuestInfoRequest {
+    pub side: Side,
+    pub name: String,
+    pub relationship: String,
+    pub estimated_count: u32,
+    pub confirmed_count: Option<u32>,
 }
 
 #[derive(TS, Debug, Serialize, Deserialize)]

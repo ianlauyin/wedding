@@ -72,7 +72,13 @@ async fn login(
 ) -> HttpResult<(HeaderMap, Json<LoginResponse>)> {
     validate_login(&request)?;
 
-    let user_agent = request_header.get(USER_AGENT).unwrap().to_str().unwrap();
+    let user_agent = request_header
+        .get(USER_AGENT)
+        .ok_or(exception!(
+            code = VALIDATION_ERROR,
+            message = "User agent not found"
+        ))?
+        .to_str()?;
     let ip_address = addr.ip().to_string();
 
     let record = AdminRecordCollection::from(state.db.clone())

@@ -4,13 +4,15 @@ use axum::extract::State;
 use axum::http::HeaderMap;
 use axum::http::StatusCode;
 use axum::middleware;
-use axum::routing::{delete, get, post};
+use axum::routing::put;
+use axum::routing::{get, post};
 use framework::exception;
 use framework::exception::error_code::{NOT_FOUND, VALIDATION_ERROR};
 
 use framework::web::{body::Json, error::HttpResult};
 use wedding_interface::RemoveGuestPathParams;
-use wedding_interface::{CreateOrUpdateGuestInfoRequest, GetGuestListResponse};
+use wedding_interface::UpdateGuestInfoRequest;
+use wedding_interface::{CreateGuestInfoRequest, GetGuestListResponse};
 
 use crate::ajax::shared::{
     cookie::{CookieName, get_cookie},
@@ -22,16 +24,16 @@ use crate::state::SharedState;
 pub fn guest_router(state: SharedState) -> Router<SharedState> {
     Router::new()
         .route("/guest/list", get(get_guest_list))
-        .route("/guest/{id}", delete(remove_guest))
-        .route("/guest", post(create_guest_info))
+        .route("/guest/{id}", put(update_guest).delete(remove_guest))
+        .route("/guest", post(create_guest))
         .layer(middleware::from_fn_with_state(state, verify_admin_session))
 }
 
 #[axum::debug_handler]
-async fn create_guest_info(
+async fn create_guest(
     State(state): State<SharedState>,
     header: HeaderMap,
-    Json(request): Json<CreateOrUpdateGuestInfoRequest>,
+    Json(request): Json<CreateGuestInfoRequest>,
 ) -> HttpResult<StatusCode> {
     let token = get_cookie(&header, CookieName::LoginToken).ok_or(exception!(
         code = VALIDATION_ERROR,
@@ -39,9 +41,11 @@ async fn create_guest_info(
     ))?;
     let admin_record = AdminRecordCollection::from(state.db.clone())
         .get_record(token)
-        .await
-        .unwrap()
-        .unwrap();
+        .await?
+        .ok_or(exception!(
+            code = NOT_FOUND,
+            message = "Admin record not found"
+        ))?;
 
     GuestInfoCollection::from(state.db.clone())
         .add_guest(request, &admin_record.name())
@@ -59,6 +63,34 @@ async fn get_guest_list(
         .await?;
 
     Ok(Json(GetGuestListResponse { guest_list }))
+}
+
+#[axum::debug_handler]
+async fn update_guest(
+    State(state): State<SharedState>,
+    header: HeaderMap,
+    Path(RemoveGuestPathParams { id }): Path<RemoveGuestPathParams>,
+    Json(request): Json<UpdateGuestInfoRequest>,
+) -> HttpResult<StatusCode> {
+    let token = get_cookie(&header, CookieName::LoginToken).ok_or(exception!(
+        code = VALIDATION_ERROR,
+        message = "Token not found"
+    ))?;
+    let admin_record = AdminRecordCollection::from(state.db.clone())
+        .get_record(token)
+        .await?
+        .ok_or(exception!(
+            code = NOT_FOUND,
+            message = "Admin record not found"
+        ))?;
+
+    let guest_info_collection = GuestInfoCollection::from(state.db.clone());
+
+    guest_info_collection
+        .update_guest_info(id, request, &admin_record.name())
+        .await?;
+
+    Ok(StatusCode::NO_CONTENT)
 }
 
 #[axum::debug_handler]

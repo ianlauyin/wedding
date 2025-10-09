@@ -1,4 +1,4 @@
-use framework::log::{self, ConsoleAppender};
+use framework::log;
 use framework::shutdown::Shutdown;
 use framework::web::server::{HttpServerConfig, start_http_server};
 
