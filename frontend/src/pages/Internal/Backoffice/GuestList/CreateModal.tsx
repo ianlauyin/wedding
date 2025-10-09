@@ -3,11 +3,7 @@ import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { DisplayUtil } from "@utils/DisplayUtil";
 import { createSignal } from "solid-js";
-import {
-  CreateOrUpdateGuestInfoRequest,
-  GuestInfoView,
-  Side,
-} from "wedding-interface";
+import { CreateGuestInfoRequest, GuestInfoView, Side } from "wedding-interface";
 
 interface Props {
   guest: GuestInfoView | true;
@@ -15,15 +11,15 @@ interface Props {
   refetch: () => void;
 }
 
-const INITIAL_REQUEST: CreateOrUpdateGuestInfoRequest = {
+const INITIAL_REQUEST: CreateGuestInfoRequest = {
   side: "BRIDE",
   name: "",
   relationship: "",
   estimatedCount: 0,
 };
 
-export const EditModal = (props: Props) => {
-  const [request, setRequest] = createSignal<CreateOrUpdateGuestInfoRequest>(
+export const CreateModal = (props: Props) => {
+  const [request, setRequest] = createSignal<CreateGuestInfoRequest>(
     props.guest === true ? INITIAL_REQUEST : { ...props.guest }
   );
   const [errorMessage, setErrorMessage] = createSignal("");

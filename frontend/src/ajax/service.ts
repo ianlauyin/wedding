@@ -7,6 +7,8 @@ import {
   LoginRequest,
   LoginResponse,
   RemoveGuestPathParams,
+  UpdateGuestInfoRequest,
+  UpdateGuestPathParams,
 } from "wedding-interface";
 
 // admin router
@@ -23,17 +25,24 @@ export const login = async (request: LoginRequest) =>
 export const logout = async () => await ajax("/admin/logout", "POST");
 
 // guest router
-export const createGuestInfo = async (
-  request: CreateGuestInfoRequest
-) =>
-  await ajax<CreateGuestInfoRequest, null, null>(
-    "/guest",
-    "POST",
-    request
-  );
+export const createGuestInfo = async (request: CreateGuestInfoRequest) =>
+  await ajax<CreateGuestInfoRequest, null, null>("/guest", "POST", request);
 
 export const getGuestList = async () =>
   await ajax<null, GetGuestListResponse, null>("/guest/list", "GET");
+
+export const updateGuest = async (
+  id: string,
+  request: UpdateGuestInfoRequest
+) =>
+  await ajax<UpdateGuestInfoRequest, null, UpdateGuestPathParams>(
+    "/guest/{id}",
+    "PUT",
+    request,
+    {
+      id,
+    }
+  );
 
 export const removeGuest = async (id: string) =>
   await ajax<null, null, RemoveGuestPathParams>("/guest/{id}", "DELETE", null, {

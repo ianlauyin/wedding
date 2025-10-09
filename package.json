@@ -6,7 +6,8 @@
   "scripts": {
     "build:frontend": "cd frontend && pnpm build --outDir ../backend/assets/web",
     "run:backend": "cd backend && cargo run",
-    "start": "pnpm build:frontend && pnpm run:backend"
+    "start": "pnpm build:frontend && pnpm run:backend",
+    "api": "cd interface && cargo test"
   },
   "workspaces": [
     "frontend",

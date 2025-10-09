@@ -3,7 +3,7 @@ import { Infomations } from "./Infomations";
 import { createResource, createSignal, Match, Show, Switch } from "solid-js";
 import { Table } from "./Table";
 import { getGuestList } from "@ajax/service";
-import { EditModal } from "./EditModal";
+import { CreateModal } from "./CreateModal";
 import { Loading } from "@components/Loading";
 import { ActionPanel } from "./ActionPanel";
 
@@ -28,7 +28,7 @@ export const GuestList = () => {
       </Show>
       <Show when={editModal()}>
         {(data) => (
-          <EditModal
+          <CreateModal
             guest={data()}
             refetch={refetch}
             onClose={() => setEditModal(null)}

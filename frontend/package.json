@@ -4,7 +4,10 @@
   "description": "",
   "type": "module",
   "scripts": {
+    "typecheck": "pnpm exec tsc --noEmit",
+    "prestart": "pnpm typecheck",
     "start": "vite",
+    "prebuild": "pnpm typecheck",
     "build": "vite build",
     "api": "cd ../interface && cargo test"
   },
@@ -14,6 +17,7 @@
     "postcss": "8.4.49",
     "solid-devtools": "0.34.3",
     "tailwindcss": "4.1.14",
+    "typescript": "5.9.2",
     "vite": "7.1.4",
     "vite-plugin-solid": "2.11.8"
   },
@@ -21,7 +25,6 @@
     "@solidjs/router": "0.15.3",
     "@tailwindcss/vite": "^4.1.14",
     "solid-js": "1.9.9",
-    "typescript": "5.9.2",
     "wedding-interface": "workspace:*"
   }
 }
