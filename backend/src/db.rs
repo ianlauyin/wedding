@@ -4,8 +4,14 @@ use framework::asset::asset_path;
 use crate::env;
 use crate::exception::CoreRsResult;
 
-mod collection;
-pub use collection::*;
+mod admin_record;
+mod ext;
+mod guest_info;
+mod log_record;
+
+pub use admin_record::AdminRecordCollection;
+pub use guest_info::GuestInfoCollection;
+pub use log_record::LogRecordCollection;
 
 pub async fn connect() -> CoreRsResult<FirestoreDb> {
     rustls::crypto::aws_lc_rs::default_provider()

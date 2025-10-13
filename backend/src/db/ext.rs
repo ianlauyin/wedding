@@ -8,15 +8,7 @@ use framework::exception;
 use framework::exception::error_code::NOT_FOUND;
 use framework::exception::{Exception, Severity};
 
-mod admin_record;
-mod guest_info;
-mod log_record;
-
-pub use admin_record::AdminRecordCollection;
-pub use guest_info::GuestInfoCollection;
-pub use log_record::LogRecordCollection;
-
-trait CollectionExt {
+pub(in crate::db) trait CollectionExt {
     type Data: Serialize + DeserializeOwned + Send + Sync;
 
     fn collection_id(&self) -> &str;

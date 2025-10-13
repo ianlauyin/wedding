@@ -15,17 +15,17 @@ fn collection_derive2(input: TokenStream) -> TokenStream {
 
     quote!(
         impl From<firestore::FirestoreDb> for #struct_name {
-            fn from(db: FirestoreDb) -> Self {
+            fn from(db: firestore::FirestoreDb) -> Self {
                 Self(db)
             }
         }
 
-        impl crate::db::collection::CollectionExt for #struct_name {
+        impl crate::db::ext::CollectionExt for #struct_name {
             type Data = #schema_path;
             fn collection_id(&self) -> &str {
                 #collection_id
             }
-            fn db(&self) -> &FirestoreDb {
+            fn db(&self) -> &firestore::FirestoreDb {
                 &self.0
             }
         }
