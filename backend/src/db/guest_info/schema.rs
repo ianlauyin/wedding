@@ -5,7 +5,7 @@ use uuid::Uuid;
 use wedding_interface::Side;
 
 #[derive(Serialize, Deserialize)]
-pub(super) struct GuestInfo {
+pub struct GuestInfo {
     pub(super) id: String,
     pub(super) side: Side,
     pub(super) name: String,

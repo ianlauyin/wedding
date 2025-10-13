@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Serialize, Deserialize)]
-pub(super) struct AdminRecord {
+pub struct AdminRecord {
     pub(super) token: String,
     pub(super) name: String,
     pub(super) user_agent: String,

@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use framework::log::ActionLogMessage;
 
 #[derive(Serialize, Deserialize)]
-pub(super) struct LogRecord {
+pub struct LogRecord {
     pub(super) id: String,
     pub(super) date: DateTime<Local>,
     pub(super) action: String,

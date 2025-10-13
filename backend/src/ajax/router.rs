@@ -6,7 +6,6 @@ use crate::state::SharedState;
 mod admin;
 mod guest;
 mod invitation;
-mod validator;
 
 pub async fn ajax_router(state: SharedState) -> CoreRsResult<Router> {
     Ok(Router::new()

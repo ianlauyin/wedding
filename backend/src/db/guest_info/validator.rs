@@ -1,14 +1,14 @@
+use crate::db::guest_info::schema::GuestInfo;
 use crate::exception::CoreRsResult;
 use framework::exception;
 use framework::exception::error_code::VALIDATION_ERROR;
-use wedding_interface::GuestInfoView;
 
-pub struct GuestInfoViewValidator {
-    original_guest: Option<GuestInfoView>,
+pub struct GuestInfoValidator {
+    original_guest: Option<GuestInfo>,
 }
 
-impl GuestInfoViewValidator {
-    pub fn new(original_guest: Option<GuestInfoView>) -> Self {
+impl GuestInfoValidator {
+    pub fn new(original_guest: Option<GuestInfo>) -> Self {
         Self { original_guest }
     }
 

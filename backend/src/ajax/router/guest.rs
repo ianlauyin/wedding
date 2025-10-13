@@ -7,7 +7,6 @@ use axum::middleware;
 use axum::routing::put;
 use axum::routing::{get, post};
 
-use crate::ajax::router::validator::GuestInfoViewValidator;
 use crate::ajax::shared::{
     cookie::{CookieName, get_cookie},
     middleware::verify_admin_session,
@@ -47,11 +46,6 @@ async fn create_guest(
             message = "Admin record not found"
         ))?;
 
-    GuestInfoViewValidator::new(None)
-        .check_name(&request.name)?
-        .check_relationship(&request.relationship)?
-        .check_estimated_count(request.estimated_count)?;
-
     GuestInfoCollection::from(state.db.clone())
         .add_guest(request, &admin_record.name())
         .await?;
@@ -64,8 +58,11 @@ async fn get_guest_list(
     State(state): State<SharedState>,
 ) -> HttpResult<Json<GetGuestListResponse>> {
     let guest_list = GuestInfoCollection::from(state.db.clone())
-        .list_guests_info()
-        .await?;
+        .list_guest_info()
+        .await?
+        .into_iter()
+        .map(|guest| guest.into())
+        .collect();
 
     Ok(Json(GetGuestListResponse { guest_list }))
 }
@@ -88,17 +85,6 @@ async fn update_guest(
             code = NOT_FOUND,
             message = "Admin record not found"
         ))?;
-
-    let original_guest = GuestInfoCollection::from(state.db.clone())
-        .get_guest_info(id.clone())
-        .await?
-        .ok_or(exception!(code = NOT_FOUND, message = "Guest not found"))?;
-
-    GuestInfoViewValidator::new(Some(original_guest.into_view()))
-        .check_name(&request.name)?
-        .check_relationship(&request.relationship)?
-        .check_estimated_count(request.estimated_count)?
-        .check_confirmed_count(request.confirmed_count)?;
 
     GuestInfoCollection::from(state.db.clone())
         .update_guest_info(id, request, &admin_record.name())
