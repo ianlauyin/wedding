@@ -4,20 +4,20 @@ export type CreateGuestInfoRequest = { side: Side, name: string, relationship: s
 
 export type GetGuestListResponse = { guestList: Array<GuestInfoView>, };
 
-export type GetInvitationInfoPathParams = { id: string, };
-
 export type GuestInfoView = { id: string, side: Side, name: string, relationship: string, estimatedCount: number, confirmedCount: number | null, createdBy: string, createdAt: string, updatedBy: string, updatedAt: string, };
 
-export type InvitationInfoResponse = { name: string, estimatedCount: number, confirmedCount: number | null, };
+export type IdPathParams = { id: string, };
+
+export type InvitationInfoResponse = { name: string, status: InvitationStatus, count: number, };
+
+export type InvitationStatus = "pENDING" | "cONFIRMED";
 
 export type LoginRequest = { name: string, password: string, };
 
 export type LoginResponse = { name: string, loginTime: string, };
 
-export type RemoveGuestPathParams = { id: string, };
-
 export type Side = "BRIDE" | "GROOM";
 
-export type UpdateGuestInfoRequest = { side: Side, name: string, relationship: string, estimatedCount: number, confirmedCount: number | null, };
+export type UpdateGuestCountRequest = { count: number, };
 
-export type UpdateGuestPathParams = { id: string, };
+export type UpdateGuestInfoRequest = { side: Side, name: string, relationship: string, estimatedCount: number, confirmedCount: number | null, };

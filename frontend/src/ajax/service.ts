@@ -2,13 +2,12 @@ import { ajax } from "./ajaxFn";
 import {
   CreateGuestInfoRequest,
   GetGuestListResponse,
-  GetInvitationInfoPathParams,
+  IdPathParams,
   InvitationInfoResponse,
   LoginRequest,
   LoginResponse,
-  RemoveGuestPathParams,
+  UpdateGuestCountRequest,
   UpdateGuestInfoRequest,
-  UpdateGuestPathParams,
 } from "wedding-interface";
 
 // admin router
@@ -35,7 +34,7 @@ export const updateGuest = async (
   id: string,
   request: UpdateGuestInfoRequest
 ) =>
-  await ajax<UpdateGuestInfoRequest, null, UpdateGuestPathParams>(
+  await ajax<UpdateGuestInfoRequest, null, IdPathParams>(
     "/guest/{id}",
     "PUT",
     request,
@@ -45,16 +44,29 @@ export const updateGuest = async (
   );
 
 export const removeGuest = async (id: string) =>
-  await ajax<null, null, RemoveGuestPathParams>("/guest/{id}", "DELETE", null, {
+  await ajax<null, null, IdPathParams>("/guest/{id}", "DELETE", null, {
     id,
   });
 
 // invitation router
 export const getInvitationInfo = async (id: string) =>
-  await ajax<null, InvitationInfoResponse, GetInvitationInfoPathParams>(
+  await ajax<null, InvitationInfoResponse, IdPathParams>(
     "/invitation/{id}",
     "GET",
     null,
+    {
+      id,
+    }
+  );
+
+export const updateGuestCount = async (
+  id: string,
+  request: UpdateGuestCountRequest
+) =>
+  await ajax<UpdateGuestCountRequest, null, IdPathParams>(
+    "/invitation/{id}/guest-count",
+    "PUT",
+    request,
     {
       id,
     }
