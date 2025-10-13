@@ -1,7 +1,7 @@
 use firestore::FirestoreDb;
-use framework::log::{ActionLogAppender, ActionLogMessage};
 
 use crate::db::LogRecordCollection;
+use framework::log::{ActionLogAppender, ActionLogMessage};
 
 pub struct FirestoreAppender(LogRecordCollection);
 

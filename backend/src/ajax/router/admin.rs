@@ -3,18 +3,17 @@ use axum::extract::{ConnectInfo, State};
 use axum::http::StatusCode;
 use axum::http::{HeaderMap, header::USER_AGENT};
 use axum::routing::{get, post};
-
-use framework::exception;
-use framework::exception::error_code::{NOT_FOUND, VALIDATION_ERROR};
-use framework::web::{body::Json, error::HttpResult};
 use std::net::SocketAddr;
-use wedding_interface::{LoginRequest, LoginResponse};
 
 use crate::ajax::shared::cookie::{CookieName, get_cookie, remove_cookie, set_cookie};
 use crate::db::AdminRecordCollection;
 use crate::env;
 use crate::exception::CoreRsResult;
 use crate::state::SharedState;
+use framework::exception;
+use framework::exception::error_code::{NOT_FOUND, VALIDATION_ERROR};
+use framework::web::{body::Json, error::HttpResult};
+use wedding_interface::{LoginRequest, LoginResponse};
 
 pub fn admin_router() -> Router<SharedState> {
     Router::new()

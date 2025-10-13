@@ -4,12 +4,12 @@ use axum::{
     middleware::Next,
     response::Response,
 };
-use framework::exception;
-use framework::{exception::error_code::FORDIDDEN, web::error::HttpResult};
 use tracing::debug;
 
-use super::cookie::{CookieName, get_cookie};
+use crate::ajax::shared::cookie::{CookieName, get_cookie};
 use crate::{db::AdminRecordCollection, state::SharedState};
+use framework::exception;
+use framework::{exception::error_code::FORDIDDEN, web::error::HttpResult};
 
 pub async fn verify_admin_session(
     State(state): State<SharedState>,

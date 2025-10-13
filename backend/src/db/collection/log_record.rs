@@ -1,12 +1,12 @@
 use chrono::{DateTime, Local};
 use firestore::FirestoreDb;
-use framework::log::ActionLogMessage;
 use indexmap::IndexMap;
 use serde::{Deserialize, Serialize};
-use wedding_backend_macros::Collection;
 
-use crate::db::collection::ext::CollectionExt;
+use crate::db::collection::CollectionExt;
 use crate::exception::CoreRsResult;
+use framework::log::ActionLogMessage;
+use wedding_backend_macros::Collection;
 
 #[derive(Serialize, Deserialize)]
 pub struct LogRecord {

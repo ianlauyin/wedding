@@ -20,7 +20,7 @@ fn collection_derive2(input: TokenStream) -> TokenStream {
             }
         }
 
-        impl crate::db::collection::ext::CollectionExt for #struct_name {
+        impl crate::db::collection::CollectionExt for #struct_name {
             type Data = #schema_path;
             fn collection_id(&self) -> &str {
                 #collection_id

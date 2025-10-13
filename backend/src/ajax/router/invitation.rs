@@ -2,14 +2,13 @@ use axum::Router;
 use axum::extract::{Path, State};
 use axum::routing::{get, put};
 
+use crate::db::GuestInfoCollection;
+use crate::state::SharedState;
 use framework::exception;
 use framework::exception::error_code::NOT_FOUND;
 use framework::web::body::Json;
 use framework::web::error::HttpResult;
 use wedding_interface::{GetInvitationInfoPathParams, InvitationInfoResponse};
-
-use crate::db::GuestInfoCollection;
-use crate::state::SharedState;
 
 pub fn invitation_router() -> Router<SharedState> {
     Router::new()

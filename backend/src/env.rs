@@ -1,7 +1,6 @@
+use crate::exception::CoreRsResult;
 use framework::exception;
 use framework::exception::Severity;
-
-use crate::exception::CoreRsResult;
 
 pub fn var(key: &str) -> CoreRsResult<String> {
     std::env::var(key).map_err(|_| {

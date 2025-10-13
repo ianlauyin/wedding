@@ -1,16 +1,15 @@
 use chrono::{DateTime, Local};
 use firestore::FirestoreDb;
 use firestore::struct_path::paths;
-
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+
+use crate::db::collection::CollectionExt;
+use crate::exception::CoreRsResult;
 use wedding_backend_macros::Collection;
 use wedding_interface::{
     CreateGuestInfoRequest, GuestInfoView, InvitationInfoResponse, Side, UpdateGuestInfoRequest,
 };
-
-use crate::db::collection::ext::CollectionExt;
-use crate::exception::CoreRsResult;
 
 #[derive(Serialize, Deserialize)]
 pub struct GuestInfo {

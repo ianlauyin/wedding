@@ -1,10 +1,9 @@
+use crate::ajax::ajax_router;
+use crate::logger::FirestoreAppender;
+use crate::{exception::CoreRsResult, state::AppState};
 use framework::log;
 use framework::shutdown::Shutdown;
 use framework::web::server::{HttpServerConfig, start_http_server};
-
-use crate::logger::FirestoreAppender;
-use crate::{ajax::ajax_router, db::connect_db};
-use crate::{exception::CoreRsResult, state::AppState};
 
 mod ajax;
 mod db;
@@ -20,7 +19,7 @@ async fn main() -> CoreRsResult<()> {
     let signal = shutdown.subscribe();
     shutdown.listen();
 
-    let db = connect_db().await?;
+    let db = db::connect().await?;
     log::init_with_action(FirestoreAppender::new(db.clone()));
 
     let state = AppState::init(db.clone());
