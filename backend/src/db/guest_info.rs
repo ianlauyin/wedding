@@ -62,7 +62,7 @@ impl GuestInfoCollection {
             .await?
             .ok_or(exception!(code = NOT_FOUND, message = "Guest not found"))?;
 
-        GuestInfoValidator::new(Some(guest_info))
+        GuestInfoValidator::new(Some(&guest_info))
             .check_name(&request.name)?
             .check_relationship(&request.relationship)?
             .check_estimated_count(request.estimated_count)?
@@ -90,5 +90,28 @@ impl GuestInfoCollection {
 
     pub async fn remove_guest(&self, id: String) -> CoreRsResult<()> {
         self.remove(&id).await
+    }
+
+    pub async fn update_count_by_guest(&self, id: String, count: u32) -> CoreRsResult<()> {
+        let guest_info = self
+            .get_guest_info(id.clone())
+            .await?
+            .ok_or(exception!(code = NOT_FOUND, message = "Guest not found"))?;
+
+        GuestInfoValidator::new(Some(&guest_info)).check_confirmed_count(Some(count))?;
+
+        Ok(self
+            .update()
+            .fields(paths!(GuestInfo::{confirmed_count, updated_by, updated_at}))
+            .in_col(self.collection_id())
+            .document_id(id)
+            .object(&GuestInfo {
+                confirmed_count: Some(count),
+                updated_by: "guest".to_string(),
+                updated_at: Local::now(),
+                ..guest_info
+            })
+            .execute()
+            .await?)
     }
 }

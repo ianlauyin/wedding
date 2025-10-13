@@ -3,12 +3,12 @@ use crate::exception::CoreRsResult;
 use framework::exception;
 use framework::exception::error_code::VALIDATION_ERROR;
 
-pub struct GuestInfoValidator {
-    original_guest: Option<GuestInfo>,
+pub struct GuestInfoValidator<'a> {
+    original_guest: Option<&'a GuestInfo>,
 }
 
-impl GuestInfoValidator {
-    pub fn new(original_guest: Option<GuestInfo>) -> Self {
+impl<'a> GuestInfoValidator<'a> {
+    pub fn new(original_guest: Option<&'a GuestInfo>) -> Self {
         Self { original_guest }
     }
 

@@ -82,7 +82,6 @@ pub struct UpdateGuestInfoRequest {
 }
 
 // Invitation Related
-
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
 #[serde(rename_all = "camelCase")]
@@ -97,5 +96,12 @@ pub enum InvitationStatus {
 pub struct InvitationInfoResponse {
     pub name: String,
     pub status: InvitationStatus,
+    pub count: u32,
+}
+
+#[derive(TS, Debug, Serialize, Deserialize)]
+#[ts(export ,export_to = EXPORT_PATH)]
+#[serde(rename_all = "camelCase")]
+pub struct UpdateGuestCountRequest {
     pub count: u32,
 }
