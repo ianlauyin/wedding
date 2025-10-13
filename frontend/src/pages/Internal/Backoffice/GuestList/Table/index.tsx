@@ -1,6 +1,6 @@
 import { GuestInfoView } from "wedding-interface";
 import { Row } from "./Row";
-import { ModalInfo } from "./Modal/type";
+import { ModalInfo } from "../Modal/type";
 
 export interface Props {
   list: Array<GuestInfoView>;

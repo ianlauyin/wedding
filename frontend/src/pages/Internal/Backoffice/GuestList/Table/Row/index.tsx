@@ -2,7 +2,7 @@ import { createSignal, Show } from "solid-js";
 import { GuestInfoView } from "wedding-interface";
 import { Detail } from "./Detail";
 import { Arrow } from "./Arrow";
-import { ModalInfo } from "../Modal/type";
+import { ModalInfo } from "../../Modal/type";
 
 interface Props {
   guest: GuestInfoView;

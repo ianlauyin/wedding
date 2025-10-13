@@ -1,4 +1,3 @@
-import { GuestInfoView } from "wedding-interface";
 import { Infomations } from "./Infomations";
 import { createResource, createSignal, Match, Show, Switch } from "solid-js";
 import { Table } from "./Table";

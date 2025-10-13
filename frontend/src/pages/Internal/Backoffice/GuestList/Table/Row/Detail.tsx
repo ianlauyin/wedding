@@ -1,7 +1,7 @@
 import { Button } from "@components/Button";
 import { DisplayUtil } from "@utils/DisplayUtil";
 import { GuestInfoView } from "wedding-interface";
-import { ModalInfo } from "../Modal/type";
+import { ModalInfo } from "../../Modal/type";
 import { LinkButton } from "./LinkButton";
 import { QrCodeButton } from "./QrCodeButton";
 
