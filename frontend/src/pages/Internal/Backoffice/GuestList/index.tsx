@@ -3,14 +3,16 @@ import { Infomations } from "./Infomations";
 import { createResource, createSignal, Match, Show, Switch } from "solid-js";
 import { Table } from "./Table";
 import { getGuestList } from "@ajax/service";
-import { CreateModal } from "./CreateModal";
+import { CreateModal } from "./Modal/CreateModal";
 import { Loading } from "@components/Loading";
 import { ActionPanel } from "./ActionPanel";
-import { UpdateModal } from "./UpdateModal";
+import { UpdateModal } from "./Modal/UpdateModal";
+import { ModalInfo } from "./Modal/type";
+import { DeleteModal } from "./Modal/DeleteModal";
 
 export const GuestList = () => {
   const [res, { refetch }] = createResource(getGuestList);
-  const [modal, setModal] = createSignal<GuestInfoView | true | null>(null);
+  const [modal, setModal] = createSignal<ModalInfo | null>(null);
 
   return (
     <div class="flex flex-col items-center space-y-4 my-4">
@@ -19,7 +21,7 @@ export const GuestList = () => {
           <>
             <Infomations list={data().guestList} />
             <ActionPanel
-              onAddButtonClick={() => setModal(true)}
+              onAddButtonClick={() => setModal({ type: "create" })}
               refetch={refetch}
             />
           </>
@@ -28,18 +30,28 @@ export const GuestList = () => {
       <Show when={modal()}>
         {(data) => {
           const modalInfo = data();
-          if (modalInfo === true)
-            return (
-              <CreateModal refetch={refetch} onClose={() => setModal(null)} />
-            );
-          else
-            return (
-              <UpdateModal
-                guest={modalInfo}
-                refetch={refetch}
-                onClose={() => setModal(null)}
-              />
-            );
+          switch (modalInfo.type) {
+            case "create":
+              return (
+                <CreateModal refetch={refetch} onClose={() => setModal(null)} />
+              );
+            case "delete":
+              return (
+                <DeleteModal
+                  guest={modalInfo.guest}
+                  refetch={refetch}
+                  onClose={() => setModal(null)}
+                />
+              );
+            case "update":
+              return (
+                <UpdateModal
+                  guest={modalInfo.guest}
+                  refetch={refetch}
+                  onClose={() => setModal(null)}
+                />
+              );
+          }
         }}
       </Show>
       <Switch>
@@ -56,7 +68,7 @@ export const GuestList = () => {
             <Table
               list={data().guestList}
               refetch={refetch}
-              openEditModal={setModal}
+              setModal={setModal}
             />
           )}
         </Match>

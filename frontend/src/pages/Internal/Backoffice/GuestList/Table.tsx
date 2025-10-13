@@ -1,10 +1,11 @@
 import { GuestInfoView } from "wedding-interface";
 import { Row } from "./Row";
+import { ModalInfo } from "./Modal/type";
 
 export interface Props {
   list: Array<GuestInfoView>;
   refetch: () => void;
-  openEditModal: (guest: GuestInfoView) => void;
+  setModal: (modal: ModalInfo) => void;
 }
 
 export const Table = (props: Props) => {
@@ -27,7 +28,7 @@ export const Table = (props: Props) => {
           <Row
             guest={guest}
             refetch={props.refetch}
-            onEditButtonClick={() => props.openEditModal(guest)}
+            setModal={props.setModal}
           />
         ))}
       </tbody>

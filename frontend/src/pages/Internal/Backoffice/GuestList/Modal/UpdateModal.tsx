@@ -46,7 +46,7 @@ export const UpdateModal = (props: Props) => {
           ✕
         </Button>
         <div class="space-y-4">
-          <h3 class="font-bold text-lg">{"Update Guest"}</h3>
+          <h3 class="font-bold text-lg">Update Guest</h3>
           <div>
             <label class="select w-full">
               <span class="label">Side</span>
@@ -96,7 +96,7 @@ export const UpdateModal = (props: Props) => {
         </div>
         <div class="modal-action">
           <Button class="btn-primary" onClick={handleFinish}>
-            {"Update"}
+            Update
           </Button>
         </div>
       </div>

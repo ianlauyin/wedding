@@ -51,7 +51,7 @@ export const CreateModal = (props: Props) => {
           ✕
         </Button>
         <div class="space-y-4">
-          <h3 class="font-bold text-lg">{"Add Guest"}</h3>
+          <h3 class="font-bold text-lg">Add Guest</h3>
           <div>
             <label class="select w-full">
               <span class="label">Side</span>
@@ -92,7 +92,7 @@ export const CreateModal = (props: Props) => {
         </div>
         <div class="modal-action">
           <Button class="btn-primary" onClick={handleFinish}>
-            {"Add"}
+            Add
           </Button>
         </div>
       </div>

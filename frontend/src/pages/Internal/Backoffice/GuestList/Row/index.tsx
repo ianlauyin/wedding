@@ -2,10 +2,11 @@ import { createSignal, Show } from "solid-js";
 import { GuestInfoView } from "wedding-interface";
 import { Detail } from "./Detail";
 import { Arrow } from "./Arrow";
+import { ModalInfo } from "../Modal/type";
 
 interface Props {
   guest: GuestInfoView;
-  onEditButtonClick: () => void;
+  setModal: (modal: ModalInfo) => void;
   refetch: () => void;
 }
 
@@ -27,7 +28,7 @@ export const Row = (props: Props) => {
             : props.guest.confirmedCount}
           /{props.guest.estimatedCount}
         </td>
-        <td class="p-2">
+        <td class="p-2 w-8">
           <Arrow opened={opened()} />
         </td>
       </tr>
@@ -36,7 +37,7 @@ export const Row = (props: Props) => {
           guest={props.guest}
           bg={bg}
           refetch={props.refetch}
-          onEditButtonClick={props.onEditButtonClick}
+          setModal={props.setModal}
         />
       </Show>
     </>

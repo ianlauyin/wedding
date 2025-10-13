@@ -3,12 +3,13 @@
   themes: light --default;
 }
 
-html,
 body {
   margin: 0;
   min-height: 100vh;
   height: 100%;
   scrollbar-gutter: auto;
+  display: flex;
+  justify-content: center;
 
   &.has-scrollbar {
     scrollbar-gutter: stable;
@@ -16,5 +17,7 @@ body {
 
   #root {
     height: 100%;
+    width: 100vw;
+    max-width: 1200px;
   }
 }
