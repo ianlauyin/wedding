@@ -5,6 +5,7 @@ import { toDataURL } from "qrcode";
 import qrCodeIcon from "./qrcode.svg";
 
 export interface Props {
+  filename: string;
   link: string;
 }
 
@@ -24,7 +25,16 @@ export const QrCodeButton = (props: Props) => {
   };
 
   const handleDownload = () => {
-    setQrCode(null);
+    const qrCodeUrl = qrCode();
+    if (!qrCodeUrl) return;
+
+    const downloadLink = document.createElement("a");
+    downloadLink.style.display = "none";
+    downloadLink.href = qrCodeUrl;
+    downloadLink.download = `${props.filename}-qrcode.png`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
   };
 
   return (

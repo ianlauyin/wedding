@@ -23,7 +23,7 @@ export const Detail = (props: Props) => {
             <p>Side: {DisplayUtil.side(props.guest.side)}</p>
             <div class="flex gap-2">
               <LinkButton link={link} />
-              <QrCodeButton link={link} />
+              <QrCodeButton link={link} filename={props.guest.name} />
             </div>
           </div>
           <div class="text-xs">
