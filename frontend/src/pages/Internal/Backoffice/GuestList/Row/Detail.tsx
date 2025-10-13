@@ -2,6 +2,8 @@ import { Button } from "@components/Button";
 import { DisplayUtil } from "@utils/DisplayUtil";
 import { GuestInfoView } from "wedding-interface";
 import { ModalInfo } from "../Modal/type";
+import { LinkButton } from "./LinkButton";
+import { QrCodeButton } from "./QrCodeButton";
 
 export interface Props {
   guest: GuestInfoView;
@@ -11,11 +13,19 @@ export interface Props {
 }
 
 export const Detail = (props: Props) => {
+  const link = `${document.location.origin}/invitation/${props.guest.id}`;
+
   return (
     <tr class={`border-t-0 ${props.bg}`}>
       <td class="px-4 pt-0 " colSpan={4}>
         <div>
-          <p>Side: {DisplayUtil.side(props.guest.side)}</p>
+          <div class="flex justify-between">
+            <p>Side: {DisplayUtil.side(props.guest.side)}</p>
+            <div class="flex gap-2">
+              <LinkButton link={link} />
+              <QrCodeButton />
+            </div>
+          </div>
           <div class="text-xs">
             <p>
               Created at {DisplayUtil.time(props.guest.createdAt)} by{" "}
