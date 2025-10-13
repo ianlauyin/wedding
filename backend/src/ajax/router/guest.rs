@@ -6,6 +6,7 @@ use axum::http::StatusCode;
 use axum::middleware;
 use axum::routing::put;
 use axum::routing::{get, post};
+use wedding_interface::IdPathParams;
 
 use crate::ajax::shared::{
     cookie::{CookieName, get_cookie},
@@ -16,9 +17,7 @@ use crate::state::SharedState;
 use framework::exception;
 use framework::exception::error_code::{NOT_FOUND, VALIDATION_ERROR};
 use framework::web::{body::Json, error::HttpResult};
-use wedding_interface::RemoveGuestPathParams;
-use wedding_interface::UpdateGuestInfoRequest;
-use wedding_interface::{CreateGuestInfoRequest, GetGuestListResponse};
+use wedding_interface::{CreateGuestInfoRequest, GetGuestListResponse, UpdateGuestInfoRequest};
 
 pub fn guest_router(state: SharedState) -> Router<SharedState> {
     Router::new()
@@ -71,7 +70,7 @@ async fn get_guest_list(
 async fn update_guest(
     State(state): State<SharedState>,
     header: HeaderMap,
-    Path(RemoveGuestPathParams { id }): Path<RemoveGuestPathParams>,
+    Path(IdPathParams { id }): Path<IdPathParams>,
     Json(request): Json<UpdateGuestInfoRequest>,
 ) -> HttpResult<StatusCode> {
     let token = get_cookie(&header, CookieName::LoginToken).ok_or(exception!(
@@ -96,7 +95,7 @@ async fn update_guest(
 #[axum::debug_handler]
 async fn remove_guest(
     State(state): State<SharedState>,
-    Path(RemoveGuestPathParams { id }): Path<RemoveGuestPathParams>,
+    Path(IdPathParams { id }): Path<IdPathParams>,
 ) -> HttpResult<StatusCode> {
     let guest_info_collection = GuestInfoCollection::from(state.db.clone());
 

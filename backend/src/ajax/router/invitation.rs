@@ -8,7 +8,7 @@ use framework::exception;
 use framework::exception::error_code::NOT_FOUND;
 use framework::web::body::Json;
 use framework::web::error::HttpResult;
-use wedding_interface::{GetInvitationInfoPathParams, InvitationInfoResponse};
+use wedding_interface::{IdPathParams, InvitationInfoResponse};
 
 pub fn invitation_router() -> Router<SharedState> {
     Router::new()
@@ -21,7 +21,7 @@ pub fn invitation_router() -> Router<SharedState> {
 
 #[axum::debug_handler]
 async fn get_invitation_info(
-    Path(GetInvitationInfoPathParams { id }): Path<GetInvitationInfoPathParams>,
+    Path(IdPathParams { id }): Path<IdPathParams>,
     State(state): State<SharedState>,
 ) -> HttpResult<Json<InvitationInfoResponse>> {
     let invitation_info = GuestInfoCollection::from(state.db.clone())
@@ -36,6 +36,6 @@ async fn get_invitation_info(
 }
 
 #[axum::debug_handler]
-async fn update_guest_count(Path(_id): Path<String>) -> HttpResult<()> {
+async fn update_guest_count(Path(IdPathParams { id: _id }): Path<IdPathParams>) -> HttpResult<()> {
     Ok(())
 }

@@ -4,6 +4,14 @@ use ts_rs::TS;
 
 const EXPORT_PATH: &str = "../src/types.ts";
 
+// General
+#[derive(TS, Debug, Serialize, Deserialize)]
+#[ts(export ,export_to = EXPORT_PATH)]
+#[serde(rename_all = "camelCase")]
+pub struct IdPathParams {
+    pub id: String,
+}
+
 // Login Related
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
@@ -65,13 +73,6 @@ pub struct GetGuestListResponse {
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
 #[serde(rename_all = "camelCase")]
-pub struct UpdateGuestPathParams {
-    pub id: String,
-}
-
-#[derive(TS, Debug, Serialize, Deserialize)]
-#[ts(export ,export_to = EXPORT_PATH)]
-#[serde(rename_all = "camelCase")]
 pub struct UpdateGuestInfoRequest {
     pub side: Side,
     pub name: String,
@@ -80,19 +81,14 @@ pub struct UpdateGuestInfoRequest {
     pub confirmed_count: Option<u32>,
 }
 
-#[derive(TS, Debug, Serialize, Deserialize)]
-#[ts(export ,export_to = EXPORT_PATH)]
-#[serde(rename_all = "camelCase")]
-pub struct RemoveGuestPathParams {
-    pub id: String,
-}
-
 // Invitation Related
+
 #[derive(TS, Debug, Serialize, Deserialize)]
 #[ts(export ,export_to = EXPORT_PATH)]
 #[serde(rename_all = "camelCase")]
-pub struct GetInvitationInfoPathParams {
-    pub id: String,
+pub enum InvitationStatus {
+    PENDING,
+    CONFIRMED,
 }
 
 #[derive(TS, Debug, Serialize, Deserialize)]
@@ -100,6 +96,6 @@ pub struct GetInvitationInfoPathParams {
 #[serde(rename_all = "camelCase")]
 pub struct InvitationInfoResponse {
     pub name: String,
-    pub estimated_count: u32,
-    pub confirmed_count: Option<u32>,
+    pub status: InvitationStatus,
+    pub count: u32,
 }
