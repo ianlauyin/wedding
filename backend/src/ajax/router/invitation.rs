@@ -25,14 +25,14 @@ async fn get_invitation_info(
     State(state): State<SharedState>,
 ) -> HttpResult<Json<InvitationInfoResponse>> {
     let invitation_info = GuestInfoCollection::from(state.db.clone())
-        .get_invitation_info(id)
+        .get_guest_info(id)
         .await?
         .ok_or(exception!(
             code = NOT_FOUND,
             message = "Invitation not found"
         ))?;
 
-    Ok(Json(invitation_info))
+    Ok(Json(invitation_info.into()))
 }
 
 #[axum::debug_handler]

@@ -2,6 +2,7 @@ use crate::db::ext::CollectionExt;
 use crate::exception::CoreRsResult;
 use wedding_backend_macros::Collection;
 
+mod conversion;
 mod schema;
 use schema::AdminRecord;
 

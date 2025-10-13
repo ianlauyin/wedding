@@ -22,4 +22,12 @@ impl AdminRecord {
             login_time: Local::now(),
         }
     }
+
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    pub fn token(&self) -> &str {
+        &self.token
+    }
 }

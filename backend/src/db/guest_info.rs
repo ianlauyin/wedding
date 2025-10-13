@@ -5,9 +5,7 @@ use firestore::struct_path::paths;
 use crate::db::ext::CollectionExt;
 use crate::exception::CoreRsResult;
 use wedding_backend_macros::Collection;
-use wedding_interface::{
-    CreateGuestInfoRequest, GuestInfoView, InvitationInfoResponse, UpdateGuestInfoRequest,
-};
+use wedding_interface::{CreateGuestInfoRequest, UpdateGuestInfoRequest};
 
 mod conversion;
 mod schema;
@@ -18,22 +16,13 @@ use schema::GuestInfo;
 pub struct GuestInfoCollection(FirestoreDb);
 
 impl GuestInfoCollection {
-    pub async fn get_invitation_info(
-        &self,
-        id: String,
-    ) -> CoreRsResult<Option<InvitationInfoResponse>> {
+    pub async fn get_guest_info(&self, id: String) -> CoreRsResult<Option<GuestInfo>> {
         self.get(&id)
             .await
             .map(|guest| guest.map(|guest| guest.into()))
     }
 
-    pub async fn get_guest_info_view(&self, id: String) -> CoreRsResult<Option<GuestInfoView>> {
-        self.get(&id)
-            .await
-            .map(|guest| guest.map(|guest| guest.into()))
-    }
-
-    pub async fn list_guest_info_views(&self) -> CoreRsResult<Vec<GuestInfoView>> {
+    pub async fn list_guest_info(&self) -> CoreRsResult<Vec<GuestInfo>> {
         Ok(self
             .get_all()
             .await?
