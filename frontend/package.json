@@ -12,6 +12,7 @@
     "api": "cd ../interface && cargo test"
   },
   "devDependencies": {
+    "@types/qrcode": "^1.5.5",
     "autoprefixer": "10.4.20",
     "daisyui": "^5.1.26",
     "postcss": "8.4.49",
@@ -24,6 +25,7 @@
   "dependencies": {
     "@solidjs/router": "0.15.3",
     "@tailwindcss/vite": "^4.1.14",
+    "qrcode": "^1.5.4",
     "solid-js": "1.9.9",
     "wedding-interface": "workspace:*"
   }
